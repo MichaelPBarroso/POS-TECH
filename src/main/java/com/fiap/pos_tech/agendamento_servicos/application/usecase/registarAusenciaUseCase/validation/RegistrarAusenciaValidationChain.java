@@ -7,9 +7,9 @@ import java.util.List;
 
 public class RegistrarAusenciaValidationChain {
 
-    private final List<IReagendarAgendamentoValidation> validations;
+    private final List<IRegistrarAusenciaValidation> validations;
 
-    public RegistrarAusenciaValidationChain(List<IReagendarAgendamentoValidation> validations) {
+    public RegistrarAusenciaValidationChain(List<IRegistrarAusenciaValidation> validations) {
         this.validations = validations;
     }
 

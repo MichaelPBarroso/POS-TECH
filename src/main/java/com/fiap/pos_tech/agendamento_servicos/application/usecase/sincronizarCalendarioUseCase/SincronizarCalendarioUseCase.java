@@ -1,8 +1,8 @@
 package com.fiap.pos_tech.agendamento_servicos.application.usecase.sincronizarCalendarioUseCase;
 
 import com.fiap.pos_tech.agendamento_servicos.application.gateway.IAgendamentoGateway;
-import com.fiap.pos_tech.agendamento_servicos.application.usecase.filtrarEstabelecimentoUseCase.dto.OutputFiltrarEstabelecimento;
 import com.fiap.pos_tech.agendamento_servicos.application.usecase.sincronizarCalendarioUseCase.dto.InputSincronizarCalendario;
+import com.fiap.pos_tech.agendamento_servicos.application.usecase.sincronizarCalendarioUseCase.dto.OutputSincronizarCalendario;
 
 public class SincronizarCalendarioUseCase {
 
@@ -16,10 +16,10 @@ public class SincronizarCalendarioUseCase {
         return new SincronizarCalendarioUseCase(agendamentoGateway);
     }
 
-    public OutputFiltrarEstabelecimento execute(InputSincronizarCalendario input) {
+    public OutputSincronizarCalendario execute(InputSincronizarCalendario input) {
 
 
 
-        return new OutputFiltrarEstabelecimento();
+        return new OutputSincronizarCalendario();
     }
 }

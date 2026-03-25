@@ -4,5 +4,5 @@ import com.fiap.pos_tech.agendamento_servicos.domain.model.Profissional;
 
 public interface IProfissionalGateway {
 
-    public Profissional criarProfissional(Profissional profissional);
+    Profissional criarProfissional(Profissional profissional);
 }

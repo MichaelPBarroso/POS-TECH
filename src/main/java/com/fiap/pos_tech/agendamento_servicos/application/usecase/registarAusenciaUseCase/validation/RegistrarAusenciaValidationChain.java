@@ -1,6 +1,5 @@
 package com.fiap.pos_tech.agendamento_servicos.application.usecase.registarAusenciaUseCase.validation;
 
-import com.fiap.pos_tech.agendamento_servicos.application.usecase.reagendarAgendamento.validation.IReagendarAgendamentoValidation;
 import com.fiap.pos_tech.agendamento_servicos.domain.model.Agendamento;
 
 import java.util.List;

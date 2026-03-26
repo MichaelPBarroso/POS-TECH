@@ -1,0 +1,39 @@
+package com.fiap.pos_tech.agendamento_servicos.infrastructure.persistence.entity;
+
+import jakarta.persistence.*;
+import lombok.*;
+import org.hibernate.annotations.UuidGenerator;
+
+import java.time.LocalTime;
+import java.util.List;
+import java.util.UUID;
+
+@EqualsAndHashCode
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+
+@Entity
+@Table(name="estabelecimento")
+public class EstabelecimentoEntity {
+
+    @Id
+    @UuidGenerator
+    @GeneratedValue
+    private UUID id;
+
+    private String nome;
+
+    private LocalTime horarioAbertura;
+
+    private LocalTime horarioFechamento;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "endereco_id", nullable = false)
+    private EnderecoEntity endereco;
+
+    private List<ProfissionalEntity> profissionais;
+
+}

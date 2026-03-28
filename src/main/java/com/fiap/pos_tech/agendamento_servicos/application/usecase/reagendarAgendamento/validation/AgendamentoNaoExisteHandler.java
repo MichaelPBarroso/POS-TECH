@@ -4,11 +4,11 @@ import com.fiap.pos_tech.agendamento_servicos.application.exceptions.Agendamento
 import com.fiap.pos_tech.agendamento_servicos.application.gateway.IAgendamentoGateway;
 import com.fiap.pos_tech.agendamento_servicos.domain.model.Agendamento;
 
-public class AgendamentoNãoExisteHandler implements IReagendarAgendamentoValidation {
+public class AgendamentoNaoExisteHandler implements IReagendarAgendamentoValidation {
 
     private final IAgendamentoGateway agendamentoGateway;
 
-    public AgendamentoNãoExisteHandler(IAgendamentoGateway agendamentoGateway) {
+    public AgendamentoNaoExisteHandler(IAgendamentoGateway agendamentoGateway) {
         this.agendamentoGateway = agendamentoGateway;
     }
 

@@ -1,10 +1,10 @@
 package com.fiap.pos_tech.agendamento_servicos.infrastructure.config.usecase;
 
 import com.fiap.pos_tech.agendamento_servicos.application.gateway.IAgendamentoGateway;
-import com.fiap.pos_tech.agendamento_servicos.application.usecase.registarAusenciaUseCase.RegistrarAusenciaUseCase;
-import com.fiap.pos_tech.agendamento_servicos.application.usecase.registarAusenciaUseCase.validation.AgendamentoNaoExisteHandler;
-import com.fiap.pos_tech.agendamento_servicos.application.usecase.registarAusenciaUseCase.validation.IRegistrarAusenciaValidation;
-import com.fiap.pos_tech.agendamento_servicos.application.usecase.registarAusenciaUseCase.validation.RegistrarAusenciaValidationChain;
+import com.fiap.pos_tech.agendamento_servicos.application.usecase.registarAusencia.RegistrarAusenciaUseCase;
+import com.fiap.pos_tech.agendamento_servicos.application.usecase.registarAusencia.validation.AgendamentoNaoExisteHandler;
+import com.fiap.pos_tech.agendamento_servicos.application.usecase.registarAusencia.validation.IRegistrarAusenciaValidation;
+import com.fiap.pos_tech.agendamento_servicos.application.usecase.registarAusencia.validation.RegistrarAusenciaValidationChain;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

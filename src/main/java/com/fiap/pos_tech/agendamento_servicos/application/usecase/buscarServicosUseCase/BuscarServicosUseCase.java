@@ -3,6 +3,9 @@ package com.fiap.pos_tech.agendamento_servicos.application.usecase.buscarServico
 import com.fiap.pos_tech.agendamento_servicos.application.gateway.IServicoGateway;
 import com.fiap.pos_tech.agendamento_servicos.application.usecase.buscarServicosUseCase.dto.InputBuscarServicos;
 import com.fiap.pos_tech.agendamento_servicos.application.usecase.buscarServicosUseCase.dto.OutputBuscarServicos;
+import com.fiap.pos_tech.agendamento_servicos.domain.model.ServicoOferecido;
+
+import java.util.List;
 
 public class BuscarServicosUseCase {
 
@@ -17,6 +20,8 @@ public class BuscarServicosUseCase {
     }
 
     public OutputBuscarServicos execute(InputBuscarServicos input) {
+
+        List<ServicoOferecido> servicoOferecidos = servicoGateway.buscarServicosOferecidos(input.estabelecimento());
 
         return new OutputBuscarServicos();
     }

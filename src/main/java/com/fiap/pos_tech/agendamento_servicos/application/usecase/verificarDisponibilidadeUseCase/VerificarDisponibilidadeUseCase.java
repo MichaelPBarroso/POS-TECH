@@ -3,6 +3,7 @@ package com.fiap.pos_tech.agendamento_servicos.application.usecase.verificarDisp
 import com.fiap.pos_tech.agendamento_servicos.application.gateway.IAgendamentoGateway;
 import com.fiap.pos_tech.agendamento_servicos.application.usecase.verificarDisponibilidadeUseCase.dto.InputVerificarDisponibilidade;
 import com.fiap.pos_tech.agendamento_servicos.application.usecase.verificarDisponibilidadeUseCase.dto.OutputVerificarDisponibilidade;
+import com.fiap.pos_tech.agendamento_servicos.domain.model.Agendamento;
 
 public class VerificarDisponibilidadeUseCase {
 
@@ -18,6 +19,7 @@ public class VerificarDisponibilidadeUseCase {
 
     public OutputVerificarDisponibilidade execute(InputVerificarDisponibilidade input){
 
+        Agendamento agendamento = agendamentoGateway.buscarAgendamento(input.estabelecimento(), input.horario(), input.profissional());
 
         return new OutputVerificarDisponibilidade();
     }

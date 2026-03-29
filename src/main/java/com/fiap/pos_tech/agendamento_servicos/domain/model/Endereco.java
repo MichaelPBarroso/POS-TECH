@@ -35,4 +35,18 @@ public class Endereco {
         return endereco;
     }
 
+    public static Endereco create(String logradouro, String numero, String complemento, String bairro, String cidade, String estado, String cep) {
+        Endereco endereco = new Endereco();
+
+        endereco.setLogradouro(logradouro);
+        endereco.setNumero(numero);
+        endereco.setComplemento(complemento);
+        endereco.setBairro(bairro);
+        endereco.setCidade(cidade);
+        endereco.setEstado(estado);
+        endereco.setCep(cep);
+
+        return endereco;
+    }
+
 }

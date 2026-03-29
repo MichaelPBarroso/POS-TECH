@@ -1,10 +1,7 @@
 package com.fiap.pos_tech.agendamento_servicos.application.usecase.adicionarEstabelecimento.dto;
 
-import com.fiap.pos_tech.agendamento_servicos.domain.model.Estabelecimento;
+import java.time.LocalTime;
 
-public record InputEstabelecimento() {
+public record InputEstabelecimento(String nome, LocalTime horarioAbertura, LocalTime horarioFechamento, InputEndereco endereco) {
 
-    public Estabelecimento toEntity() {
-        return new Estabelecimento();
-    }
 }

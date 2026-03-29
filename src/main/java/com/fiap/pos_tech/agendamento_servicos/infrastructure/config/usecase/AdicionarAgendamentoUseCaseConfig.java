@@ -1,6 +1,6 @@
 package com.fiap.pos_tech.agendamento_servicos.infrastructure.config.usecase;
 
-import com.fiap.pos_tech.agendamento_servicos.application.gateway.IAgendamentoGateway;
+import com.fiap.pos_tech.agendamento_servicos.application.gateway.*;
 import com.fiap.pos_tech.agendamento_servicos.application.usecase.adicionarAgendamento.AdicionarAgendamentoUseCase;
 import com.fiap.pos_tech.agendamento_servicos.application.usecase.adicionarAgendamento.validation.AdicionarAgendamentoValidationChain;
 import com.fiap.pos_tech.agendamento_servicos.application.usecase.adicionarAgendamento.validation.AgendamentoExistenteHandler;
@@ -26,9 +26,13 @@ public class AdicionarAgendamentoUseCaseConfig {
     @Bean
     public AdicionarAgendamentoUseCase adicionarAgendamentoUseCase(
             IAgendamentoGateway agendamentoGateway,
-            AdicionarAgendamentoValidationChain adicionarAgendamentoValidationChain
+            AdicionarAgendamentoValidationChain adicionarAgendamentoValidationChain,
+            IEstabelecimentoGateway estabelecimentoGateway,
+            IProfissionalGateway profissionalGateway,
+            IServicoGateway servicoGateway,
+            IClienteGateway clienteGateway
     ){
-        return AdicionarAgendamentoUseCase.create(agendamentoGateway, adicionarAgendamentoValidationChain);
+        return AdicionarAgendamentoUseCase.create(agendamentoGateway, adicionarAgendamentoValidationChain, estabelecimentoGateway, profissionalGateway, servicoGateway, clienteGateway);
     }
 
 }

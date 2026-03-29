@@ -21,13 +21,15 @@ public class ReagendarAgendamenoUseCase {
     }
 
     public OutputReagendarAgendamento execute(InputReagendarAgendamento input) {
-        Agendamento agendamento = input.toEntity();
+        Agendamento agendamento = agendamentoGateway.buscarAgendamento(input.idAgendamento());
+
+        agendamento.setHorario(input.horarioAgendamento());
 
         reagendarAgendamentoValidationChain.validate(agendamento);
 
-        agendamentoGateway.atualizarAgendamento(agendamento);
+        Agendamento agendamentoDb = agendamentoGateway.atualizarAgendamento(agendamento);
 
-        return new OutputReagendarAgendamento();
+        return new OutputReagendarAgendamento(agendamentoDb.getId(), agendamentoDb.getHorario(), agendamentoDb.getServicoOferecido().getId(), agendamentoDb.getEstabelecimento().getId(), agendamentoDb.getProfissional().getId(), agendamentoDb.getCliente().getId());
 
     }
 

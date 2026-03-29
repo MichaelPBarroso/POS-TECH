@@ -16,6 +16,9 @@ public class AgendamentoNaoExisteHandler implements IReagendarAgendamentoValidat
     @Override
     public void validate(Agendamento agendamento) {
 
+        if(agendamento == null)
+            throw new AgendamentoNaoExisteException();
+
         Agendamento agendamentoDatabase = agendamentoGateway.buscarAgendamento(agendamento.getId());
 
         if (agendamentoDatabase == null) {

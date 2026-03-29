@@ -18,6 +18,7 @@ public class Agendamento {
     private Estabelecimento estabelecimento;
     private Profissional profissional;
     private StatusAgendamentoEnum statusAgendamentoEnum;
+    private Cliente cliente;
 
     public static Agendamento create(UUID id,
                                      LocalDateTime horario,
@@ -34,6 +35,25 @@ public class Agendamento {
         agendamento.setEstabelecimento(estabelecimento);
         agendamento.setProfissional(profissional);
         agendamento.setStatusAgendamentoEnum(status);
+
+        return agendamento;
+    }
+
+    public static Agendamento create(LocalDateTime horario,
+                                     ServicoOferecido servicoOferecido,
+                                     Estabelecimento estabelecimento,
+                                     Profissional profissional,
+                                     StatusAgendamentoEnum status,
+                                     Cliente cliente
+    ) {
+        Agendamento agendamento = new Agendamento();
+
+        agendamento.setHorario(horario);
+        agendamento.setServicoOferecido(servicoOferecido);
+        agendamento.setEstabelecimento(estabelecimento);
+        agendamento.setProfissional(profissional);
+        agendamento.setStatusAgendamentoEnum(status);
+        agendamento.setCliente(cliente);
 
         return agendamento;
     }

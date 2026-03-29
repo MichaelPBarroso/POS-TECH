@@ -1,10 +1,8 @@
 package com.fiap.pos_tech.agendamento_servicos.application.usecase.adicionarAgendamento.dto;
 
-import com.fiap.pos_tech.agendamento_servicos.domain.model.Agendamento;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
-public record InputAdicionarAgendamento() {
+public record InputAdicionarAgendamento(LocalDateTime horario, UUID idServico, UUID idEstabelecimento, UUID idProfissional, UUID idCliente) {
 
-    public Agendamento toEntity() {
-        return new Agendamento();
-    }
 }

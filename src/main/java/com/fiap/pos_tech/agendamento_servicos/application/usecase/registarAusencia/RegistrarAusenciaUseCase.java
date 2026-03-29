@@ -6,6 +6,8 @@ import com.fiap.pos_tech.agendamento_servicos.application.usecase.registarAusenc
 import com.fiap.pos_tech.agendamento_servicos.application.usecase.registarAusencia.validation.RegistrarAusenciaValidationChain;
 import com.fiap.pos_tech.agendamento_servicos.domain.model.Agendamento;
 
+import java.util.UUID;
+
 public class RegistrarAusenciaUseCase {
 
     private final IAgendamentoGateway agendamentoGateway;
@@ -21,7 +23,7 @@ public class RegistrarAusenciaUseCase {
     }
 
     public OutputRegistrarAusencia execute(InputRegistarAusencia input) {
-        Agendamento agendamento = input.toEntity();
+        Agendamento agendamento = agendamentoGateway.buscarAgendamento(UUID.fromString(input.idAgendamento()));
 
         registrarAusenciaValidationChain.validate(agendamento);
 

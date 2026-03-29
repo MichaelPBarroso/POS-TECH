@@ -2,10 +2,9 @@ package com.fiap.pos_tech.agendamento_servicos.application.usecase.reagendarAgen
 
 import com.fiap.pos_tech.agendamento_servicos.domain.model.Agendamento;
 
-public record InputReagendarAgendamento() {
+import java.time.LocalDateTime;
+import java.util.UUID;
 
-    public Agendamento toEntity(){
-        return new Agendamento();
-    }
+public record InputReagendarAgendamento(UUID idAgendamento, LocalDateTime horarioAgendamento) {
 
 }

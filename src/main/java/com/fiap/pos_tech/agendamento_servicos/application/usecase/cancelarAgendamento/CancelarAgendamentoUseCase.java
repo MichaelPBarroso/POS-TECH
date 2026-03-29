@@ -21,7 +21,7 @@ public class CancelarAgendamentoUseCase {
     }
 
     public OutputCancelarAgendamento execute(InputCancelarAgendamento input) {
-        Agendamento entity = input.toEntity();
+        Agendamento entity = agendamentoGateway.buscarAgendamento(input.idAgendamento());
 
         cancelarAgendamentoValidationChain.validate(entity);
 

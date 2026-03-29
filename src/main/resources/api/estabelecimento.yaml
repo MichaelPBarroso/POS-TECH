@@ -1,0 +1,121 @@
+openapi: 3.0.3
+info:
+  title: Sistema de agendamentos
+  version: 1.0.0
+  description: Projeto de um sistema de agendamento e gerenciamento para serviços de beleza e bem-estar
+  license:
+    name: MIT License
+servers:
+  - url: http://localhost:8080
+    description: Local Server
+paths:
+  /estabelecimento:
+    post:
+      tags:
+        - Estabelecimento
+      summary: Adicionar um novo estabelecimento
+      description: Adicionar um novo estabelecimento no sistema
+      operationId: addEstabelecimento
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NovoEstabelecimento"
+      responses:
+        "201":
+          description: "Estabelecimento cadastrado com sucesso"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Estabelecimento"
+
+components:
+  schemas:
+
+    NovoEstabelecimento:
+      type: object
+      properties:
+        nome:
+          type: string
+          description: Nome do Estabelecimento
+        horario_abertura:
+          type: string
+          description: Horário de abertura do Estabelecimento
+        horario_fechamento:
+          type: string
+          description: Horário de fechamento do Estabelecimento
+        endereco:
+          type: object
+          description: Endereço do Estabelecimento
+          $ref: "#/components/schemas/NovoEndereco"
+
+    Estabelecimento:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id do Estabelecimento
+        horario_abertura:
+          type: string
+          description: Horário de abertura do Estabelecimento
+        horario_fechamento:
+          type: string
+          description: Horário de fechamento do Estabelecimento
+        endereco:
+          type: object
+          description: Endereço do Estabelecimento
+          $ref: "#/components/schemas/Endereco"
+
+    NovoEndereco:
+      type: object
+      properties:
+        logradouro:
+          type: string
+          description: Logradouro do Endereço
+        numero:
+          type: string
+          description: Numero do Endereço
+        complemento:
+          type: string
+          description: Complemento do Endereço
+        bairro:
+          type: string
+          description: Bairro do Endereço
+        cidade:
+          type: string
+          description: Cidade do Endereço
+        estado:
+          type: string
+          description: Esttado do Endereço
+        cep:
+          type: string
+          description: Cep do Endereço
+
+    Endereco:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id do endereco
+        logradouro:
+          type: string
+          description: Logradouro do Endereço
+        numero:
+          type: string
+          description: Numero do Endereço
+        complemento:
+          type: string
+          description: Complemento do Endereço
+        bairro:
+          type: string
+          description: Bairro do Endereço
+        cidade:
+          type: string
+          description: Cidade do Endereço
+        estado:
+          type: string
+          description: Esttado do Endereço
+        cep:
+          type: string
+          description: Cep do Endereço

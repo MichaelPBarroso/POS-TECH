@@ -1,0 +1,67 @@
+openapi: 3.0.3
+info:
+  title: Sistema de agendamentos
+  version: 1.0.0
+  description: Projeto de um sistema de agendamento e gerenciamento para serviços de beleza e bem-estar
+  license:
+    name: MIT License
+servers:
+  - url: http://localhost:8080
+    description: Local Server
+paths:
+  /avaliacao:
+
+    post:
+      tags:
+        - Avaliacao
+      summary: Adicionar uma nova avaliação
+      description: Adicionar uma nova avaliação no sistema
+      operationId: addAvaliacao
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NovaAvaliacao"
+      responses:
+        "201":
+          description: "Avaliação cadastrada com sucesso"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Avaliacao"
+
+components:
+  schemas:
+
+    NovaAvaliacao:
+      type: object
+      properties:
+        nota:
+          type: integer
+          description: Nota da avaliação
+        idAgendamento:
+          type: string
+          description: Id do agendamento que está sendo feita a avaliação
+        comentario:
+          type: string
+          description: Comentario da avalidação
+
+    Avaliacao:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id da avaliação
+        nota:
+          type: integer
+          description: Nota da avaliação
+        idAgendamento:
+          type: string
+          description: Id do agendamento que está sendo feita a avaliação
+        comentario:
+          type: string
+          description: Comentario da avalidação
+        data_avaliacao:
+          type: string
+          description: Data e hora da avaliação

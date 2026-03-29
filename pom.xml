@@ -28,6 +28,8 @@
 	</scm>
 	<properties>
 		<java.version>21</java.version>
+		<mapstruct.version>1.5.5.Final</mapstruct.version>
+		<lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -41,6 +43,17 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webmvc</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.8.8</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openapitools</groupId>
+			<artifactId>openapi-generator</artifactId>
+			<version>7.14.0</version>
 		</dependency>
 
 		<dependency>
@@ -73,15 +86,140 @@
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>io.swagger.codegen.v3</groupId>
+				<artifactId>swagger-codegen-maven-plugin</artifactId>
+				<version>3.0.57</version>
+				<executions>
+					<execution>
+						<id>profissional</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>${project.basedir}/src/main/resources/api/profissional.yaml</inputSpec>
+							<language>spring</language>
+							<generateSupportingFiles>false</generateSupportingFiles>
+							<apiPackage>com.fiap.pos_tech.agendamento_servicos.infrastructure.api</apiPackage>
+							<modelPackage>com.fiap.pos_tech.agendamento_servicos.infrastructure.api.json</modelPackage>
+							<modelNameSuffix>Json</modelNameSuffix>
+							<configOptions>
+								<interfaceOnly>true</interfaceOnly>
+								<jakarta>true</jakarta>
+							</configOptions>
+						</configuration>
+					</execution>
+					<execution>
+						<id>estabelecimento</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>${project.basedir}/src/main/resources/api/estabelecimento.yaml</inputSpec>
+							<language>spring</language>
+							<generateSupportingFiles>false</generateSupportingFiles>
+							<apiPackage>com.fiap.pos_tech.agendamento_servicos.infrastructure.api</apiPackage>
+							<modelPackage>com.fiap.pos_tech.agendamento_servicos.infrastructure.api.json</modelPackage>
+							<modelNameSuffix>Json</modelNameSuffix>
+							<configOptions>
+								<interfaceOnly>true</interfaceOnly>
+								<jakarta>true</jakarta>
+							</configOptions>
+						</configuration>
+					</execution>
+					<execution>
+						<id>agendamento</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>${project.basedir}/src/main/resources/api/agendamento.yaml</inputSpec>
+							<language>spring</language>
+							<generateSupportingFiles>false</generateSupportingFiles>
+							<apiPackage>com.fiap.pos_tech.agendamento_servicos.infrastructure.api</apiPackage>
+							<modelPackage>com.fiap.pos_tech.agendamento_servicos.infrastructure.api.json</modelPackage>
+							<modelNameSuffix>Json</modelNameSuffix>
+							<configOptions>
+								<interfaceOnly>true</interfaceOnly>
+								<jakarta>true</jakarta>
+							</configOptions>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>avaliacao</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>${project.basedir}/src/main/resources/api/avaliacao.yaml</inputSpec>
+							<language>spring</language>
+							<generateSupportingFiles>false</generateSupportingFiles>
+							<apiPackage>com.fiap.pos_tech.agendamento_servicos.infrastructure.api</apiPackage>
+							<modelPackage>com.fiap.pos_tech.agendamento_servicos.infrastructure.api.json</modelPackage>
+							<modelNameSuffix>Json</modelNameSuffix>
+							<configOptions>
+								<interfaceOnly>true</interfaceOnly>
+								<jakarta>true</jakarta>
+							</configOptions>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>add-source</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>${project.build.directory}/generated-sources/swagger/src/main/java</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
 					<annotationProcessorPaths>
+						<path>
+							<groupId>org.mapstruct</groupId>
+							<artifactId>mapstruct-processor</artifactId>
+							<version>${mapstruct.version}</version>
+						</path>
 						<path>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
+							<version>${lombok.version}</version>
+						</path>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok-mapstruct-binding</artifactId>
+							<version>${lombok-mapstruct-binding.version}</version>
 						</path>
 					</annotationProcessorPaths>
+					<showWarnings>true</showWarnings>
+					<compilerArgs>
+						<arg>
+							-Amapstruct.suppressGeneratorTimestamp=true
+						</arg>
+						<arg>
+							-Amapstruct.suppressGeneratorVersionInfoComment=true
+						</arg>
+						<arg>
+							-Amapstruct.verbose=true
+						</arg>
+					</compilerArgs>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -96,6 +234,46 @@
 					</excludes>
 				</configuration>
 			</plugin>
+
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.12</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.22.2</version>
+				<configuration>
+					<includes>
+						<include>**/*IT.java</include>
+						<include>**/*Test.java</include>
+					</includes>
+					<reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>4.0.0.4121</version>
+			</plugin>
+
 		</plugins>
 	</build>
 

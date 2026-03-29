@@ -1,0 +1,162 @@
+openapi: 3.0.3
+info:
+  title: Sistema de agendamentos
+  version: 1.0.0
+  description: Projeto de um sistema de agendamento e gerenciamento para serviços de beleza e bem-estar
+  license:
+    name: MIT License
+servers:
+  - url: http://localhost:8080
+    description: Local Server
+paths:
+  /agendamento:
+
+    post:
+      tags:
+        - Agendamento
+      summary: Adicionar um novo agendamento
+      description: Adicionar um novo agendamento no sistema
+      operationId: addAgendamento
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NovoAgendamento"
+      responses:
+        "201":
+          description: "Agendamento cadastrado com sucesso"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Agendamento"
+
+  /agendamento/{id}/reagendar:
+    put:
+      tags:
+        - Agendamento
+      summary: Reagendar agendamento
+      description: Reagendar um agendamento
+      operationId: reagendarAgendamento
+      parameters:
+        - name: id
+          in: path
+          description: Id do agendamento
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Reagendamento"
+      responses:
+        "200":
+          description: Reagendamento realizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Agendamento"
+
+  /agendamento/{id}/cancelar:
+    patch:
+      tags:
+        - Cancelar
+      summary: Cancelar agendamento
+      description: Cancelar um agendamento
+      operationId: cancelarAgendamento
+      parameters:
+        - name: id
+          in: path
+          description: Id do agendamento
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Cancelamento realizado com sucesso
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "Cancelamento realizado com sucesso."
+
+  /agendamento/{id}/ausente:
+    patch:
+      tags:
+        - Ausente
+      summary: Cliente ausente
+      description: Cliente ausente no agendamento
+      operationId: ausenteAgendamento
+      parameters:
+        - name: id
+          in: path
+          description: Id do agendamento
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Registro de ausencia realizado com sucesso
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "Registro de ausencia realizado com sucesso."
+components:
+  schemas:
+
+    NovoAgendamento:
+      type: object
+      properties:
+        data_hora:
+          type: string
+          description: Data e hora do agendamento
+        idServico:
+          type: string
+          description: Id do serviço que será realizado
+        idEstabelecimento:
+          type: string
+          description: Id do estabelecimento
+        idProfissional:
+          type: string
+          description: Id do profissional
+        idCliente:
+          type: string
+          description: Id do cliente
+    Agendamento:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id do Estabelecimento
+        data_hora:
+          type: string
+          description: Data e hora do agendamento
+        idServico:
+          type: string
+          description: Id do serviço que será realizado
+        idEstabelecimento:
+          type: string
+          description: Id do estabelecimento
+        idProfissional:
+          type: string
+          description: Id do profissional
+        idCliente:
+          type: string
+          description: Id do cliente
+        statusAgendamento:
+          type: string
+          enum:
+            - AGENDADO
+            - CANCELADO
+            - AUSENTE
+            - COMPLETADO
+
+    Reagendamento:
+      type: object
+      properties:
+        data_hora:
+          type: string
+          description: Data e hora do reagendamento

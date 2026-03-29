@@ -1,0 +1,116 @@
+openapi: 3.0.3
+info:
+  title: Sistema de agendamentos
+  version: 1.0.0
+  description: Projeto de um sistema de agendamento e gerenciamento para serviços de beleza e bem-estar
+  license:
+    name: MIT License
+servers:
+  - url: http://localhost:8080
+    description: Local Server
+paths:
+  /profissional:
+    post:
+      tags:
+        - Profissional
+      summary: Adicionar um novo profissional
+      description: Adicionar um novo profissional no sistema
+      operationId: addProfissional
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NovoProfissional"
+      responses:
+        "201":
+          description: "Profissional cadastrado com sucesso"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Profissional"
+components:
+  schemas:
+
+    NovoProfissional:
+      type: object
+      properties:
+        nome:
+          type: string
+          description: Nome Profissional
+        servico:
+          type: array
+          description: Serviços do profissional
+          items:
+            $ref: "#/components/schemas/NovoServico"
+        especialidade:
+          type: array
+          description: Especialidades do profissional
+          items:
+            $ref: "#/components/schemas/NovaEspecialidade"
+        idEstabelecimento:
+          type: string
+          description: Id do estabelecimento que esse profissional irá atuar.
+
+    Profissional:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id do profissional
+        nome:
+          type: string
+          description: Nome Profissional
+        servico:
+          type: array
+          description: Serviços do profissional
+          items:
+            $ref: "#/components/schemas/Servico"
+        especialidade:
+          type: array
+          description: Especialidades do profissional
+          items:
+            $ref: "#/components/schemas/Especialidade"
+        idEstabelecimento:
+          type: string
+          description: Id do estabelecimento que esse profissional irá atuar.
+
+    NovoServico:
+      type: object
+      properties:
+        nome:
+          type: string
+          description: Nome do serviço que será prestado
+        valor:
+          type: number
+          description: Valor do serviço que será prestado
+
+    NovaEspecialidade:
+      type: object
+      properties:
+        nome:
+          type: string
+          description: Nome da especialidade
+
+    Servico:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id do Serviço que será prestado
+        nome:
+          type: string
+          description: Nome do serviço que será prestado
+        valor:
+          type: number
+          description: Valor do serviço que será prestado
+
+    Especialidade:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id da especialidade
+        nome:
+          type: string
+          description: Nome da especialidade

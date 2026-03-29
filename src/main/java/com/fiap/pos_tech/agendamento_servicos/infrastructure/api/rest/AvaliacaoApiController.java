@@ -1,10 +1,10 @@
-package com.fiap.pos_tech.agendamento_servicos.infrastructure.api;
+package com.fiap.pos_tech.agendamento_servicos.infrastructure.api.rest;
 
 import com.fiap.pos_tech.agendamento_servicos.application.usecase.adicionarAvaliacao.AdicionarAvaliacaoUseCase;
 import com.fiap.pos_tech.agendamento_servicos.application.usecase.adicionarAvaliacao.dto.InputAdicionarAvaliacao;
 import com.fiap.pos_tech.agendamento_servicos.application.usecase.adicionarAvaliacao.dto.OutputAdicionarAvaliacao;
-import com.fiap.pos_tech.agendamento_servicos.infrastructure.api.json.AvaliacaoJson;
-import com.fiap.pos_tech.agendamento_servicos.infrastructure.api.json.NovaAvaliacaoJson;
+import com.fiap.pos_tech.agendamento_servicos.infrastructure.api.rest.json.AvaliacaoJson;
+import com.fiap.pos_tech.agendamento_servicos.infrastructure.api.rest.json.NovaAvaliacaoJson;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
 import org.springframework.http.HttpStatus;

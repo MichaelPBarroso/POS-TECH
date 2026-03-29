@@ -1,11 +1,11 @@
-package com.fiap.pos_tech.agendamento_servicos.infrastructure.api;
+package com.fiap.pos_tech.agendamento_servicos.infrastructure.api.rest;
 
 import com.fiap.pos_tech.agendamento_servicos.application.usecase.adicionarProfissional.AdicionarProfissionalUseCase;
 import com.fiap.pos_tech.agendamento_servicos.application.usecase.adicionarProfissional.dto.*;
-import com.fiap.pos_tech.agendamento_servicos.infrastructure.api.json.EspecialidadeJson;
-import com.fiap.pos_tech.agendamento_servicos.infrastructure.api.json.NovoProfissionalJson;
-import com.fiap.pos_tech.agendamento_servicos.infrastructure.api.json.ProfissionalJson;
-import com.fiap.pos_tech.agendamento_servicos.infrastructure.api.json.ServicoJson;
+import com.fiap.pos_tech.agendamento_servicos.infrastructure.api.rest.json.EspecialidadeJson;
+import com.fiap.pos_tech.agendamento_servicos.infrastructure.api.rest.json.NovoProfissionalJson;
+import com.fiap.pos_tech.agendamento_servicos.infrastructure.api.rest.json.ProfissionalJson;
+import com.fiap.pos_tech.agendamento_servicos.infrastructure.api.rest.json.ServicoJson;
 import lombok.AllArgsConstructor;
 import org.jspecify.annotations.NonNull;
 import org.springframework.http.HttpStatus;

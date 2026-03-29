@@ -1,14 +1,14 @@
-package com.fiap.pos_tech.agendamento_servicos.infrastructure.api;
+package com.fiap.pos_tech.agendamento_servicos.infrastructure.api.rest;
 
 import com.fiap.pos_tech.agendamento_servicos.application.usecase.adicionarEstabelecimento.AdicionarEstabelecimentoUseCase;
 import com.fiap.pos_tech.agendamento_servicos.application.usecase.adicionarEstabelecimento.dto.InputEndereco;
 import com.fiap.pos_tech.agendamento_servicos.application.usecase.adicionarEstabelecimento.dto.InputEstabelecimento;
 import com.fiap.pos_tech.agendamento_servicos.application.usecase.adicionarEstabelecimento.dto.OutputEndereco;
 import com.fiap.pos_tech.agendamento_servicos.application.usecase.adicionarEstabelecimento.dto.OutputEstabelecimento;
-import com.fiap.pos_tech.agendamento_servicos.infrastructure.api.json.EnderecoJson;
-import com.fiap.pos_tech.agendamento_servicos.infrastructure.api.json.EstabelecimentoJson;
-import com.fiap.pos_tech.agendamento_servicos.infrastructure.api.json.NovoEnderecoJson;
-import com.fiap.pos_tech.agendamento_servicos.infrastructure.api.json.NovoEstabelecimentoJson;
+import com.fiap.pos_tech.agendamento_servicos.infrastructure.api.rest.json.EnderecoJson;
+import com.fiap.pos_tech.agendamento_servicos.infrastructure.api.rest.json.EstabelecimentoJson;
+import com.fiap.pos_tech.agendamento_servicos.infrastructure.api.rest.json.NovoEnderecoJson;
+import com.fiap.pos_tech.agendamento_servicos.infrastructure.api.rest.json.NovoEstabelecimentoJson;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
 import org.springframework.http.HttpStatus;

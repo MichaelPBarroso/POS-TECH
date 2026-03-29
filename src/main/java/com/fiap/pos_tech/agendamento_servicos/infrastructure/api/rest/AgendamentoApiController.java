@@ -1,4 +1,4 @@
-package com.fiap.pos_tech.agendamento_servicos.infrastructure.api;
+package com.fiap.pos_tech.agendamento_servicos.infrastructure.api.rest;
 
 import com.fiap.pos_tech.agendamento_servicos.application.usecase.adicionarAgendamento.AdicionarAgendamentoUseCase;
 import com.fiap.pos_tech.agendamento_servicos.application.usecase.adicionarAgendamento.dto.InputAdicionarAgendamento;
@@ -10,9 +10,9 @@ import com.fiap.pos_tech.agendamento_servicos.application.usecase.reagendarAgend
 import com.fiap.pos_tech.agendamento_servicos.application.usecase.reagendarAgendamento.dto.OutputReagendarAgendamento;
 import com.fiap.pos_tech.agendamento_servicos.application.usecase.registarAusencia.RegistrarAusenciaUseCase;
 import com.fiap.pos_tech.agendamento_servicos.application.usecase.registarAusencia.dto.InputRegistarAusencia;
-import com.fiap.pos_tech.agendamento_servicos.infrastructure.api.json.AgendamentoJson;
-import com.fiap.pos_tech.agendamento_servicos.infrastructure.api.json.NovoAgendamentoJson;
-import com.fiap.pos_tech.agendamento_servicos.infrastructure.api.json.ReagendamentoJson;
+import com.fiap.pos_tech.agendamento_servicos.infrastructure.api.rest.json.AgendamentoJson;
+import com.fiap.pos_tech.agendamento_servicos.infrastructure.api.rest.json.NovoAgendamentoJson;
+import com.fiap.pos_tech.agendamento_servicos.infrastructure.api.rest.json.ReagendamentoJson;
 import lombok.AllArgsConstructor;
 import org.jspecify.annotations.NonNull;
 import org.springframework.http.HttpStatus;

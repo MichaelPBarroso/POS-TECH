@@ -99,8 +99,8 @@
 							<inputSpec>${project.basedir}/src/main/resources/api/profissional.yaml</inputSpec>
 							<language>spring</language>
 							<generateSupportingFiles>false</generateSupportingFiles>
-							<apiPackage>com.fiap.pos_tech.agendamento_servicos.infrastructure.api</apiPackage>
-							<modelPackage>com.fiap.pos_tech.agendamento_servicos.infrastructure.api.json</modelPackage>
+							<apiPackage>com.fiap.pos_tech.agendamento_servicos.infrastructure.api.rest</apiPackage>
+							<modelPackage>com.fiap.pos_tech.agendamento_servicos.infrastructure.api.rest.json</modelPackage>
 							<modelNameSuffix>Json</modelNameSuffix>
 							<configOptions>
 								<interfaceOnly>true</interfaceOnly>
@@ -117,8 +117,8 @@
 							<inputSpec>${project.basedir}/src/main/resources/api/estabelecimento.yaml</inputSpec>
 							<language>spring</language>
 							<generateSupportingFiles>false</generateSupportingFiles>
-							<apiPackage>com.fiap.pos_tech.agendamento_servicos.infrastructure.api</apiPackage>
-							<modelPackage>com.fiap.pos_tech.agendamento_servicos.infrastructure.api.json</modelPackage>
+							<apiPackage>com.fiap.pos_tech.agendamento_servicos.infrastructure.api.rest</apiPackage>
+							<modelPackage>com.fiap.pos_tech.agendamento_servicos.infrastructure.api.rest.json</modelPackage>
 							<modelNameSuffix>Json</modelNameSuffix>
 							<configOptions>
 								<interfaceOnly>true</interfaceOnly>
@@ -135,8 +135,8 @@
 							<inputSpec>${project.basedir}/src/main/resources/api/agendamento.yaml</inputSpec>
 							<language>spring</language>
 							<generateSupportingFiles>false</generateSupportingFiles>
-							<apiPackage>com.fiap.pos_tech.agendamento_servicos.infrastructure.api</apiPackage>
-							<modelPackage>com.fiap.pos_tech.agendamento_servicos.infrastructure.api.json</modelPackage>
+							<apiPackage>com.fiap.pos_tech.agendamento_servicos.infrastructure.api.rest</apiPackage>
+							<modelPackage>com.fiap.pos_tech.agendamento_servicos.infrastructure.api.rest.json</modelPackage>
 							<modelNameSuffix>Json</modelNameSuffix>
 							<configOptions>
 								<interfaceOnly>true</interfaceOnly>
@@ -154,8 +154,8 @@
 							<inputSpec>${project.basedir}/src/main/resources/api/avaliacao.yaml</inputSpec>
 							<language>spring</language>
 							<generateSupportingFiles>false</generateSupportingFiles>
-							<apiPackage>com.fiap.pos_tech.agendamento_servicos.infrastructure.api</apiPackage>
-							<modelPackage>com.fiap.pos_tech.agendamento_servicos.infrastructure.api.json</modelPackage>
+							<apiPackage>com.fiap.pos_tech.agendamento_servicos.infrastructure.api.rest</apiPackage>
+							<modelPackage>com.fiap.pos_tech.agendamento_servicos.infrastructure.api.rest.json</modelPackage>
 							<modelNameSuffix>Json</modelNameSuffix>
 							<configOptions>
 								<interfaceOnly>true</interfaceOnly>

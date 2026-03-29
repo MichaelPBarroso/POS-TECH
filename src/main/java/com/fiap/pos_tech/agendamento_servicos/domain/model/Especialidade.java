@@ -24,6 +24,14 @@ public class Especialidade {
         return especialidade;
     }
 
+    public static Especialidade create(String nome) {
+        Especialidade especialidade = new Especialidade();
+
+        especialidade.setNome(nome);
+
+        return especialidade;
+    }
+
     public static Especialidade create(UUID id, String nome, Profissional profissional) {
         Especialidade especialidade = new Especialidade();
 

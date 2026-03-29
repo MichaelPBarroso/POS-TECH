@@ -1,5 +1,6 @@
 package com.fiap.pos_tech.agendamento_servicos.infrastructure.config.usecase;
 
+import com.fiap.pos_tech.agendamento_servicos.application.gateway.IEstabelecimentoGateway;
 import com.fiap.pos_tech.agendamento_servicos.application.gateway.IProfissionalGateway;
 import com.fiap.pos_tech.agendamento_servicos.application.usecase.adicionarProfissional.AdicionarProfissionalUseCase;
 import com.fiap.pos_tech.agendamento_servicos.application.usecase.adicionarProfissional.validation.AdicionarProfissionalValidationChain;
@@ -20,8 +21,9 @@ public class AdicionarProfissionalUseCaseConfig {
     @Bean
     public AdicionarProfissionalUseCase adicionarProfissionalUseCase(
             IProfissionalGateway profissionalGateway,
+            IEstabelecimentoGateway estabelecimentoGateway,
             AdicionarProfissionalValidationChain adicionarProfissionalValidationChain
     ){
-        return AdicionarProfissionalUseCase.create(profissionalGateway, adicionarProfissionalValidationChain);
+        return AdicionarProfissionalUseCase.create(profissionalGateway, adicionarProfissionalValidationChain, estabelecimentoGateway);
     }
 }

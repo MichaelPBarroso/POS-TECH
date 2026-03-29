@@ -40,4 +40,14 @@ public class Profissional {
 
         return profissional;
     }
+    public static Profissional create(String nome, List<Especialidade> especialidades,  List<ServicoOferecido> servicoOferecidos, Estabelecimento estabelecimento){
+        Profissional profissional = new Profissional();
+
+        profissional.setNome(nome);
+        profissional.setEspecialidades(especialidades);
+        profissional.setServicoOferecidos(servicoOferecidos);
+        profissional.setEstabelecimento(estabelecimento);
+
+        return profissional;
+    }
 }

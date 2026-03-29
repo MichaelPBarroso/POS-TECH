@@ -26,6 +26,15 @@ public class ServicoOferecido {
         return servicoOferecido;
     }
 
+    public static ServicoOferecido create(String nome, Double valor) {
+        ServicoOferecido servicoOferecido = new ServicoOferecido();
+
+        servicoOferecido.setNome(nome);
+        servicoOferecido.setValor(valor);
+
+        return servicoOferecido;
+    }
+
     public static ServicoOferecido create(UUID id, String nome, Double valor, Profissional profissional) {
         ServicoOferecido servicoOferecido = new ServicoOferecido();
 

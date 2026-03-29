@@ -1,12 +1,8 @@
 package com.fiap.pos_tech.agendamento_servicos.application.usecase.adicionarProfissional.dto;
 
-import com.fiap.pos_tech.agendamento_servicos.domain.model.Profissional;
-
+import java.util.List;
 import java.util.UUID;
 
-public record InputAdicionarProfissional(UUID id, String nome) {
+public record InputAdicionarProfissional(String nome, List<InputEspecialidade> especialidades, List<InputServicoOferecido> servicoOferecidos, UUID idEstabelecimento) {
 
-    public Profissional toEntity() {
-        return new Profissional();
-    }
 }

@@ -27,7 +27,7 @@ public class AvaliacaoEntity {
     @JoinColumn(name = "agendamento_id", nullable = false)
     private AgendamentoEntity agendamento;
 
-    private Long nota;
+    private Integer nota;
 
     private String comentario;
 

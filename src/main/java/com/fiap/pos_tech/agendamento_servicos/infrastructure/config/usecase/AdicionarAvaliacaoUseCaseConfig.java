@@ -1,5 +1,6 @@
 package com.fiap.pos_tech.agendamento_servicos.infrastructure.config.usecase;
 
+import com.fiap.pos_tech.agendamento_servicos.application.gateway.IAgendamentoGateway;
 import com.fiap.pos_tech.agendamento_servicos.application.gateway.IAvaliacaoGateway;
 import com.fiap.pos_tech.agendamento_servicos.application.usecase.adicionarAvaliacao.AdicionarAvaliacaoUseCase;
 import com.fiap.pos_tech.agendamento_servicos.application.usecase.adicionarAvaliacao.validation.AdicionarAvaliacaoValidationChain;
@@ -20,8 +21,9 @@ public class AdicionarAvaliacaoUseCaseConfig {
     @Bean
     public AdicionarAvaliacaoUseCase adicionarAvaliacaoUseCase(
             IAvaliacaoGateway avaliacaoGateway,
+            IAgendamentoGateway agendamentoGateway,
             AdicionarAvaliacaoValidationChain avaliacaoValidationChain
     ){
-        return AdicionarAvaliacaoUseCase.create(avaliacaoGateway, avaliacaoValidationChain);
+        return AdicionarAvaliacaoUseCase.create(avaliacaoGateway, avaliacaoValidationChain, agendamentoGateway);
     }
 }

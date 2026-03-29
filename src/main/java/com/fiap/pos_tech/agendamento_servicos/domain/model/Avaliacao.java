@@ -14,14 +14,25 @@ public class Avaliacao {
 
     private UUID id;
     private Agendamento agendamento;
-    private Long nota;
+    private Integer nota;
     private String comentario;
     private LocalDateTime dataAvaliacao;
 
-    public static Avaliacao create(UUID id, Agendamento agendamento,  Long nota, String comentario, LocalDateTime dataAvaliacao) {
+    public static Avaliacao create(UUID id, Agendamento agendamento,  Integer nota, String comentario, LocalDateTime dataAvaliacao) {
         Avaliacao avaliacao = new Avaliacao();
 
         avaliacao.setId(id);
+        avaliacao.setAgendamento(agendamento);
+        avaliacao.setNota(nota);
+        avaliacao.setComentario(comentario);
+        avaliacao.setDataAvaliacao(dataAvaliacao);
+
+        return avaliacao;
+    }
+
+    public static Avaliacao create(Agendamento agendamento,  Integer nota, String comentario, LocalDateTime dataAvaliacao) {
+        Avaliacao avaliacao = new Avaliacao();
+
         avaliacao.setAgendamento(agendamento);
         avaliacao.setNota(nota);
         avaliacao.setComentario(comentario);

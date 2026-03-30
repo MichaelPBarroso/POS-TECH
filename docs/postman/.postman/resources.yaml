@@ -1,0 +1,7 @@
+# Use this workspace to collaborate
+workspace:
+  id: b15f1126-5520-4b89-a1df-cecf7aca1d60
+
+localResources:
+  environments:
+    - ..\postman\environments\Parametros-Agendamento.postman_environment.json

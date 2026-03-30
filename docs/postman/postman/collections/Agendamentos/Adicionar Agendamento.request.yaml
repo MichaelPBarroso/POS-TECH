@@ -1,0 +1,20 @@
+$kind: http-request
+url: "{{servidor}}/agendamento"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"data_hora\": \"2026-03-30T14:00:00\",\r
+
+    \  \"idServico\": \"{{servico_id}}\",\r
+
+    \  \"idEstabelecimento\": \"{{estabelecimento_id}}\",\r
+
+    \  \"idProfissional\": \"{{profissional_id}}\",\r
+
+    \  \"idCliente\": \"{{cliente_id}}\"\r
+
+    }"
+examples: .resources/Adicionar Agendamento.resources/examples
+order: 3096864532453355

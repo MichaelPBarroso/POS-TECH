@@ -1,0 +1,68 @@
+$kind: http-example
+request:
+  url: "{{servidor}}/estabelecimento"
+  method: POST
+  body:
+    type: json
+    content: "{\r
+
+      \  \"nome\": \"Studio Beleza Centro\",\r
+
+      \  \"horario_abertura\": \"08:00:00\",\r
+
+      \  \"horario_fechamento\": \"18:00:00\",\r
+
+      \  \"endereco\": {\r
+
+      \    \"logradouro\": \"Avenida Paulista\",\r
+
+      \    \"numero\": \"1000\",\r
+
+      \    \"complemento\": \"Sala 12\",\r
+
+      \    \"bairro\": \"Bela Vista\",\r
+
+      \    \"cidade\": \"Sao Paulo\",\r
+
+      \    \"estado\": \"SP\",\r
+
+      \    \"cep\": \"01310-100\"\r
+
+      \  }\r
+
+      }"
+response:
+  statusCode: 200
+  statusText: OK
+  body:
+    type: json
+    content: "{\r
+
+      \    \"endereco\": {\r
+
+      \        \"bairro\": \"Bela Vista\",\r
+
+      \        \"cep\": \"01310-100\",\r
+
+      \        \"cidade\": \"Sao Paulo\",\r
+
+      \        \"complemento\": \"Sala 12\",\r
+
+      \        \"estado\": \"SP\",\r
+
+      \        \"id\": \"a27b506b-5b5b-478b-9560-9f3e2ac58284\",\r
+
+      \        \"logradouro\": \"Avenida Paulista\",\r
+
+      \        \"numero\": \"1000\"\r
+
+      \    },\r
+
+      \    \"horario_abertura\": \"08:00\",\r
+
+      \    \"horario_fechamento\": \"18:00\",\r
+
+      \    \"id\": \"fa102a69-73d5-4721-b4c6-d94a2b0b1a12\"\r
+
+      }"
+order: 1774833698571

@@ -1,0 +1,42 @@
+$kind: http-request
+url: "{{servidor}}/estabelecimento"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"nome\": \"Studio Beleza Centro\",\r
+
+    \  \"horario_abertura\": \"08:00:00\",\r
+
+    \  \"horario_fechamento\": \"18:00:00\",\r
+
+    \  \"endereco\": {\r
+
+    \    \"logradouro\": \"Avenida Paulista\",\r
+
+    \    \"numero\": \"1000\",\r
+
+    \    \"complemento\": \"Sala 12\",\r
+
+    \    \"bairro\": \"Bela Vista\",\r
+
+    \    \"cidade\": \"Sao Paulo\",\r
+
+    \    \"estado\": \"SP\",\r
+
+    \    \"cep\": \"01310-100\"\r
+
+    \  }\r
+
+    }"
+scripts:
+  - type: afterResponse
+    code: "var resposta = pm.response.json();\r
+
+      \r
+
+      pm.environment.set(\"estabelecimento_id\", resposta.id);"
+    language: text/javascript
+examples: .resources/Adicionar Estabelecimento.resources/examples
+order: 1774832392611

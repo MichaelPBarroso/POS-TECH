@@ -1,0 +1,108 @@
+$kind: http-example
+request:
+  url: ""
+  method: GET
+  body:
+    type: json
+    content: "{\r
+
+      \  \"nome\": \"Mariana Souza\",\r
+
+      \  \"servico\": [\r
+
+      \    {\r
+
+      \      \"nome\": \"Corte Feminino\",\r
+
+      \      \"valor\": 80.00\r
+
+      \    },\r
+
+      \    {\r
+
+      \      \"nome\": \"Escova\",\r
+
+      \      \"valor\": 45.50\r
+
+      \    }\r
+
+      \  ],\r
+
+      \  \"especialidade\": [\r
+
+      \    {\r
+
+      \      \"nome\": \"Cabeleireira\"\r
+
+      \    },\r
+
+      \    {\r
+
+      \      \"nome\": \"Coloracao\"\r
+
+      \    }\r
+
+      \  ],\r
+
+      \  \"idEstabelecimento\": \"0c8a0902-10c6-4ac8-96f1-8f324f5570e8\"\r
+
+      }"
+response:
+  statusCode: 200
+  statusText: OK
+  body:
+    type: json
+    content: "{\r
+
+      \    \"especialidade\": [\r
+
+      \        {\r
+
+      \            \"id\": \"3d5bd7fb-bb69-40c5-b625-9c64b2327c3b\",\r
+
+      \            \"nome\": \"Cabeleireira\"\r
+
+      \        },\r
+
+      \        {\r
+
+      \            \"id\": \"cd2c25cc-7e97-4a18-b407-790e8de2bbc1\",\r
+
+      \            \"nome\": \"Coloracao\"\r
+
+      \        }\r
+
+      \    ],\r
+
+      \    \"id\": \"968a992a-5251-4f73-b556-ec9b2951bc9f\",\r
+
+      \    \"idEstabelecimento\": \"0c8a0902-10c6-4ac8-96f1-8f324f5570e8\",\r
+
+      \    \"nome\": \"Mariana Souza\",\r
+
+      \    \"servico\": [\r
+
+      \        {\r
+
+      \            \"id\": \"6e7954e9-2cef-45a3-9c62-90ebd31c3cd2\",\r
+
+      \            \"nome\": \"Corte Feminino\",\r
+
+      \            \"valor\": 80.0\r
+
+      \        },\r
+
+      \        {\r
+
+      \            \"id\": \"492ca23f-4039-4837-a6d8-d650cb3529da\",\r
+
+      \            \"nome\": \"Escova\",\r
+
+      \            \"valor\": 45.5\r
+
+      \        }\r
+
+      \    ]\r
+
+      }"
+order: 1774833969747

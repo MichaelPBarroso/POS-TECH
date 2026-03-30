@@ -1,0 +1,62 @@
+$kind: http-request
+url: "{{servidor}}/profissional"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"nome\": \"Mariana Souza\",\r
+
+    \  \"servico\": [\r
+
+    \    {\r
+
+    \      \"nome\": \"Corte Feminino\",\r
+
+    \      \"valor\": 80.00\r
+
+    \    },\r
+
+    \    {\r
+
+    \      \"nome\": \"Escova\",\r
+
+    \      \"valor\": 45.50\r
+
+    \    }\r
+
+    \  ],\r
+
+    \  \"especialidade\": [\r
+
+    \    {\r
+
+    \      \"nome\": \"Cabeleireira\"\r
+
+    \    },\r
+
+    \    {\r
+
+    \      \"nome\": \"Coloracao\"\r
+
+    \    }\r
+
+    \  ],\r
+
+    \  \"idEstabelecimento\": \"{{estabelecimento_id}}\"\r
+
+    }"
+scripts:
+  - type: afterResponse
+    code: "var resposta = pm.response.json();\r
+
+      \r
+
+      pm.environment.set(\"profissional_id\", resposta.id);\r
+
+      pm.environment.set(\"servico_id\", resposta.servico[0].id);\r
+
+      pm.environment.set(\"especialidade_id\", resposta.especialidade[0].id);"
+    language: text/javascript
+examples: .resources/Adicionar Profissional.resources/examples
+order: 3046489630063782

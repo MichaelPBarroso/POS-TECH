@@ -25,7 +25,8 @@ public class Agendamento {
                                      ServicoOferecido servicoOferecido,
                                      Estabelecimento estabelecimento,
                                      Profissional profissional,
-                                     StatusAgendamentoEnum status
+                                     StatusAgendamentoEnum status,
+                                     Cliente cliente
     ) {
         Agendamento agendamento = new Agendamento();
 
@@ -35,6 +36,7 @@ public class Agendamento {
         agendamento.setEstabelecimento(estabelecimento);
         agendamento.setProfissional(profissional);
         agendamento.setStatusAgendamentoEnum(status);
+        agendamento.setCliente(cliente);
 
         return agendamento;
     }

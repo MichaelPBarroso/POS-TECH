@@ -29,6 +29,7 @@ public class Cliente {
     public static Cliente create(UUID id, String nome, String cpf, String email) {
         Cliente cliente = new Cliente();
 
+        cliente.setId(id);
         cliente.setNome(nome);
         cliente.setCpf(cpf);
         cliente.setEmail(email);

@@ -62,7 +62,7 @@ paths:
   /agendamento/{id}/cancelar:
     patch:
       tags:
-        - Cancelar
+        - Agendamento
       summary: Cancelar agendamento
       description: Cancelar um agendamento
       operationId: cancelarAgendamento
@@ -85,7 +85,7 @@ paths:
   /agendamento/{id}/ausente:
     patch:
       tags:
-        - Ausente
+        - Agendamento
       summary: Cliente ausente
       description: Cliente ausente no agendamento
       operationId: ausenteAgendamento

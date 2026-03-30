@@ -30,10 +30,11 @@ public class EstabelecimentoEntity {
 
     private LocalTime horarioFechamento;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "endereco_id", nullable = false)
     private EnderecoEntity endereco;
 
+    @OneToMany(mappedBy = "estabelecimento")
     private List<ProfissionalEntity> profissionais;
 
 }

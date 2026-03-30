@@ -25,10 +25,10 @@ public class ProfissionalEntity {
 
     private String nome;
 
-    @OneToMany
+    @OneToMany(mappedBy = "profissional", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EspecialidadeEntity> especialidades;
 
-    @OneToMany
+    @OneToMany(mappedBy = "profissional", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ServicoOferecidoEntity> servicoOferecidos;
 
     @ManyToOne(fetch = FetchType.EAGER)

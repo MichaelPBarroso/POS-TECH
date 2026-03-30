@@ -40,4 +40,8 @@ public class AgendamentoEntity {
 
     @Enumerated(EnumType.STRING)
     private StatusAgendamentoEnum statusAgendamentoEnum;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "cliente_id", nullable = false)
+    private ClienteEntity cliente;
 }

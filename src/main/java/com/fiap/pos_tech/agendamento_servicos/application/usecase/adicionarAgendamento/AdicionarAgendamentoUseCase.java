@@ -69,7 +69,8 @@ public class AdicionarAgendamentoUseCase {
                 agendamentoDb.getServicoOferecido().getId(),
                 agendamentoDb.getEstabelecimento().getId(),
                 agendamentoDb.getProfissional().getId(),
-                agendamentoDb.getCliente().getId()
+                agendamentoDb.getCliente().getId(),
+                agendamentoDb.getStatusAgendamentoEnum()
         );
     }
 }

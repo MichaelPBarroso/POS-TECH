@@ -52,6 +52,11 @@ public class AgendamentoApiController implements AgendamentoApi {
         agendamentoJson.setIdEstabelecimento(outputAdicionarAgendamento.idEstabelecimento().toString());
         agendamentoJson.setIdProfissional(outputAdicionarAgendamento.idProfissional().toString());
         agendamentoJson.setIdCliente(outputAdicionarAgendamento.idCliente().toString());
+
+        agendamentoJson.setStatusAgendamento(
+                AgendamentoJson.StatusAgendamentoEnum.valueOf(outputAdicionarAgendamento.statusAgendamento().name())
+        );
+
         return agendamentoJson;
     }
 

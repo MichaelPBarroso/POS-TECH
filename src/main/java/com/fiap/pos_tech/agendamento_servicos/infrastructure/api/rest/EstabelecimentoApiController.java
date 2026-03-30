@@ -51,8 +51,8 @@ public class EstabelecimentoApiController implements EstabelecimentoApi {
         EstabelecimentoJson estabelecimentoJson = new EstabelecimentoJson();
 
         estabelecimentoJson.setId(outputEstabelecimento.id().toString());
-        estabelecimentoJson.setHorarioAbertura(estabelecimentoJson.getHorarioAbertura());
-        estabelecimentoJson.setHorarioFechamento(estabelecimentoJson.getHorarioFechamento());
+        estabelecimentoJson.setHorarioAbertura(outputEstabelecimento.horarioAbertura().toString());
+        estabelecimentoJson.setHorarioFechamento(outputEstabelecimento.horarioFechamento().toString());
         estabelecimentoJson.setEndereco(enderecoJson);
 
         return estabelecimentoJson;

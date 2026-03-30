@@ -1,0 +1,42 @@
+$kind: http-example
+request:
+  url: "{{servidor}}/agendamento"
+  method: POST
+  body:
+    type: json
+    content: "{\r
+
+      \  \"data_hora\": \"2026-03-30T14:00:00\",\r
+
+      \  \"idServico\": \"6e7954e9-2cef-45a3-9c62-90ebd31c3cd2\",\r
+
+      \  \"idEstabelecimento\": \"0c8a0902-10c6-4ac8-96f1-8f324f5570e8\",\r
+
+      \  \"idProfissional\": \"968a992a-5251-4f73-b556-ec9b2951bc9f\",\r
+
+      \  \"idCliente\": \"55555555-5555-5555-5555-555555555555\"\r
+
+      }"
+response:
+  statusCode: 200
+  statusText: OK
+  body:
+    type: json
+    content: "{\r
+
+      \    \"data_hora\": \"2026-03-30T14:00\",\r
+
+      \    \"id\": \"eab3b793-7d03-47c6-b4a1-73589a8391b2\",\r
+
+      \    \"idCliente\": \"55555555-5555-5555-5555-555555555555\",\r
+
+      \    \"idEstabelecimento\": \"0c8a0902-10c6-4ac8-96f1-8f324f5570e8\",\r
+
+      \    \"idProfissional\": \"968a992a-5251-4f73-b556-ec9b2951bc9f\",\r
+
+      \    \"idServico\": \"6e7954e9-2cef-45a3-9c62-90ebd31c3cd2\",\r
+
+      \    \"statusAgendamento\": \"AGENDADO\"\r
+
+      }"
+order: 1774834103849

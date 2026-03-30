@@ -1,0 +1,18 @@
+$kind: http-request
+name: Adicionar Avaliacao
+url: "{{servidor}}/avaliacao"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"nota\": 4,\r
+
+    \  \"idAgendamento\": \"{{agendamento_id}}\",\r
+
+    \  \"comentario\": \"Excelente atendimento, horario respeitado e servico
+    muito bom.\"\r
+
+    }"
+examples: .resources/Adicionar Avaliacao.resources/examples
+order: 3000

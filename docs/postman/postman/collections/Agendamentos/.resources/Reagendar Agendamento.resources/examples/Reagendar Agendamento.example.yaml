@@ -1,0 +1,34 @@
+$kind: http-example
+request:
+  url: "{{servidor}}/agendamento/902cecb3-6462-45ae-a96e-00ccfc28cda5/reagendar"
+  method: PUT
+  body:
+    type: json
+    content: "{\r
+
+      \  \"data_hora\": \"2026-03-30T16:00\"\r
+
+      }"
+response:
+  statusCode: 200
+  statusText: OK
+  body:
+    type: json
+    content: "{\r
+
+      \    \"data_hora\": \"2026-03-30T16:00\",\r
+
+      \    \"id\": \"902cecb3-6462-45ae-a96e-00ccfc28cda5\",\r
+
+      \    \"idCliente\": \"55555555-5555-5555-5555-555555555555\",\r
+
+      \    \"idEstabelecimento\": \"1b8d1176-bd3a-4ca6-a88d-57719a65e471\",\r
+
+      \    \"idProfissional\": \"9273f6cc-8c5c-4be2-8344-aaff599506a9\",\r
+
+      \    \"idServico\": \"d4a64d62-aa4a-4020-a05d-91d0fe86b021\",\r
+
+      \    \"statusAgendamento\": null\r
+
+      }"
+order: 1835262730302759

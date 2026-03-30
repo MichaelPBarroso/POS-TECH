@@ -1,0 +1,38 @@
+$kind: http-example
+request:
+  url: "{{servidor}}/avaliacao"
+  method: POST
+  body:
+    type: json
+    content: "{\r
+
+      \  \"nota\": 5,\r
+
+      \  \"idAgendamento\": \"77e542fe-5d1a-466e-b855-96d60276e04a\",\r
+
+      \  \"comentario\": \"Excelente atendimento, horario respeitado e servico
+      muito bom.\"\r
+
+      }\r
+
+      \r\n"
+response:
+  statusCode: 201
+  statusText: Created
+  body:
+    type: json
+    content: "{\r
+
+      \    \"comentario\": \"Excelente atendimento, horario respeitado e servico
+      muito bom.\",\r
+
+      \    \"data_avaliacao\": \"2026-03-30T16:36:32.148576604\",\r
+
+      \    \"id\": \"4fb9498c-875f-456e-9771-248350ec2719\",\r
+
+      \    \"idAgendamento\": \"77e542fe-5d1a-466e-b855-96d60276e04a\",\r
+
+      \    \"nota\": 5\r
+
+      }"
+order: 2165565373564442

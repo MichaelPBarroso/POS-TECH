@@ -29,7 +29,7 @@ public class ReagendarAgendamenoUseCase {
 
         Agendamento agendamentoDb = agendamentoGateway.atualizarAgendamento(agendamento);
 
-        return new OutputReagendarAgendamento(agendamentoDb.getId(), agendamentoDb.getHorario(), agendamentoDb.getServicoOferecido().getId(), agendamentoDb.getEstabelecimento().getId(), agendamentoDb.getProfissional().getId(), agendamentoDb.getCliente().getId());
+        return new OutputReagendarAgendamento(agendamentoDb.getId(), agendamentoDb.getHorario(), agendamentoDb.getServicoOferecido().getId(), agendamentoDb.getEstabelecimento().getId(), agendamentoDb.getProfissional().getId(), agendamentoDb.getCliente().getId(), agendamentoDb.getStatusAgendamentoEnum());
 
     }
 

@@ -1,8 +1,8 @@
 type Estabelecimento {
-    id: ID!
-    nome: String!
-    horarioAbertura: String!
-    horarioFechamento: String!
+    id: ID
+    nome: String
+    horarioAbertura: String
+    horarioFechamento: String
     endereco: Endereco
 }
 

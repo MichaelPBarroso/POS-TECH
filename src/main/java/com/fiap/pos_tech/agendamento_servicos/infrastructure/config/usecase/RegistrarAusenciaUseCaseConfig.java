@@ -13,7 +13,7 @@ import java.util.List;
 @Configuration
 public class RegistrarAusenciaUseCaseConfig {
 
-    @Bean
+    @Bean(name = "AgendamentoNaoExisteAusencia")
     public AgendamentoNaoExisteHandler agendamentoNaoExisteHandler(IAgendamentoGateway agendamentoGateway) {
         return new AgendamentoNaoExisteHandler(agendamentoGateway);
     }

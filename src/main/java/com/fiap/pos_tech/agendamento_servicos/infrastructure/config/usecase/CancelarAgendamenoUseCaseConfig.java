@@ -13,7 +13,7 @@ import java.util.List;
 @Configuration
 public class CancelarAgendamenoUseCaseConfig {
 
-    @Bean
+    @Bean(name = "AgendamentoNaoExisteCancelar")
     public AgendamentoNaoExisteHandler agendamentoNaoExisteHandler(IAgendamentoGateway agendamentoGateway) {
         return new AgendamentoNaoExisteHandler(agendamentoGateway);
     }

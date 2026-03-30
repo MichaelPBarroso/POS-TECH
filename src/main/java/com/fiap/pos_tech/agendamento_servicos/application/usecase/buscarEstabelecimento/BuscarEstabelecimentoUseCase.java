@@ -32,16 +32,24 @@ public class BuscarEstabelecimentoUseCase {
     }
 
     private static @NonNull List<OutputBuscarEstabelecimentoEstabelecimento> toOutputBuscarEstabelecimentoEstabelecimentos(List<Estabelecimento> estabelecimentos) {
+        if (estabelecimentos == null) {
+            return List.of();
+        }
+
         List<OutputBuscarEstabelecimentoEstabelecimento> list = estabelecimentos.stream().map(estabelecimentoDb -> {
-            OutputBuscarEstabelecimentoEndereco endereco = new OutputBuscarEstabelecimentoEndereco(
-                    estabelecimentoDb.getEndereco().getId(),
-                    estabelecimentoDb.getEndereco().getLogradouro(),
-                    estabelecimentoDb.getEndereco().getNumero(),
-                    estabelecimentoDb.getEndereco().getComplemento(),
-                    estabelecimentoDb.getEndereco().getBairro(),
-                    estabelecimentoDb.getEndereco().getCidade(),
-                    estabelecimentoDb.getEndereco().getEstado(),
-                    estabelecimentoDb.getEndereco().getCep()
+            Endereco enderecoDb = estabelecimentoDb.getEndereco();
+
+            OutputBuscarEstabelecimentoEndereco endereco = enderecoDb == null
+                    ? null
+                    : new OutputBuscarEstabelecimentoEndereco(
+                    enderecoDb.getId(),
+                    enderecoDb.getLogradouro(),
+                    enderecoDb.getNumero(),
+                    enderecoDb.getComplemento(),
+                    enderecoDb.getBairro(),
+                    enderecoDb.getCidade(),
+                    enderecoDb.getEstado(),
+                    enderecoDb.getCep()
             );
 
             return new OutputBuscarEstabelecimentoEstabelecimento(
@@ -56,9 +64,24 @@ public class BuscarEstabelecimentoUseCase {
     }
 
     private static @NonNull Estabelecimento toEntity(InputBuscarEstabelecimento input) {
+        if (input == null) {
+            return Estabelecimento.create(null, null, null, null, null);
+        }
+
         InputBuscarEstabelecimentoEndereco inputEndereco = input.endereco();
 
-        Endereco endereco = Endereco.create(inputEndereco.id(), inputEndereco.logradouro(), inputEndereco.numero(), inputEndereco.complemento(), inputEndereco.bairro(), inputEndereco.cidade(), inputEndereco.estado(), inputEndereco.cep());
+        Endereco endereco = inputEndereco == null
+                ? null
+                : Endereco.create(
+                inputEndereco.id(),
+                inputEndereco.logradouro(),
+                inputEndereco.numero(),
+                inputEndereco.complemento(),
+                inputEndereco.bairro(),
+                inputEndereco.cidade(),
+                inputEndereco.estado(),
+                inputEndereco.cep()
+        );
 
         return Estabelecimento.create(input.id(), input.nome(), input.horarioAbertura(), input.horarioFechamento(), endereco);
     }

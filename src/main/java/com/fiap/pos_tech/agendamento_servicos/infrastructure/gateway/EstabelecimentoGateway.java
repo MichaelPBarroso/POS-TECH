@@ -59,7 +59,9 @@ public class EstabelecimentoGateway implements IEstabelecimentoGateway {
                 predicates.add(criteriaBuilder.equal(root.get("horarioFechamento"), estabelecimento.getHorarioFechamento()));
             }
 
-            adicionarFiltrosEndereco(estabelecimento.getEndereco(), root.join("endereco"), criteriaBuilder, predicates);
+            if (estabelecimento.getEndereco() != null) {
+                adicionarFiltrosEndereco(estabelecimento.getEndereco(), root.join("endereco"), criteriaBuilder, predicates);
+            }
 
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
         };

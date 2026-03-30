@@ -25,9 +25,14 @@ public class EstabelecimentoGraphQLController {
     @QueryMapping
     public List<EstabelecimentoDTO> buscarEstabelecimentos(@Argument EstabelecimentoDTO estabelecimentoDTO) {
 
+        System.out.println("Chegou");
+        System.out.println(estabelecimentoDTO);
+
         InputBuscarEstabelecimento estabelecimento = toInputBuscarEstabelecimento(estabelecimentoDTO);
 
         OutputBuscarEstabelecimento execute = buscarEstabelecimentoUseCase.execute(estabelecimento);
+
+        System.out.println("terminou ");
 
         return toEstabelecimentoDTOS(execute);
     }
@@ -36,15 +41,18 @@ public class EstabelecimentoGraphQLController {
         return execute.estabelecimentos()
                 .stream()
                 .map(estabelecimentoInput -> {
-                    EnderecoDTO enderecoDTO = new EnderecoDTO(
-                            estabelecimentoInput.endereco().id().toString(),
-                            estabelecimentoInput.endereco().logradouro(),
-                            estabelecimentoInput.endereco().numero(),
-                            estabelecimentoInput.endereco().complemento(),
-                            estabelecimentoInput.endereco().bairro(),
-                            estabelecimentoInput.endereco().cidade(),
-                            estabelecimentoInput.endereco().estado(),
-                            estabelecimentoInput.endereco().cep()
+                    var endereco = estabelecimentoInput.endereco();
+                    EnderecoDTO enderecoDTO = endereco == null
+                            ? null
+                            : new EnderecoDTO(
+                            endereco.id() == null ? null : endereco.id().toString(),
+                            endereco.logradouro(),
+                            endereco.numero(),
+                            endereco.complemento(),
+                            endereco.bairro(),
+                            endereco.cidade(),
+                            endereco.estado(),
+                            endereco.cep()
                     );
 
                     return new EstabelecimentoDTO(
@@ -59,6 +67,10 @@ public class EstabelecimentoGraphQLController {
     }
 
     private static @NonNull InputBuscarEstabelecimento toInputBuscarEstabelecimento(EstabelecimentoDTO estabelecimentoDTO) {
+        if (estabelecimentoDTO == null) {
+            return new InputBuscarEstabelecimento(null, null, null, null, null);
+        }
+
         EnderecoDTO endereco = estabelecimentoDTO.endereco();
 
         InputBuscarEstabelecimentoEndereco estabelecimentoEndereco = endereco == null

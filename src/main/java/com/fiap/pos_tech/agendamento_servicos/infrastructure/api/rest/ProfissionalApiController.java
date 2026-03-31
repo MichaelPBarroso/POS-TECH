@@ -2,16 +2,14 @@ package com.fiap.pos_tech.agendamento_servicos.infrastructure.api.rest;
 
 import com.fiap.pos_tech.agendamento_servicos.application.usecase.adicionarProfissional.AdicionarProfissionalUseCase;
 import com.fiap.pos_tech.agendamento_servicos.application.usecase.adicionarProfissional.dto.*;
-import com.fiap.pos_tech.agendamento_servicos.infrastructure.api.rest.json.EspecialidadeJson;
-import com.fiap.pos_tech.agendamento_servicos.infrastructure.api.rest.json.NovoProfissionalJson;
-import com.fiap.pos_tech.agendamento_servicos.infrastructure.api.rest.json.ProfissionalJson;
-import com.fiap.pos_tech.agendamento_servicos.infrastructure.api.rest.json.ServicoJson;
+import com.fiap.pos_tech.agendamento_servicos.infrastructure.api.rest.json.*;
 import lombok.AllArgsConstructor;
 import org.jspecify.annotations.NonNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -63,13 +61,26 @@ public class ProfissionalApiController implements ProfissionalApi {
         }).toList();
 
         profissionalJson.setServico(servicosJson);
+
+        List<HorarioDisponivelJson> horariosDisponiveisJson = output.horariosDisponiveis().stream().map(horario -> {
+            HorarioDisponivelJson horarioDisponivelJson = new HorarioDisponivelJson();
+
+            horarioDisponivelJson.setId(horario.id().toString());
+            horarioDisponivelJson.setHorario(horario.horario().toString());
+
+            return horarioDisponivelJson;
+        }).toList();
+
+        profissionalJson.setHorario(horariosDisponiveisJson);
+
         return profissionalJson;
     }
 
     private static @NonNull InputAdicionarProfissional toInput(NovoProfissionalJson body) {
         List<InputEspecialidade> especialidades = body.getEspecialidade().stream().map(especialidade -> new InputEspecialidade(especialidade.getNome())).toList();
         List<InputServicoOferecido> servicoOferecidos = body.getServico().stream().map(servicos -> new InputServicoOferecido(servicos.getNome(), servicos.getValor())).toList();
+        List<InputHorarioDisponivel> horariosDisponiveis = body.getHorario().stream().map(horario -> new InputHorarioDisponivel(LocalTime.parse(horario.getHorario()))).toList();
 
-        return new InputAdicionarProfissional(body.getNome(), especialidades, servicoOferecidos, UUID.fromString(body.getIdEstabelecimento()));
+        return new InputAdicionarProfissional(body.getNome(), especialidades, servicoOferecidos, UUID.fromString(body.getIdEstabelecimento()), horariosDisponiveis);
     }
 }

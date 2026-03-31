@@ -2,15 +2,9 @@ package com.fiap.pos_tech.agendamento_servicos.application.usecase.adicionarProf
 
 import com.fiap.pos_tech.agendamento_servicos.application.gateway.IEstabelecimentoGateway;
 import com.fiap.pos_tech.agendamento_servicos.application.gateway.IProfissionalGateway;
-import com.fiap.pos_tech.agendamento_servicos.application.usecase.adicionarProfissional.dto.InputAdicionarProfissional;
-import com.fiap.pos_tech.agendamento_servicos.application.usecase.adicionarProfissional.dto.OutputAdicionarProfissional;
-import com.fiap.pos_tech.agendamento_servicos.application.usecase.adicionarProfissional.dto.OutputEspecialidade;
-import com.fiap.pos_tech.agendamento_servicos.application.usecase.adicionarProfissional.dto.OutputServicoOferecido;
+import com.fiap.pos_tech.agendamento_servicos.application.usecase.adicionarProfissional.dto.*;
 import com.fiap.pos_tech.agendamento_servicos.application.usecase.adicionarProfissional.validation.AdicionarProfissionalValidationChain;
-import com.fiap.pos_tech.agendamento_servicos.domain.model.Especialidade;
-import com.fiap.pos_tech.agendamento_servicos.domain.model.Estabelecimento;
-import com.fiap.pos_tech.agendamento_servicos.domain.model.Profissional;
-import com.fiap.pos_tech.agendamento_servicos.domain.model.ServicoOferecido;
+import com.fiap.pos_tech.agendamento_servicos.domain.model.*;
 import org.jspecify.annotations.NonNull;
 
 import java.math.BigDecimal;
@@ -45,8 +39,9 @@ public class AdicionarProfissionalUseCase {
     private static @NonNull OutputAdicionarProfissional getOutputAdicionarProfissional(Profissional profissionalDb, Profissional profissional) {
         List<OutputEspecialidade> outputEspecialidades = profissionalDb.getEspecialidades().stream().map(especialidade -> new OutputEspecialidade(especialidade.getId(), especialidade.getNome())).toList();
         List<OutputServicoOferecido> outputServicoOferecidos = profissionalDb.getServicoOferecidos().stream().map(servicoOferecido -> new OutputServicoOferecido(servicoOferecido.getId(), servicoOferecido.getNome(), BigDecimal.valueOf(servicoOferecido.getValor()))).toList();
+        List<OutputHorarioDisponivel> outputHorariosDisponiveis = profissionalDb.getHorarioDisponivel().stream().map(horarioDisponivel -> new OutputHorarioDisponivel(horarioDisponivel.getId(), horarioDisponivel.getHorario())).toList();
 
-        return new OutputAdicionarProfissional(profissionalDb.getId(), profissional.getNome(), outputEspecialidades, outputServicoOferecidos, profissionalDb.getEstabelecimento().getId() );
+        return new OutputAdicionarProfissional(profissionalDb.getId(), profissional.getNome(), outputEspecialidades, outputServicoOferecidos, profissionalDb.getEstabelecimento().getId(), outputHorariosDisponiveis);
     }
 
     private @NonNull Profissional toEntity(InputAdicionarProfissional input) {
@@ -54,7 +49,8 @@ public class AdicionarProfissionalUseCase {
 
         List<Especialidade> especialidades = input.especialidades().stream().map(inputEspecialidade -> Especialidade.create(inputEspecialidade.nome())).toList();
         List<ServicoOferecido> servicoOferecidos = input.servicoOferecidos().stream().map(inputServicoOferecido -> ServicoOferecido.create(inputServicoOferecido.nome(), inputServicoOferecido.valor().doubleValue())).toList();
+        List<HorarioDisponivel> horariosDisponiveis = input.horariosDisponiveis().stream().map(inputHorarioDisponivel -> HorarioDisponivel.create(inputHorarioDisponivel.horario())).toList();
 
-        return Profissional.create(input.nome(), especialidades, servicoOferecidos, estabelecimento);
+        return Profissional.create(input.nome(), especialidades, servicoOferecidos, estabelecimento, horariosDisponiveis);
     }
 }

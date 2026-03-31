@@ -51,6 +51,11 @@ components:
         idEstabelecimento:
           type: string
           description: Id do estabelecimento que esse profissional irá atuar.
+        horario:
+          type: object
+          description: Horario que o profissional irá atender
+          items:
+            $ref: "#/components/schemas/NovoHorarioDisponivel"
 
     Profissional:
       type: object
@@ -74,6 +79,11 @@ components:
         idEstabelecimento:
           type: string
           description: Id do estabelecimento que esse profissional irá atuar.
+        horario:
+          type: object
+          description: Horario que o profissional irá atender
+          items:
+            $ref: "#/components/schemas/HorarioDisponivel"
 
     NovoServico:
       type: object
@@ -91,6 +101,13 @@ components:
         nome:
           type: string
           description: Nome da especialidade
+
+    NovoHorarioDisponivel:
+      type: object
+      properties:
+        horario:
+          type: string
+          description: Horario disponivel para atendimento
 
     Servico:
       type: object
@@ -114,3 +131,13 @@ components:
         nome:
           type: string
           description: Nome da especialidade
+
+    HorarioDisponivel:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id do Horario
+        horario:
+          type: string
+          description: Horario disponivel para atendimento

@@ -16,6 +16,7 @@ public class Profissional {
     private String nome;
     private List<Especialidade> especialidades;
     private List<ServicoOferecido> servicoOferecidos;
+    private List<HorarioDisponivel> horarioDisponivel;
     private Estabelecimento estabelecimento;
 
     public static Profissional create(UUID id, String nome, List<Especialidade> especialidades,  List<ServicoOferecido> servicoOferecidos){
@@ -29,7 +30,7 @@ public class Profissional {
         return profissional;
     }
 
-    public static Profissional create(UUID id, String nome, List<Especialidade> especialidades,  List<ServicoOferecido> servicoOferecidos, Estabelecimento estabelecimento){
+    public static Profissional create(UUID id, String nome, List<Especialidade> especialidades,  List<ServicoOferecido> servicoOferecidos, Estabelecimento estabelecimento, List<HorarioDisponivel> horarioDisponivel){
         Profissional profissional = new Profissional();
 
         profissional.setId(id);
@@ -37,17 +38,19 @@ public class Profissional {
         profissional.setEspecialidades(especialidades);
         profissional.setServicoOferecidos(servicoOferecidos);
         profissional.setEstabelecimento(estabelecimento);
+        profissional.setHorarioDisponivel(horarioDisponivel);
 
         return profissional;
     }
 
-    public static Profissional create(String nome, List<Especialidade> especialidades,  List<ServicoOferecido> servicoOferecidos, Estabelecimento estabelecimento) {
+    public static Profissional create(String nome, List<Especialidade> especialidades,  List<ServicoOferecido> servicoOferecidos, Estabelecimento estabelecimento, List<HorarioDisponivel> horarioDisponivel) {
         Profissional profissional = new Profissional();
 
         profissional.setNome(nome);
         profissional.setEspecialidades(especialidades);
         profissional.setServicoOferecidos(servicoOferecidos);
         profissional.setEstabelecimento(estabelecimento);
+        profissional.setHorarioDisponivel(horarioDisponivel);
 
         return profissional;
     }

@@ -31,6 +31,9 @@ public class ProfissionalEntity {
     @OneToMany(mappedBy = "profissional", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ServicoOferecidoEntity> servicoOferecidos;
 
+    @OneToMany(mappedBy = "profissional", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<HorarioDisponivelEntity> horariosDisponiveis;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "estabelecimento_id", nullable = false)
     private EstabelecimentoEntity estabelecimento;

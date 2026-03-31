@@ -3,6 +3,7 @@ package com.fiap.pos_tech.agendamento_servicos.domain.model;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.UUID;
@@ -17,6 +18,7 @@ public class Estabelecimento {
     private LocalTime horarioFechamento;
     private Endereco endereco;
     private List<Profissional> profissionais;
+    private BigDecimal notaMedia;
 
     //TODO: Falta adicionar as fotos
     //TODO: Verificar se vai adicionar a nota media do estabelecimento, que é atualizado através da avaliação.

@@ -32,6 +32,8 @@ public class AdicionarAvaliacaoUseCase {
 
         Avaliacao avaliacao = adicionarAvaliacaoGateway.criarAvaliacao(entity);
 
+        adicionarAvaliacaoGateway.atualizarMediaNotasAvaliacao(avaliacao.getAgendamento().getEstabelecimento().getId());
+
         return new OutputAdicionarAvaliacao(avaliacao.getId(), avaliacao.getNota(), avaliacao.getAgendamento().getId(), avaliacao.getComentario(), avaliacao.getDataAvaliacao());
     }
 

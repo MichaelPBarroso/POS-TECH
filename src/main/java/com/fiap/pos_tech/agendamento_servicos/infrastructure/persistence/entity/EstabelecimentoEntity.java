@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.UuidGenerator;
 
+import java.math.BigDecimal;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.UUID;
@@ -36,5 +37,7 @@ public class EstabelecimentoEntity {
 
     @OneToMany(mappedBy = "estabelecimento")
     private List<ProfissionalEntity> profissionais;
+
+    private BigDecimal mediaNotas;
 
 }

@@ -25,14 +25,9 @@ public class EstabelecimentoGraphQLController {
     @QueryMapping
     public List<EstabelecimentoDTO> buscarEstabelecimentos(@Argument EstabelecimentoDTO estabelecimentoDTO) {
 
-        System.out.println("Chegou");
-        System.out.println(estabelecimentoDTO);
-
         InputBuscarEstabelecimento estabelecimento = toInputBuscarEstabelecimento(estabelecimentoDTO);
 
         OutputBuscarEstabelecimento execute = buscarEstabelecimentoUseCase.execute(estabelecimento);
-
-        System.out.println("terminou ");
 
         return toEstabelecimentoDTOS(execute);
     }

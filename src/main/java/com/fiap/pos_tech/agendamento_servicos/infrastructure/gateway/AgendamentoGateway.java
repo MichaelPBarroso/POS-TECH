@@ -65,6 +65,11 @@ public class AgendamentoGateway implements IAgendamentoGateway {
 
     @Override
     public Agendamento buscarAgendamento(Estabelecimento estabelecimento, LocalDate data, LocalTime horario, Profissional profissional) {
+        AgendamentoEntity agendamentoEntity = agendamentoJPARepository.findFirstByEstabelecimento_IdAndDataAndHorarioAndProfissional_Id(estabelecimento.getId(), data, horario, profissional.getId());
+
+        if(agendamentoEntity != null)
+            return AgendamentoPresenter.toDomain(agendamentoEntity);
+
         return null;
     }
 

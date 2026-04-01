@@ -6,6 +6,7 @@ import com.fiap.pos_tech.agendamento_servicos.domain.model.Endereco;
 import com.fiap.pos_tech.agendamento_servicos.domain.model.Estabelecimento;
 import org.jspecify.annotations.NonNull;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class BuscarEstabelecimentoUseCase {
@@ -57,7 +58,8 @@ public class BuscarEstabelecimentoUseCase {
                     estabelecimentoDb.getNome(),
                     estabelecimentoDb.getHorarioAbertura(),
                     estabelecimentoDb.getHorarioFechamento(),
-                    endereco
+                    endereco,
+                    estabelecimentoDb.getNotaMedia()
             );
         }).toList();
         return list;
@@ -65,7 +67,7 @@ public class BuscarEstabelecimentoUseCase {
 
     private static @NonNull Estabelecimento toEntity(InputBuscarEstabelecimento input) {
         if (input == null) {
-            return Estabelecimento.create(null, null, null, null, null);
+            return Estabelecimento.create(null, null, null, null, null, (BigDecimal) null);
         }
 
         InputBuscarEstabelecimentoEndereco inputEndereco = input.endereco();
@@ -83,6 +85,6 @@ public class BuscarEstabelecimentoUseCase {
                 inputEndereco.cep()
         );
 
-        return Estabelecimento.create(input.id(), input.nome(), input.horarioAbertura(), input.horarioFechamento(), endereco);
+        return Estabelecimento.create(input.id(), input.nome(), input.horarioAbertura(), input.horarioFechamento(), endereco, (BigDecimal) null);
     }
 }

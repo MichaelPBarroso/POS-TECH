@@ -15,7 +15,8 @@ public class EstabelecimentoPresenter {
                 estabelecimentoEntity.getNome(),
                 estabelecimentoEntity.getHorarioAbertura(),
                 estabelecimentoEntity.getHorarioFechamento(),
-                EnderecoPresenter.toDomain(estabelecimentoEntity.getEndereco())
+                EnderecoPresenter.toDomain(estabelecimentoEntity.getEndereco()),
+                estabelecimentoEntity.getMediaNotas()
         );
     }
 

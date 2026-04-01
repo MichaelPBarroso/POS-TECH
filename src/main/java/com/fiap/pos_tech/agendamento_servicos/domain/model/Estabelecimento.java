@@ -36,7 +36,7 @@ public class Estabelecimento {
         return estabelecimento;
     }
 
-    public static Estabelecimento create(UUID id, String nome, LocalTime horarioAbertura, LocalTime horarioFechamento, Endereco endereco) {
+    public static Estabelecimento create(UUID id, String nome, LocalTime horarioAbertura, LocalTime horarioFechamento, Endereco endereco, BigDecimal notaMedia) {
         Estabelecimento estabelecimento = new Estabelecimento();
 
         estabelecimento.setId(id);
@@ -44,6 +44,7 @@ public class Estabelecimento {
         estabelecimento.setHorarioAbertura(horarioAbertura);
         estabelecimento.setHorarioFechamento(horarioFechamento);
         estabelecimento.setEndereco(endereco);
+        estabelecimento.setNotaMedia(notaMedia);
 
         return estabelecimento;
     }

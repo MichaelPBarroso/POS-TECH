@@ -7,10 +7,10 @@ import com.fiap.pos_tech.agendamento_servicos.domain.model.Profissional;
 
 public class EstabelecimentoNaoExisteHandler implements IAdicionarProfissionalValidation {
 
-    private final IEstabelecimentoGateway profissionalGateway;
+    private final IEstabelecimentoGateway estabelecimentoGateway;
 
-    public EstabelecimentoNaoExisteHandler(IEstabelecimentoGateway profissionalGateway) {
-        this.profissionalGateway = profissionalGateway;
+    public EstabelecimentoNaoExisteHandler(IEstabelecimentoGateway estabelecimentoGateway) {
+        this.estabelecimentoGateway = estabelecimentoGateway;
     }
 
     @Override
@@ -20,7 +20,7 @@ public class EstabelecimentoNaoExisteHandler implements IAdicionarProfissionalVa
             throw new EstabelecimentoNaoExisteException();
         }
 
-        Estabelecimento estabelecimento = profissionalGateway.buscarEstabelecimento(profissional.getEstabelecimento().getId());
+        Estabelecimento estabelecimento = estabelecimentoGateway.buscarEstabelecimento(profissional.getEstabelecimento().getId());
 
         if (estabelecimento == null) {
             throw new EstabelecimentoNaoExisteException();

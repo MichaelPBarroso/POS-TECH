@@ -4,6 +4,10 @@ import com.fiap.pos_tech.agendamento_servicos.application.gateway.IEstabelecimen
 import com.fiap.pos_tech.agendamento_servicos.application.usecase.buscarEstabelecimento.dto.*;
 import com.fiap.pos_tech.agendamento_servicos.domain.model.Endereco;
 import com.fiap.pos_tech.agendamento_servicos.domain.model.Estabelecimento;
+import com.fiap.pos_tech.agendamento_servicos.domain.model.FiltroAvancado;
+import com.fiap.pos_tech.agendamento_servicos.domain.model.HorarioDisponivel;
+import com.fiap.pos_tech.agendamento_servicos.domain.model.Profissional;
+import com.fiap.pos_tech.agendamento_servicos.domain.model.ServicoOferecido;
 import org.jspecify.annotations.NonNull;
 
 import java.math.BigDecimal;
@@ -22,9 +26,9 @@ public class BuscarEstabelecimentoUseCase {
     }
 
     public OutputBuscarEstabelecimento execute(InputBuscarEstabelecimento input){
-        Estabelecimento estabelecimento = toEntity(input);
+        FiltroAvancado filtroAvancado = toFiltroAvancado(input);
 
-        List<Estabelecimento> estabelecimentos = estabelecimentoGateway.buscarEstabelecimentos(estabelecimento);
+        List<Estabelecimento> estabelecimentos = estabelecimentoGateway.buscarEstabelecimentos(filtroAvancado);
 
         List<OutputBuscarEstabelecimentoEstabelecimento> list = toOutputBuscarEstabelecimentoEstabelecimentos(estabelecimentos);
 
@@ -59,18 +63,62 @@ public class BuscarEstabelecimentoUseCase {
                     estabelecimentoDb.getHorarioAbertura(),
                     estabelecimentoDb.getHorarioFechamento(),
                     endereco,
-                    estabelecimentoDb.getNotaMedia()
+                    estabelecimentoDb.getNotaMedia(),
+                    toOutputBuscarEstabelecimentoProfissionais(estabelecimentoDb.getProfissionais())
             );
         }).toList();
         return list;
     }
 
-    private static @NonNull Estabelecimento toEntity(InputBuscarEstabelecimento input) {
+    private static @NonNull List<OutputBuscarEstabelecimentoProfissional> toOutputBuscarEstabelecimentoProfissionais(List<Profissional> profissionais) {
+        if (profissionais == null) {
+            return List.of();
+        }
+
+        return profissionais.stream()
+                .map(profissional -> new OutputBuscarEstabelecimentoProfissional(
+                        profissional.getId(),
+                        profissional.getNome(),
+                        toOutputBuscarEstabelecimentoHorarios(profissional.getHorarioDisponivel()),
+                        toOutputBuscarEstabelecimentoServicos(profissional.getServicoOferecidos())
+                ))
+                .toList();
+    }
+
+    private static @NonNull List<OutputBuscarEstabelecimentoHorarioDisponivel> toOutputBuscarEstabelecimentoHorarios(List<HorarioDisponivel> horariosDisponiveis) {
+        if (horariosDisponiveis == null) {
+            return List.of();
+        }
+
+        return horariosDisponiveis.stream()
+                .map(horario -> new OutputBuscarEstabelecimentoHorarioDisponivel(
+                        horario.getId(),
+                        horario.getHorario()
+                ))
+                .toList();
+    }
+
+    private static @NonNull List<OutputBuscarEstabelecimentoServicoOferecido> toOutputBuscarEstabelecimentoServicos(List<ServicoOferecido> servicosOferecidos) {
+        if (servicosOferecidos == null) {
+            return List.of();
+        }
+
+        return servicosOferecidos.stream()
+                .map(servico -> new OutputBuscarEstabelecimentoServicoOferecido(
+                        servico.getId(),
+                        servico.getNome(),
+                        servico.getValor() == null ? null : BigDecimal.valueOf(servico.getValor())
+                ))
+                .toList();
+    }
+
+    private static @NonNull FiltroAvancado toFiltroAvancado(InputBuscarEstabelecimento input) {
         if (input == null) {
-            return Estabelecimento.create(null, null, null, null, null, (BigDecimal) null);
+            return FiltroAvancado.create(null, null, null, null, null, null, null, null, null, null, null, null);
         }
 
         InputBuscarEstabelecimentoEndereco inputEndereco = input.endereco();
+        InputBuscarEstabelecimentoServico inputServico = input.servico();
 
         Endereco endereco = inputEndereco == null
                 ? null
@@ -85,6 +133,23 @@ public class BuscarEstabelecimentoUseCase {
                 inputEndereco.cep()
         );
 
-        return Estabelecimento.create(input.id(), input.nome(), input.horarioAbertura(), input.horarioFechamento(), endereco, (BigDecimal) null);
+        ServicoOferecido servicoOferecido = inputServico == null
+                ? null
+                : ServicoOferecido.create(null, inputServico.nome(), null);
+
+        return FiltroAvancado.create(
+                input.id(),
+                input.nome(),
+                input.horarioAbertura(),
+                input.horarioFechamento(),
+                input.notaMaiorQue(),
+                input.notaMenorQue(),
+                endereco,
+                null,
+                servicoOferecido,
+                input.horarioAgendamento(),
+                inputServico == null || inputServico.precoMaiorQue() == null ? null : BigDecimal.valueOf(inputServico.precoMaiorQue()),
+                inputServico == null || inputServico.precoMenorQue() == null ? null : BigDecimal.valueOf(inputServico.precoMenorQue())
+        );
     }
 }

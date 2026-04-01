@@ -3,16 +3,23 @@ package com.fiap.pos_tech.agendamento_servicos.infrastructure.gateway;
 import com.fiap.pos_tech.agendamento_servicos.application.gateway.IEstabelecimentoGateway;
 import com.fiap.pos_tech.agendamento_servicos.domain.model.Endereco;
 import com.fiap.pos_tech.agendamento_servicos.domain.model.Estabelecimento;
+import com.fiap.pos_tech.agendamento_servicos.domain.model.FiltroAvancado;
 import com.fiap.pos_tech.agendamento_servicos.infrastructure.persistence.entity.EstabelecimentoEntity;
 import com.fiap.pos_tech.agendamento_servicos.infrastructure.persistence.entity.EnderecoEntity;
+import com.fiap.pos_tech.agendamento_servicos.infrastructure.persistence.entity.HorarioDisponivelEntity;
+import com.fiap.pos_tech.agendamento_servicos.infrastructure.persistence.entity.ProfissionalEntity;
+import com.fiap.pos_tech.agendamento_servicos.infrastructure.persistence.entity.ServicoOferecidoEntity;
 import com.fiap.pos_tech.agendamento_servicos.infrastructure.persistence.repository.EstabelecimentoJPARepository;
 import com.fiap.pos_tech.agendamento_servicos.infrastructure.presenters.EstabelecimentoPresenter;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.JoinType;
 import jakarta.persistence.criteria.Predicate;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Component;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -32,35 +39,60 @@ public class EstabelecimentoGateway implements IEstabelecimentoGateway {
     }
 
     @Override
-    public List<Estabelecimento> buscarEstabelecimentos(Estabelecimento estabelecimento) {
+    public List<Estabelecimento> buscarEstabelecimentos(FiltroAvancado filtroAvancado) {
         Specification<EstabelecimentoEntity> specification = (root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
 
-            if (estabelecimento == null) {
+            if (filtroAvancado == null) {
                 return criteriaBuilder.conjunction();
             }
 
-            if (estabelecimento.getId() != null) {
-                predicates.add(criteriaBuilder.equal(root.get("id"), estabelecimento.getId()));
+            query.distinct(true);
+
+            if (filtroAvancado.getId() != null) {
+                predicates.add(criteriaBuilder.equal(root.get("id"), filtroAvancado.getId()));
             }
 
-            if (temTexto(estabelecimento.getNome())) {
+            if (temTexto(filtroAvancado.getNome())) {
                 predicates.add(criteriaBuilder.like(
                         criteriaBuilder.lower(root.get("nome")),
-                        "%" + estabelecimento.getNome().toLowerCase() + "%"
+                        "%" + filtroAvancado.getNome().toLowerCase() + "%"
                 ));
             }
 
-            if (estabelecimento.getHorarioAbertura() != null) {
-                predicates.add(criteriaBuilder.equal(root.get("horarioAbertura"), estabelecimento.getHorarioAbertura()));
+            if (filtroAvancado.getHorarioAbertura() != null) {
+                predicates.add(criteriaBuilder.equal(root.get("horarioAbertura"), filtroAvancado.getHorarioAbertura()));
             }
 
-            if (estabelecimento.getHorarioFechamento() != null) {
-                predicates.add(criteriaBuilder.equal(root.get("horarioFechamento"), estabelecimento.getHorarioFechamento()));
+            if (filtroAvancado.getHorarioFechamento() != null) {
+                predicates.add(criteriaBuilder.equal(root.get("horarioFechamento"), filtroAvancado.getHorarioFechamento()));
             }
 
-            if (estabelecimento.getEndereco() != null) {
-                adicionarFiltrosEndereco(estabelecimento.getEndereco(), root.join("endereco"), criteriaBuilder, predicates);
+            if (filtroAvancado.getNotaMaiorQue() != null) {
+                predicates.add(criteriaBuilder.greaterThanOrEqualTo(
+                        root.get("mediaNotas"),
+                        BigDecimal.valueOf(filtroAvancado.getNotaMaiorQue())
+                ));
+            }
+
+            if (filtroAvancado.getNotaMenorQue() != null) {
+                predicates.add(criteriaBuilder.lessThanOrEqualTo(
+                        root.get("mediaNotas"),
+                        BigDecimal.valueOf(filtroAvancado.getNotaMenorQue())
+                ));
+            }
+
+            if (filtroAvancado.getEndereco() != null) {
+                adicionarFiltrosEndereco(filtroAvancado.getEndereco(), root.join("endereco", JoinType.INNER), criteriaBuilder, predicates);
+            }
+
+            boolean precisaJoinProfissional = filtroAvancado.getProfissional() != null
+                    || filtroAvancado.getServicoOferecido() != null
+                    || filtroAvancado.getHorarioDisponivel() != null;
+
+            if (precisaJoinProfissional) {
+                Join<EstabelecimentoEntity, ProfissionalEntity> profissionalJoin = root.join("profissionais", JoinType.INNER);
+                adicionarFiltrosProfissional(filtroAvancado, profissionalJoin, criteriaBuilder, predicates);
             }
 
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
@@ -68,7 +100,7 @@ public class EstabelecimentoGateway implements IEstabelecimentoGateway {
 
         return estabelecimentoJPARepository.findAll(specification)
                 .stream()
-                .map(EstabelecimentoPresenter::toDomain)
+                .map(EstabelecimentoPresenter::toDomainComProfissionais)
                 .toList();
     }
 
@@ -82,7 +114,7 @@ public class EstabelecimentoGateway implements IEstabelecimentoGateway {
     private static void adicionarFiltrosEndereco(
             Endereco endereco,
             Join<EstabelecimentoEntity, EnderecoEntity> enderecoJoin,
-            jakarta.persistence.criteria.CriteriaBuilder criteriaBuilder,
+            CriteriaBuilder criteriaBuilder,
             List<Predicate> predicates
     ) {
         if (endereco == null) {
@@ -102,10 +134,48 @@ public class EstabelecimentoGateway implements IEstabelecimentoGateway {
         adicionarLikeSePreenchido(predicates, criteriaBuilder, enderecoJoin, "cep", endereco.getCep());
     }
 
-    private static void adicionarLikeSePreenchido(
+    private static void adicionarFiltrosProfissional(
+            FiltroAvancado filtroAvancado,
+            Join<EstabelecimentoEntity, ProfissionalEntity> profissionalJoin,
+            CriteriaBuilder criteriaBuilder,
+            List<Predicate> predicates
+    ) {
+        if (filtroAvancado.getProfissional() != null) {
+            if (filtroAvancado.getProfissional().getId() != null) {
+                predicates.add(criteriaBuilder.equal(profissionalJoin.get("id"), filtroAvancado.getProfissional().getId()));
+            }
+
+            adicionarLikeSePreenchido(predicates, criteriaBuilder, profissionalJoin, "nome", filtroAvancado.getProfissional().getNome());
+        }
+
+        if (filtroAvancado.getServicoOferecido() != null) {
+            Join<ProfissionalEntity, ServicoOferecidoEntity> servicoJoin = profissionalJoin.join("servicoOferecidos", JoinType.INNER);
+
+            if (filtroAvancado.getServicoOferecido().getId() != null) {
+                predicates.add(criteriaBuilder.equal(servicoJoin.get("id"), filtroAvancado.getServicoOferecido().getId()));
+            }
+
+            adicionarLikeSePreenchido(predicates, criteriaBuilder, servicoJoin, "nome", filtroAvancado.getServicoOferecido().getNome());
+
+            if (filtroAvancado.getValorMaiorQue() != null) {
+                predicates.add(criteriaBuilder.greaterThanOrEqualTo(servicoJoin.get("valor"), filtroAvancado.getValorMaiorQue().doubleValue()));
+            }
+
+            if (filtroAvancado.getValorMenorQue() != null) {
+                predicates.add(criteriaBuilder.lessThanOrEqualTo(servicoJoin.get("valor"), filtroAvancado.getValorMenorQue().doubleValue()));
+            }
+        }
+
+        if (filtroAvancado.getHorarioDisponivel() != null) {
+            Join<ProfissionalEntity, HorarioDisponivelEntity> horarioJoin = profissionalJoin.join("horariosDisponiveis", JoinType.INNER);
+            predicates.add(criteriaBuilder.equal(horarioJoin.get("horario"), filtroAvancado.getHorarioDisponivel()));
+        }
+    }
+
+    private static <T> void adicionarLikeSePreenchido(
             List<Predicate> predicates,
-            jakarta.persistence.criteria.CriteriaBuilder criteriaBuilder,
-            Join<EstabelecimentoEntity, EnderecoEntity> enderecoJoin,
+            CriteriaBuilder criteriaBuilder,
+            Join<?, T> join,
             String campo,
             String valor
     ) {
@@ -114,7 +184,7 @@ public class EstabelecimentoGateway implements IEstabelecimentoGateway {
         }
 
         predicates.add(criteriaBuilder.like(
-                criteriaBuilder.lower(enderecoJoin.get(campo)),
+                criteriaBuilder.lower(join.get(campo).as(String.class)),
                 "%" + valor.toLowerCase() + "%"
         ));
     }

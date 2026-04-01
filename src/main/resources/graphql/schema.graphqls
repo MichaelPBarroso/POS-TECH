@@ -4,6 +4,15 @@ type Estabelecimento {
     horarioAbertura: String
     horarioFechamento: String
     endereco: Endereco
+    nota: Float
+    profissionais: [Profissional!]
+}
+
+type Profissional {
+    id: ID
+    nome: String
+    horariosDisponiveis: [HorarioDisponivel!]
+    servicosOferecidos: [Servico!]
 }
 
 type Endereco {
@@ -23,6 +32,10 @@ input EstabelecimentoInput {
     horarioAbertura: String
     horarioFechamento: String
     endereco: EnderecoInput
+    servico: ServicoInput
+    notaMaiorQue: Int
+    notaMenorQue: Int
+    horarioAgendamento: String
 }
 
 input EnderecoInput {
@@ -41,10 +54,20 @@ type HorarioDisponivel {
     profissionalId: ID!
 }
 
+type Servico {
+    id: ID
+    nome: String
+    valor: Float
+}
+
+input ServicoInput {
+    nome: String
+    precoMaiorQue: Float
+    precoMenorQue: Float
+}
+
 type Query {
     buscarEstabelecimentos(estabelecimentoDTO: EstabelecimentoInput): [Estabelecimento!]!
-
-    estabelecimentoPorId(id: ID!): Estabelecimento
 
     disponibilidadeProfissional(profissionalId: ID!, data: String!): [HorarioDisponivel!]!
 }

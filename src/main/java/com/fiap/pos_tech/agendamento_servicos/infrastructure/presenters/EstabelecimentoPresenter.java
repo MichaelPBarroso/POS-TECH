@@ -32,9 +32,11 @@ public class EstabelecimentoPresenter {
 
 
     public static Estabelecimento toDomainComProfissionais(EstabelecimentoEntity estabelecimentoEntity) {
-        List<Profissional> profissionais = estabelecimentoEntity.getProfissionais().stream().map(ProfissionalPresenter::toDomain).toList();
+        List<Profissional> profissionais = estabelecimentoEntity.getProfissionais() == null
+                ? List.of()
+                : estabelecimentoEntity.getProfissionais().stream().map(ProfissionalPresenter::toDomainComLists).toList();
 
-        return Estabelecimento.create(
+        Estabelecimento estabelecimento = Estabelecimento.create(
                 estabelecimentoEntity.getId(),
                 estabelecimentoEntity.getNome(),
                 estabelecimentoEntity.getHorarioAbertura(),
@@ -42,6 +44,10 @@ public class EstabelecimentoPresenter {
                 EnderecoPresenter.toDomain(estabelecimentoEntity.getEndereco()),
                 profissionais
         );
+
+        estabelecimento.setNotaMedia(estabelecimentoEntity.getMediaNotas());
+
+        return estabelecimento;
     }
 
     public static EstabelecimentoEntity toEntityComProfissionais(Estabelecimento estabelecimento) {

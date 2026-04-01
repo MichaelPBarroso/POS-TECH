@@ -31,4 +31,11 @@ public class ProfissionalGateway implements IProfissionalGateway {
 
         return profissionalEntity.map(ProfissionalPresenter::toDomain).orElse(null);
     }
+
+    @Override
+    public Profissional buscarProfissionalECaracteriscas(UUID idProfissional) {
+        Optional<ProfissionalEntity> profissionalEntity = profissionalJPARepository.findById(idProfissional);
+
+        return profissionalEntity.map(ProfissionalPresenter::toDomainComLists).orElse(null);
+    }
 }

@@ -1,6 +1,7 @@
 package com.fiap.pos_tech.agendamento_servicos.infrastructure.config.usecase;
 
 import com.fiap.pos_tech.agendamento_servicos.application.gateway.IAgendamentoGateway;
+import com.fiap.pos_tech.agendamento_servicos.application.gateway.IProfissionalGateway;
 import com.fiap.pos_tech.agendamento_servicos.application.usecase.verificarDisponibilidade.VerificarDisponibilidadeUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,8 +11,9 @@ public class VerificarDisponibilidadeUseCaseConfig {
 
     @Bean
     public VerificarDisponibilidadeUseCase verificarDisponibilidadeUseCase(
-            IAgendamentoGateway agendamentoGateway
+            IAgendamentoGateway agendamentoGateway,
+            IProfissionalGateway profissionalGateway
     ) {
-        return VerificarDisponibilidadeUseCase.create(agendamentoGateway);
+        return VerificarDisponibilidadeUseCase.create(agendamentoGateway, profissionalGateway);
     }
 }

@@ -9,6 +9,10 @@ public class HorarioDisponivelPresenter {
         return HorarioDisponivel.create(horarioDisponivelEntity.getId(), horarioDisponivelEntity.getHorario());
     }
 
+    public static HorarioDisponivel toDomainProfissional(HorarioDisponivelEntity horarioDisponivelEntity) {
+        return HorarioDisponivel.create(horarioDisponivelEntity.getId(), horarioDisponivelEntity.getHorario(), ProfissionalPresenter.toDomain(horarioDisponivelEntity.getProfissional()));
+    }
+
     public static HorarioDisponivelEntity toEntity(HorarioDisponivel horarioDisponivel) {
         return HorarioDisponivelEntity.builder()
                 .id(horarioDisponivel.getId())

@@ -37,7 +37,7 @@ input EnderecoInput {
 }
 
 type HorarioDisponivel {
-    dataHora: String!
+    horario: String!
     profissionalId: ID!
 }
 

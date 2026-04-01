@@ -9,4 +9,6 @@ public interface IProfissionalGateway {
     Profissional criarProfissional(Profissional profissional);
 
     Profissional buscarProfissional(UUID idProfissional);
+
+    Profissional buscarProfissionalECaracteriscas(UUID idProfissional);
 }

@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 public interface AgendamentoJPARepository extends JpaRepository<AgendamentoEntity, UUID> {
@@ -18,4 +20,6 @@ public interface AgendamentoJPARepository extends JpaRepository<AgendamentoEntit
             "SET agendamento.statusAgendamentoEnum = :statusAgendamento " +
             "WHERE agendamento.id = :idAgendamento ")
     int atualizarStatusAgendamento(@Param("idAgendamento") UUID idAgendamento, @Param("statusAgendamento") StatusAgendamentoEnum statusAgendamento);
+
+    List<AgendamentoEntity> findAllByEstabelecimento_IdAndDataAndProfissional_Id(UUID estabelecimento_id, LocalDate data, UUID profissional_id);
 }

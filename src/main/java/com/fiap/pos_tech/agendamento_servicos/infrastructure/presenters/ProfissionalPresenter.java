@@ -24,7 +24,7 @@ public class ProfissionalPresenter {
     public static Profissional toDomainComLists(ProfissionalEntity profissionalEntity){
         List<Especialidade> especialidades = profissionalEntity.getEspecialidades().stream().map(EspecialidadePresenter::toDomain).toList();
         List<ServicoOferecido> servicoOferecidos = profissionalEntity.getServicoOferecidos().stream().map(ServicoOferecidoPresenter::toDomain).toList();
-        List<HorarioDisponivel> horariosDisponiveis = profissionalEntity.getHorariosDisponiveis().stream().map(HorarioDisponivelPresenter::toDomain).toList();
+        List<HorarioDisponivel> horariosDisponiveis = profissionalEntity.getHorariosDisponiveis().stream().map(HorarioDisponivelPresenter::toDomainProfissional).toList();
 
 
         return Profissional.create(

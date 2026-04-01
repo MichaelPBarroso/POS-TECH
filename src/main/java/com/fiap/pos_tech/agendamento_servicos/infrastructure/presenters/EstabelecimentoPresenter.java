@@ -1,8 +1,10 @@
 package com.fiap.pos_tech.agendamento_servicos.infrastructure.presenters;
 
 import com.fiap.pos_tech.agendamento_servicos.domain.model.Estabelecimento;
+import com.fiap.pos_tech.agendamento_servicos.domain.model.FotoEstabelecimento;
 import com.fiap.pos_tech.agendamento_servicos.domain.model.Profissional;
 import com.fiap.pos_tech.agendamento_servicos.infrastructure.persistence.entity.EstabelecimentoEntity;
+import com.fiap.pos_tech.agendamento_servicos.infrastructure.persistence.entity.FotoEstabelecimentoEntity;
 import com.fiap.pos_tech.agendamento_servicos.infrastructure.persistence.entity.ProfissionalEntity;
 
 import java.util.List;
@@ -36,13 +38,18 @@ public class EstabelecimentoPresenter {
                 ? List.of()
                 : estabelecimentoEntity.getProfissionais().stream().map(ProfissionalPresenter::toDomainComLists).toList();
 
+        List<FotoEstabelecimento> fotos = estabelecimentoEntity.getFotos() == null
+                ? List.of()
+                : estabelecimentoEntity.getFotos().stream().map(FotoPresenter::toDomain).toList();
+
         Estabelecimento estabelecimento = Estabelecimento.create(
                 estabelecimentoEntity.getId(),
                 estabelecimentoEntity.getNome(),
                 estabelecimentoEntity.getHorarioAbertura(),
                 estabelecimentoEntity.getHorarioFechamento(),
                 EnderecoPresenter.toDomain(estabelecimentoEntity.getEndereco()),
-                profissionais
+                profissionais,
+                fotos
         );
 
         estabelecimento.setNotaMedia(estabelecimentoEntity.getMediaNotas());
@@ -52,6 +59,7 @@ public class EstabelecimentoPresenter {
 
     public static EstabelecimentoEntity toEntityComProfissionais(Estabelecimento estabelecimento) {
         List<ProfissionalEntity> profissionaisEntity = estabelecimento.getProfissionais().stream().map(ProfissionalPresenter::toEntity).toList();
+        List<FotoEstabelecimentoEntity> fotosEntity = estabelecimento.getFotos().stream().map(FotoPresenter::toEntity).toList();
 
         return EstabelecimentoEntity.builder()
                 .id(estabelecimento.getId())
@@ -60,6 +68,7 @@ public class EstabelecimentoPresenter {
                 .horarioFechamento(estabelecimento.getHorarioFechamento())
                 .endereco(EnderecoPresenter.toEntity(estabelecimento.getEndereco()))
                 .profissionais(profissionaisEntity)
+                .fotos(fotosEntity)
                 .build();
     }
 

@@ -40,4 +40,7 @@ public class EstabelecimentoEntity {
 
     private BigDecimal mediaNotas;
 
+    @OneToMany(mappedBy = "estabelecimento")
+    private List<FotoEstabelecimentoEntity> fotos;
+
 }

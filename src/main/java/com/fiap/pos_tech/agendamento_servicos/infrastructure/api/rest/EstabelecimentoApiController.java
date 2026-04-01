@@ -5,23 +5,26 @@ import com.fiap.pos_tech.agendamento_servicos.application.usecase.adicionarEstab
 import com.fiap.pos_tech.agendamento_servicos.application.usecase.adicionarEstabelecimento.dto.InputEstabelecimento;
 import com.fiap.pos_tech.agendamento_servicos.application.usecase.adicionarEstabelecimento.dto.OutputEndereco;
 import com.fiap.pos_tech.agendamento_servicos.application.usecase.adicionarEstabelecimento.dto.OutputEstabelecimento;
-import com.fiap.pos_tech.agendamento_servicos.infrastructure.api.rest.json.EnderecoJson;
-import com.fiap.pos_tech.agendamento_servicos.infrastructure.api.rest.json.EstabelecimentoJson;
-import com.fiap.pos_tech.agendamento_servicos.infrastructure.api.rest.json.NovoEnderecoJson;
-import com.fiap.pos_tech.agendamento_servicos.infrastructure.api.rest.json.NovoEstabelecimentoJson;
+import com.fiap.pos_tech.agendamento_servicos.application.usecase.adicionarFoto.AdicionarFotoUseCase;
+import com.fiap.pos_tech.agendamento_servicos.application.usecase.adicionarFoto.dto.InputAdicionarFotos;
+import com.fiap.pos_tech.agendamento_servicos.application.usecase.adicionarFoto.dto.OutputAdicionarFoto;
+import com.fiap.pos_tech.agendamento_servicos.infrastructure.api.rest.json.*;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalTime;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
 public class EstabelecimentoApiController implements EstabelecimentoApi {
 
     private final AdicionarEstabelecimentoUseCase adicionarEstabelecimentoUseCase;
+    private final AdicionarFotoUseCase adicionarFotoUseCase;
 
     @Override
     public ResponseEntity<EstabelecimentoJson> addEstabelecimento(NovoEstabelecimentoJson body) {
@@ -34,6 +37,23 @@ public class EstabelecimentoApiController implements EstabelecimentoApi {
 
         return new ResponseEntity<>(estabelecimentoJson, HttpStatus.CREATED);
     }
+
+    @Override
+    public ResponseEntity<FotoJson> addFoto(String idEstabelecimento, MultipartFile foto) {
+
+        InputAdicionarFotos inputAdicionarFotos = new InputAdicionarFotos(UUID.fromString(idEstabelecimento), foto);
+
+        OutputAdicionarFoto outputAdicionarFoto = adicionarFotoUseCase.execute(inputAdicionarFotos);
+
+        FotoJson fotoJson = new FotoJson();
+
+        fotoJson.setId(outputAdicionarFoto.id().toString());
+        fotoJson.setIdEstabelecimento(outputAdicionarFoto.id().toString());
+        fotoJson.setUrl(outputAdicionarFoto.urlFoto());
+
+        return new ResponseEntity<>(fotoJson, HttpStatus.CREATED);
+    }
+
 
     private static @NonNull EstabelecimentoJson getEstabelecimentoJson(OutputEstabelecimento outputEstabelecimento) {
         OutputEndereco endereco = outputEstabelecimento.endereco();

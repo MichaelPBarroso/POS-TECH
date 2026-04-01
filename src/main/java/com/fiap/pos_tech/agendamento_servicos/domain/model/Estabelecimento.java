@@ -19,11 +19,9 @@ public class Estabelecimento {
     private Endereco endereco;
     private List<Profissional> profissionais;
     private BigDecimal notaMedia;
+    private List<FotoEstabelecimento> fotos;
 
-    //TODO: Falta adicionar as fotos
-    //TODO: Verificar se vai adicionar a nota media do estabelecimento, que é atualizado através da avaliação.
-
-    public static Estabelecimento create(UUID id, String nome, LocalTime horarioAbertura, LocalTime horarioFechamento, Endereco endereco, List<Profissional> profissionais) {
+    public static Estabelecimento create(UUID id, String nome, LocalTime horarioAbertura, LocalTime horarioFechamento, Endereco endereco, List<Profissional> profissionais, List<FotoEstabelecimento> fotos) {
         Estabelecimento estabelecimento = new Estabelecimento();
 
         estabelecimento.setId(id);
@@ -32,6 +30,7 @@ public class Estabelecimento {
         estabelecimento.setHorarioFechamento(horarioFechamento);
         estabelecimento.setEndereco(endereco);
         estabelecimento.setProfissionais(profissionais);
+        estabelecimento.setFotos(fotos);
 
         return estabelecimento;
     }

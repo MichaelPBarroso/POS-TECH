@@ -5,13 +5,7 @@ import com.fiap.pos_tech.agendamento_servicos.application.usecase.buscarEstabele
 import com.fiap.pos_tech.agendamento_servicos.application.usecase.buscarEstabelecimento.dto.InputBuscarEstabelecimentoEndereco;
 import com.fiap.pos_tech.agendamento_servicos.application.usecase.buscarEstabelecimento.dto.InputBuscarEstabelecimentoServico;
 import com.fiap.pos_tech.agendamento_servicos.application.usecase.buscarEstabelecimento.dto.OutputBuscarEstabelecimento;
-import com.fiap.pos_tech.agendamento_servicos.infrastructure.api.dto.EnderecoDTO;
-import com.fiap.pos_tech.agendamento_servicos.infrastructure.api.dto.EstabelecimentoDTOInput;
-import com.fiap.pos_tech.agendamento_servicos.infrastructure.api.dto.EstabelecimentoDTOOutput;
-import com.fiap.pos_tech.agendamento_servicos.infrastructure.api.dto.HorarioDisponivelDTOOutput;
-import com.fiap.pos_tech.agendamento_servicos.infrastructure.api.dto.ProfissionalDTOOutput;
-import com.fiap.pos_tech.agendamento_servicos.infrastructure.api.dto.ServicoDTO;
-import com.fiap.pos_tech.agendamento_servicos.infrastructure.api.dto.ServicoDTOOutput;
+import com.fiap.pos_tech.agendamento_servicos.infrastructure.api.dto.*;
 import lombok.AllArgsConstructor;
 import org.jspecify.annotations.NonNull;
 import org.springframework.graphql.data.method.annotation.Argument;
@@ -81,6 +75,11 @@ public class EstabelecimentoGraphQLController {
                                                     ))
                                                     .toList()
                                     ))
+                                    .toList(),
+                            estabelecimentoInput.fotoEstabelecimento().stream()
+                                    .map(foto -> new FotosDTOOutput(
+                                            foto.id().toString(),
+                                            foto.url()))
                                     .toList()
                     );
                 })

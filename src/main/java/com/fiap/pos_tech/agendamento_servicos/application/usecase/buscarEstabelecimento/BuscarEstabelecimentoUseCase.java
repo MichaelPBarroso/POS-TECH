@@ -2,12 +2,7 @@ package com.fiap.pos_tech.agendamento_servicos.application.usecase.buscarEstabel
 
 import com.fiap.pos_tech.agendamento_servicos.application.gateway.IEstabelecimentoGateway;
 import com.fiap.pos_tech.agendamento_servicos.application.usecase.buscarEstabelecimento.dto.*;
-import com.fiap.pos_tech.agendamento_servicos.domain.model.Endereco;
-import com.fiap.pos_tech.agendamento_servicos.domain.model.Estabelecimento;
-import com.fiap.pos_tech.agendamento_servicos.domain.model.FiltroAvancado;
-import com.fiap.pos_tech.agendamento_servicos.domain.model.HorarioDisponivel;
-import com.fiap.pos_tech.agendamento_servicos.domain.model.Profissional;
-import com.fiap.pos_tech.agendamento_servicos.domain.model.ServicoOferecido;
+import com.fiap.pos_tech.agendamento_servicos.domain.model.*;
 import org.jspecify.annotations.NonNull;
 
 import java.math.BigDecimal;
@@ -64,7 +59,8 @@ public class BuscarEstabelecimentoUseCase {
                     estabelecimentoDb.getHorarioFechamento(),
                     endereco,
                     estabelecimentoDb.getNotaMedia(),
-                    toOutputBuscarEstabelecimentoProfissionais(estabelecimentoDb.getProfissionais())
+                    toOutputBuscarEstabelecimentoProfissionais(estabelecimentoDb.getProfissionais()),
+                    toOutputBuscarEstabelecimentoFotos(estabelecimentoDb.getFotos())
             );
         }).toList();
         return list;
@@ -108,6 +104,18 @@ public class BuscarEstabelecimentoUseCase {
                         servico.getId(),
                         servico.getNome(),
                         servico.getValor() == null ? null : BigDecimal.valueOf(servico.getValor())
+                ))
+                .toList();
+    }
+    private static @NonNull List<OutputBuscarEstabelecimentoFotos> toOutputBuscarEstabelecimentoFotos(List<FotoEstabelecimento> fotoEstabelecimentos) {
+        if (fotoEstabelecimentos == null) {
+            return List.of();
+        }
+
+        return fotoEstabelecimentos.stream()
+                .map(servico -> new OutputBuscarEstabelecimentoFotos(
+                        servico.getId(),
+                        servico.getUrl()
                 ))
                 .toList();
     }

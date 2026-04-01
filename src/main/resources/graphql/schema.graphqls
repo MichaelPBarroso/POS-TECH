@@ -6,6 +6,7 @@ type Estabelecimento {
     endereco: Endereco
     nota: Float
     profissionais: [Profissional!]
+    fotos: [Foto!]
 }
 
 type Profissional {
@@ -13,6 +14,11 @@ type Profissional {
     nome: String
     horariosDisponiveis: [HorarioDisponivel!]
     servicosOferecidos: [Servico!]
+}
+
+type Foto{
+    id: ID,
+    url: String
 }
 
 type Endereco {

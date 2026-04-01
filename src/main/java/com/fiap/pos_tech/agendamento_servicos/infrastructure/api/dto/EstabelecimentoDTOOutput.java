@@ -9,6 +9,7 @@ public record EstabelecimentoDTOOutput(
         String horarioFechamento,
         EnderecoDTO endereco,
         Float nota,
-        List<ProfissionalDTOOutput> profissionais
+        List<ProfissionalDTOOutput> profissionais,
+        List<FotosDTOOutput> fotos
 ) {
 }

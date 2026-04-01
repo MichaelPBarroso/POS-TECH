@@ -12,6 +12,7 @@ public record OutputBuscarEstabelecimentoEstabelecimento(
         LocalTime horarioFechamento,
         OutputBuscarEstabelecimentoEndereco endereco,
         BigDecimal nota,
-        List<OutputBuscarEstabelecimentoProfissional> profissionais
+        List<OutputBuscarEstabelecimentoProfissional> profissionais,
+        List<OutputBuscarEstabelecimentoFotos> fotoEstabelecimento
 ) {
 }

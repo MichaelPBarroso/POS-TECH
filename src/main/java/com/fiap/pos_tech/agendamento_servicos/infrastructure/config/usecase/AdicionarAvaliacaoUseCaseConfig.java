@@ -4,6 +4,7 @@ import com.fiap.pos_tech.agendamento_servicos.application.gateway.IAgendamentoGa
 import com.fiap.pos_tech.agendamento_servicos.application.gateway.IAvaliacaoGateway;
 import com.fiap.pos_tech.agendamento_servicos.application.usecase.adicionarAvaliacao.AdicionarAvaliacaoUseCase;
 import com.fiap.pos_tech.agendamento_servicos.application.usecase.adicionarAvaliacao.validation.AdicionarAvaliacaoValidationChain;
+import com.fiap.pos_tech.agendamento_servicos.application.usecase.adicionarAvaliacao.validation.AgendamentoNaoExisteHandler;
 import com.fiap.pos_tech.agendamento_servicos.application.usecase.adicionarAvaliacao.validation.IAdicionarAvaliacaoValidation;
 import com.fiap.pos_tech.agendamento_servicos.application.usecase.adicionarAvaliacao.validation.NotaInvalidaHandler;
 import org.springframework.context.annotation.Bean;
@@ -17,6 +18,11 @@ public class AdicionarAvaliacaoUseCaseConfig {
     @Bean
     public NotaInvalidaHandler notaInvalidaHandler() {
         return new NotaInvalidaHandler();
+    }
+
+    @Bean(name="AgendamentoNaoExisteAdicionarAvaliacao")
+    public AgendamentoNaoExisteHandler agendamentoNaoExisteHandler(IAgendamentoGateway agendamentoGateway) {
+        return new AgendamentoNaoExisteHandler(agendamentoGateway);
     }
 
     @Bean

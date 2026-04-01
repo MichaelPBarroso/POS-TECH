@@ -16,12 +16,12 @@ public class AdicionarAgendamentoUseCaseConfig {
         return new AgendamentoExistenteHandler(agendamentoGateway);
     }
 
-    @Bean
+    @Bean(name = "ProfissionalNaoExisteAddAgendamento")
     public ProfissionalNaoExisteHandler profissionalNaoExisteHandler(IProfissionalGateway profissionalGateway) {
         return new ProfissionalNaoExisteHandler(profissionalGateway);
     }
 
-    @Bean
+    @Bean(name = "EstabelecimentoNaoExisteAddAgendamento")
     public EstabelecimentoNaoExisteHandler estabelecimentoNaoExisteHandler(IEstabelecimentoGateway estabelecimentoGateway) {
         return new EstabelecimentoNaoExisteHandler(estabelecimentoGateway);
     }

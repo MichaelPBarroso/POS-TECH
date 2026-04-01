@@ -12,7 +12,9 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -62,8 +64,16 @@ public class AgendamentoGateway implements IAgendamentoGateway {
     }
 
     @Override
-    public Agendamento buscarAgendamento(Estabelecimento estabelecimento, LocalDateTime horario, Profissional profissional) {
+    public Agendamento buscarAgendamento(Estabelecimento estabelecimento, LocalDate data, LocalTime horario, Profissional profissional) {
         return null;
+    }
+
+    @Override
+    public List<Agendamento> buscarAgendamentos(Estabelecimento estabelecimento, LocalDate data, Profissional profissional){
+
+        List<AgendamentoEntity> agendamentoEntities = agendamentoJPARepository.findAllByEstabelecimento_IdAndDataAndProfissional_Id(estabelecimento.getId(), data, profissional.getId());
+
+        return agendamentoEntities.stream().map(AgendamentoPresenter::toDomain).toList();
     }
 
     @Override

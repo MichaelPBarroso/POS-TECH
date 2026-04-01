@@ -110,9 +110,12 @@ components:
     NovoAgendamento:
       type: object
       properties:
-        data_hora:
+        data:
           type: string
-          description: Data e hora do agendamento
+          description: Data do agendamento
+        horario:
+          type: string
+          description: Horario do agendamento
         idServico:
           type: string
           description: Id do serviço que será realizado
@@ -131,9 +134,12 @@ components:
         id:
           type: string
           description: Id do Estabelecimento
-        data_hora:
+        data:
           type: string
-          description: Data e hora do agendamento
+          description: Data do agendamento
+        horario:
+          type: string
+          description: Horario do agendamento
         idServico:
           type: string
           description: Id do serviço que será realizado
@@ -157,6 +163,9 @@ components:
     Reagendamento:
       type: object
       properties:
-        data_hora:
+        data:
           type: string
-          description: Data e hora do reagendamento
+          description: Data do agendamento
+        horario:
+          type: string
+          description: Horario do agendamento

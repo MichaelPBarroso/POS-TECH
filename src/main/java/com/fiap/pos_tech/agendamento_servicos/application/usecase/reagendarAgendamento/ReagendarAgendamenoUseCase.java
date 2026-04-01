@@ -23,13 +23,23 @@ public class ReagendarAgendamenoUseCase {
     public OutputReagendarAgendamento execute(InputReagendarAgendamento input) {
         Agendamento agendamento = agendamentoGateway.buscarAgendamento(input.idAgendamento());
 
-        agendamento.setHorario(input.horarioAgendamento());
+        agendamento.setData(input.data());
+        agendamento.setHorario(input.horario());
 
         reagendarAgendamentoValidationChain.validate(agendamento);
 
         Agendamento agendamentoDb = agendamentoGateway.atualizarAgendamento(agendamento);
 
-        return new OutputReagendarAgendamento(agendamentoDb.getId(), agendamentoDb.getHorario(), agendamentoDb.getServicoOferecido().getId(), agendamentoDb.getEstabelecimento().getId(), agendamentoDb.getProfissional().getId(), agendamentoDb.getCliente().getId(), agendamentoDb.getStatusAgendamentoEnum());
+        return new OutputReagendarAgendamento(
+                agendamentoDb.getId(),
+                agendamentoDb.getData(),
+                agendamentoDb.getHorario(),
+                agendamentoDb.getServicoOferecido().getId(),
+                agendamentoDb.getEstabelecimento().getId(),
+                agendamentoDb.getProfissional().getId(),
+                agendamentoDb.getCliente().getId(),
+                agendamentoDb.getStatusAgendamentoEnum()
+        );
 
     }
 

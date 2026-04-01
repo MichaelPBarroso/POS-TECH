@@ -15,10 +15,10 @@ public class AgendamentoExistenteHandler implements IAdicionarAgendamentoValidat
     @Override
     public void validate(Agendamento agendamento) {
 
-        Agendamento agendamentoDatabase = agendamentoGateway.buscarAgendamento(agendamento.getEstabelecimento(), agendamento.getHorario(), agendamento.getProfissional());
+        Agendamento agendamentoDatabase = agendamentoGateway.buscarAgendamento(agendamento.getEstabelecimento(), agendamento.getData(), agendamento.getHorario(), agendamento.getProfissional());
 
         if (agendamentoDatabase != null) {
-            throw new AgendamentoJaExisteException(agendamentoDatabase.getHorario().toString());
+            throw new AgendamentoJaExisteException(agendamentoDatabase.getData().toString());
         }
     }
 }

@@ -59,12 +59,13 @@ public class AdicionarAgendamentoUseCase {
         ServicoOferecido servicoOferecido = servicoGateway.buscarServicoOferecido(input.idServico());
         Cliente cliente =  clienteGateway.buscarCliente(input.idCliente());
 
-        return Agendamento.create(input.horario(), servicoOferecido, estabelecimento, profissional, StatusAgendamentoEnum.AGENDADO, cliente);
+        return Agendamento.create(input.data(), input.horario(), servicoOferecido, estabelecimento, profissional, StatusAgendamentoEnum.AGENDADO, cliente);
     }
 
     private static @NonNull OutputAdicionarAgendamento getOutputAdicionarAgendamento(Agendamento agendamentoDb) {
         return new OutputAdicionarAgendamento(
                 agendamentoDb.getId(),
+                agendamentoDb.getData(),
                 agendamentoDb.getHorario(),
                 agendamentoDb.getServicoOferecido().getId(),
                 agendamentoDb.getEstabelecimento().getId(),

@@ -19,7 +19,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.UUID;
 
 @RestController
@@ -34,7 +35,7 @@ public class AgendamentoApiController implements AgendamentoApi {
     @Override
     public ResponseEntity<AgendamentoJson> addAgendamento(NovoAgendamentoJson body) {
 
-        InputAdicionarAgendamento inputAdicionarAgendamento = new InputAdicionarAgendamento(LocalDateTime.parse(body.getDataHora()), UUID.fromString(body.getIdServico()), UUID.fromString(body.getIdEstabelecimento()), UUID.fromString(body.getIdProfissional()), UUID.fromString(body.getIdCliente()));
+        InputAdicionarAgendamento inputAdicionarAgendamento = new InputAdicionarAgendamento(LocalDate.parse(body.getData()), LocalTime.parse(body.getHorario()), UUID.fromString(body.getIdServico()), UUID.fromString(body.getIdEstabelecimento()), UUID.fromString(body.getIdProfissional()), UUID.fromString(body.getIdCliente()));
 
         OutputAdicionarAgendamento outputAdicionarAgendamento = adicionarAgendamentoUseCase.execute(inputAdicionarAgendamento);
 
@@ -47,7 +48,8 @@ public class AgendamentoApiController implements AgendamentoApi {
         AgendamentoJson agendamentoJson = new AgendamentoJson();
 
         agendamentoJson.setId(outputAdicionarAgendamento.id().toString());
-        agendamentoJson.setDataHora(outputAdicionarAgendamento.horario().toString());
+        agendamentoJson.setData(outputAdicionarAgendamento.data().toString());
+        agendamentoJson.setHorario(outputAdicionarAgendamento.horario().toString());
         agendamentoJson.setIdServico(outputAdicionarAgendamento.idServico().toString());
         agendamentoJson.setIdEstabelecimento(outputAdicionarAgendamento.idEstabelecimento().toString());
         agendamentoJson.setIdProfissional(outputAdicionarAgendamento.idProfissional().toString());
@@ -83,7 +85,7 @@ public class AgendamentoApiController implements AgendamentoApi {
     @Override
     public ResponseEntity<AgendamentoJson> reagendarAgendamento(String id, ReagendamentoJson body) {
 
-        InputReagendarAgendamento inputReagendarAgendamento = new InputReagendarAgendamento(UUID.fromString(id), LocalDateTime.parse(body.getDataHora()));
+        InputReagendarAgendamento inputReagendarAgendamento = new InputReagendarAgendamento(UUID.fromString(id), LocalDate.parse(body.getData()), LocalTime.parse(body.getHorario()));
 
         OutputReagendarAgendamento outputReagendarAgendamento = reagendarAgendamenoUseCase.execute(inputReagendarAgendamento);
 
@@ -95,7 +97,8 @@ public class AgendamentoApiController implements AgendamentoApi {
         AgendamentoJson agendamentoJson = new AgendamentoJson();
 
         agendamentoJson.setId(outputReagendarAgendamento.id().toString());
-        agendamentoJson.setDataHora(outputReagendarAgendamento.horario().toString());
+        agendamentoJson.setData(outputReagendarAgendamento.data().toString());
+        agendamentoJson.setHorario(outputReagendarAgendamento.horario().toString());
         agendamentoJson.setIdServico(outputReagendarAgendamento.idServico().toString());
         agendamentoJson.setIdEstabelecimento(outputReagendarAgendamento.idEstabelecimento().toString());
         agendamentoJson.setIdProfissional(outputReagendarAgendamento.idProfissional().toString());

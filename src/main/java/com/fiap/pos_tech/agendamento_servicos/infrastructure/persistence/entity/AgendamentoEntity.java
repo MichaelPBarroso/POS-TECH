@@ -5,7 +5,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.UuidGenerator;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.UUID;
 
 @EqualsAndHashCode
@@ -24,7 +25,9 @@ public class AgendamentoEntity {
     @GeneratedValue
     private UUID id;
 
-    private LocalDateTime horario;
+    private LocalDate data;
+
+    private LocalTime horario;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "servico_id", nullable = false)

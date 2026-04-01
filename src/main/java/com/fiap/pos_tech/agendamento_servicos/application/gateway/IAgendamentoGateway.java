@@ -4,7 +4,9 @@ import com.fiap.pos_tech.agendamento_servicos.domain.model.Agendamento;
 import com.fiap.pos_tech.agendamento_servicos.domain.model.Estabelecimento;
 import com.fiap.pos_tech.agendamento_servicos.domain.model.Profissional;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
 import java.util.UUID;
 
 public interface IAgendamentoGateway {
@@ -19,7 +21,9 @@ public interface IAgendamentoGateway {
 
     Agendamento registrarAusenciaAgendamento(UUID agendamentoId);
 
-    Agendamento buscarAgendamento(Estabelecimento estabelecimento, LocalDateTime horario, Profissional profissional);
+    Agendamento buscarAgendamento(Estabelecimento estabelecimento, LocalDate data, LocalTime horario, Profissional profissional);
+
+    List<Agendamento> buscarAgendamentos(Estabelecimento estabelecimento, LocalDate data, Profissional profissional);
 
     Agendamento buscarAgendamento(UUID agendamentoId);
 }

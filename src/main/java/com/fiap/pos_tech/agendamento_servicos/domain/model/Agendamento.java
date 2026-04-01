@@ -4,7 +4,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.UUID;
 
 @Getter
@@ -13,7 +14,8 @@ import java.util.UUID;
 public class Agendamento {
 
     private UUID id;
-    private LocalDateTime horario;
+    private LocalDate data;
+    private LocalTime horario;
     private ServicoOferecido servicoOferecido;
     private Estabelecimento estabelecimento;
     private Profissional profissional;
@@ -21,7 +23,8 @@ public class Agendamento {
     private Cliente cliente;
 
     public static Agendamento create(UUID id,
-                                     LocalDateTime horario,
+                                     LocalDate data,
+                                     LocalTime horario,
                                      ServicoOferecido servicoOferecido,
                                      Estabelecimento estabelecimento,
                                      Profissional profissional,
@@ -31,6 +34,7 @@ public class Agendamento {
         Agendamento agendamento = new Agendamento();
 
         agendamento.setId(id);
+        agendamento.setData(data);
         agendamento.setHorario(horario);
         agendamento.setServicoOferecido(servicoOferecido);
         agendamento.setEstabelecimento(estabelecimento);
@@ -41,7 +45,8 @@ public class Agendamento {
         return agendamento;
     }
 
-    public static Agendamento create(LocalDateTime horario,
+    public static Agendamento create(LocalDate data,
+                                     LocalTime horario,
                                      ServicoOferecido servicoOferecido,
                                      Estabelecimento estabelecimento,
                                      Profissional profissional,
@@ -50,6 +55,7 @@ public class Agendamento {
     ) {
         Agendamento agendamento = new Agendamento();
 
+        agendamento.setData(data);
         agendamento.setHorario(horario);
         agendamento.setServicoOferecido(servicoOferecido);
         agendamento.setEstabelecimento(estabelecimento);

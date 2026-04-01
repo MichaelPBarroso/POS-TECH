@@ -8,6 +8,7 @@ public class AgendamentoPresenter {
     public static Agendamento toDomain(AgendamentoEntity agendamentoEntity) {
         return Agendamento.create(
                 agendamentoEntity.getId(),
+                agendamentoEntity.getData(),
                 agendamentoEntity.getHorario(),
                 ServicoOferecidoPresenter.toDomain(agendamentoEntity.getServicoOferecido()),
                 EstabelecimentoPresenter.toDomain(agendamentoEntity.getEstabelecimento()),
@@ -20,6 +21,7 @@ public class AgendamentoPresenter {
     public static AgendamentoEntity toEntity(Agendamento agendamento) {
         return AgendamentoEntity.builder()
                 .id(agendamento.getId())
+                .data(agendamento.getData())
                 .horario(agendamento.getHorario())
                 .servicoOferecido(ServicoOferecidoPresenter.toEntity(agendamento.getServicoOferecido()))
                 .estabelecimento(EstabelecimentoPresenter.toEntity(agendamento.getEstabelecimento()))

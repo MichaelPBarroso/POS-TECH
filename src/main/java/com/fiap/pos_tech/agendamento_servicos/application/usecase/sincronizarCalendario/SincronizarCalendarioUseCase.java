@@ -4,6 +4,8 @@ import com.fiap.pos_tech.agendamento_servicos.application.gateway.IAgendamentoGa
 import com.fiap.pos_tech.agendamento_servicos.application.usecase.sincronizarCalendario.dto.InputSincronizarCalendario;
 import com.fiap.pos_tech.agendamento_servicos.application.usecase.sincronizarCalendario.dto.OutputSincronizarCalendario;
 
+import java.util.UUID;
+
 public class SincronizarCalendarioUseCase {
 
     private final IAgendamentoGateway agendamentoGateway;
@@ -17,8 +19,10 @@ public class SincronizarCalendarioUseCase {
     }
 
     public OutputSincronizarCalendario execute(InputSincronizarCalendario input) {
+        //Implementação não realizada, por não estar dentro dos requisitos da fase 3.
+        //De acordo o que foi informado pelo coordenador, não necessitar sem implementado.
 
-
+        agendamentoGateway.sincronizarCalendario(UUID.randomUUID());
 
         return new OutputSincronizarCalendario();
     }

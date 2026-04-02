@@ -5,6 +5,7 @@ import com.fiap.pos_tech.agendamento_servicos.domain.model.Agendamento;
 import com.fiap.pos_tech.agendamento_servicos.domain.model.Estabelecimento;
 import com.fiap.pos_tech.agendamento_servicos.domain.model.Profissional;
 import com.fiap.pos_tech.agendamento_servicos.domain.model.StatusAgendamentoEnum;
+import com.fiap.pos_tech.agendamento_servicos.infrastructure.email.SmtpEnviarEmailAdapter;
 import com.fiap.pos_tech.agendamento_servicos.infrastructure.persistence.entity.AgendamentoEntity;
 import com.fiap.pos_tech.agendamento_servicos.infrastructure.persistence.repository.AgendamentoJPARepository;
 import com.fiap.pos_tech.agendamento_servicos.infrastructure.presenters.AgendamentoPresenter;
@@ -23,6 +24,7 @@ import java.util.UUID;
 public class AgendamentoGateway implements IAgendamentoGateway {
 
     private final AgendamentoJPARepository agendamentoJPARepository;
+    private final SmtpEnviarEmailAdapter smtpEnviarEmailAdapter;
 
     @Override
     public Agendamento criarAgendamento(Agendamento agendamento) {
@@ -34,6 +36,16 @@ public class AgendamentoGateway implements IAgendamentoGateway {
     @Override
     public void enviarNotificacaoAgendamento(Agendamento agendamento) {
 
+        String email = "Olá, foi realizado com sucesso o agendamento para o dia "
+                + agendamento.getData()
+                + " as "
+                + agendamento.getHorario()
+                + " para realizar "
+                + agendamento.getServicoOferecido().getNome();
+
+        //smtpEnviarEmailAdapter.enviar(agendamento.getProfissional().getEmail(), "Agendamento Realizado", email);
+
+        //smtpEnviarEmailAdapter.enviar(agendamento.getCliente().getEmail(), "Agendamento Realizado", email);
     }
 
     @Override
@@ -86,5 +98,11 @@ public class AgendamentoGateway implements IAgendamentoGateway {
         Optional<AgendamentoEntity> entity = agendamentoJPARepository.findById(agendamentoId);
 
         return entity.map(AgendamentoPresenter::toDomain).orElse(null);
+    }
+
+    @Override
+    public void sincronizarCalendario(UUID agendamentoId) {
+        //Implementação não realizada, por não estar dentro dos requisitos da fase 3.
+        //De acordo o que foi informado pelo coordenador, não necessitar sem implementado.
     }
 }

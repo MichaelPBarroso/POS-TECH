@@ -26,4 +26,6 @@ public interface IAgendamentoGateway {
     List<Agendamento> buscarAgendamentos(Estabelecimento estabelecimento, LocalDate data, Profissional profissional);
 
     Agendamento buscarAgendamento(UUID agendamentoId);
+
+    void sincronizarCalendario(UUID agendamentoId);
 }

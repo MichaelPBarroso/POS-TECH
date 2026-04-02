@@ -79,6 +79,11 @@ Considerando o escopo implementado nesta base e o material de apoio presente em 
 | Persistência relacional          | Integração com PostgreSQL usando Spring Data JPA |
 | Execução conteinerizada          | `Dockerfile` e `docker-compose.yml` para subir aplicação e banco |
 
+### Observação importante
+
+Foi implementada a estrutura base referente a funcionalidade de envio de email e sincronização de calendário, mas a implementação completa não foi realizada, devido não estar dentro dos temas tratado na fase 3 da pos-tech.
+Visto que o que foi informado pelo coordenador, não necessitar sem implementado.
+
 ## Como executar
 
 ### Requisitos

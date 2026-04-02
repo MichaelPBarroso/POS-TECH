@@ -67,17 +67,17 @@ O schema principal está em `src/main/resources/graphql/schema.graphqls`, e a co
 
 Considerando o escopo implementado nesta base e o material de apoio presente em `docs/Tech Challenge - JAVA - Fase 3..pdf`, o projeto cobre os principais requisitos funcionais da fase da seguinte forma:
 
-| Requisito esperado | Como está contemplado no projeto |
-| --- | --- |
-| Cadastro de estabelecimentos | Endpoint REST para criação de estabelecimentos com endereço e horários de funcionamento |
-| Cadastro de profissionais | Endpoint REST para associar profissionais a estabelecimentos, com especialidades, serviços e agenda de horários |
-| Gestão de agendamentos | Endpoints REST para criar, reagendar, cancelar e registrar ausencia |
-| Avaliação do atendimento | Endpoint REST para registrar nota e comentário vinculados ao agendamento |
-| Consulta de disponibilidade | Query GraphQL `disponibilidadeProfissional` retorna apenas os horários livres para a data informada |
+| Requisito esperado               | Como está contemplado no projeto |
+|----------------------------------| --- |
+| Cadastro de estabelecimentos     | Endpoint REST para criação de estabelecimentos com endereço e horários de funcionamento |
+| Cadastro de profissionais        | Endpoint REST para associar profissionais a estabelecimentos, com especialidades, serviços e agenda de horários |
+| Gestão de agendamentos           | Endpoints REST para criar, reagendar, cancelar e registrar ausencia |
+| Avaliação do atendimento         | Endpoint REST para registrar nota e comentário vinculados ao agendamento |
+| Consulta de disponibilidade      | Query GraphQL `disponibilidadeProfissional` retorna apenas os horários livres para a data informada |
 | Busca avançada de estabelecimentos | Query GraphQL `buscarEstabelecimentos` permite filtrar por dados do estabelecimento, endereço, faixa de nota, servico, faixa de preço e horário |
-| Documentacao e exploracao da API | OpenAPI/Swagger para REST e schema GraphQL/Postman para consultas e testes |
-| Persistência relacional | Integração com PostgreSQL usando Spring Data JPA |
-| Execução conteinerizada | `Dockerfile` e `docker-compose.yml` para subir aplicação e banco |
+| Documentação e exploração da API | OpenAPI/Swagger para REST e schema GraphQL/Postman para consultas e testes |
+| Persistência relacional          | Integração com PostgreSQL usando Spring Data JPA |
+| Execução conteinerizada          | `Dockerfile` e `docker-compose.yml` para subir aplicação e banco |
 
 ## Como executar
 
@@ -171,3 +171,21 @@ Na pasta `docs/export-postman` estão os arquivos prontos para importação no P
 - `Parametros-Agendamento.postman_environment.json`.
 
 Importe os dois arquivos para executar os testes manuais. A ordem de execução da collection deve ser mantida, porque os scripts de teste das primeiras requisições salvam automaticamente no environment os identificadores retornados pela API, como `estabelecimento_id`, `profissional_id`, `servico_id` e `agendamento_id`, que são reutilizados nas requisições seguintes.
+
+Segue um exemplo da execução em sequencia no postman utilizando o Collection Runner.
+
+![img.png](img.png)
+
+
+### Observação:
+
+Na execução da request `Adicionar Foto` é necessário adicionar no body um arquivo de imagem.
+Caso o arquivo de imagem selecionado esteja fora do diretório de trabalho do postman, o Collection Runner por questão de segurança não irá anexar o arquivo e irá apresentar o erro de `Unsupported Media Type`
+
+Para evitar esse erro é necessário ativar a opção `Permitir leitura de arquivos fora do diretório de trabalho` seguindo os passos abaixo:
+
+- Acesse as Configurações (Settings) do seu Postman.
+- Navegue até a seção Working Directory.
+- Ative a opção "Allow reading files outside working directory" (Permitir leitura de arquivos fora do diretório de trabalho).
+
+Alternativamente, mova o arquivo físico do seu upload para dentro da pasta padrão configurada no Working Directory (geralmente ~/Postman/files) e anexe novamente o arquivo na aba Body da sua requisição antes de iniciar o Collection Runner.

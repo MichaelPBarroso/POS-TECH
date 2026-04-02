@@ -1,0 +1,13 @@
+$kind: http-request
+name: Adicionar Foto
+url: "{{servidor}}/estabelecimento/{{estabelecimento_id}}/foto"
+method: POST
+body:
+  type: formdata
+  content:
+    - type: file
+      key: foto
+      src: []
+      description: ""
+      disabled: false
+order: 4503550728905023

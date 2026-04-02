@@ -1,5 +1,4 @@
 $kind: http-request
-name: Adicionar Avaliacao
 url: "{{servidor}}/avaliacao"
 method: POST
 body:
@@ -15,4 +14,4 @@ body:
 
     }"
 examples: .resources/Adicionar Avaliacao.resources/examples
-order: 3000
+order: 4498111775216107

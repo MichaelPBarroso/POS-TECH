@@ -1,4 +1,5 @@
 $kind: http-request
+name: Adicionar Profissional
 url: "{{servidor}}/profissional"
 method: POST
 body:
@@ -6,6 +7,8 @@ body:
   content: "{\r
 
     \  \"nome\": \"Mariana Souza\",\r
+
+    \  \"email\": \"mariana_teste@teste.postech.com\",\r
 
     \  \"servico\": [\r
 
@@ -43,7 +46,35 @@ body:
 
     \  ],\r
 
-    \  \"idEstabelecimento\": \"{{estabelecimento_id}}\"\r
+    \  \"idEstabelecimento\": \"{{estabelecimento_id}}\",\r
+
+    \  \"horario\": [\r
+
+    \    {\r
+
+    \      \"horario\": \"08:00:00\"\r
+
+    \    },\r
+
+    \    {\r
+
+    \      \"horario\": \"09:00:00\"\r
+
+    \    },\r
+
+    \    {\r
+
+    \      \"horario\": \"10:00:00\"\r
+
+    \    },\r
+
+    \    {\r
+
+    \      \"horario\": \"14:00:00\"\r
+
+    \    }\r
+
+    \  ]\r
 
     }"
 scripts:
@@ -59,4 +90,4 @@ scripts:
       pm.environment.set(\"especialidade_id\", resposta.especialidade[0].id);"
     language: text/javascript
 examples: .resources/Adicionar Profissional.resources/examples
-order: 3046489630063782
+order: 4503535580946346

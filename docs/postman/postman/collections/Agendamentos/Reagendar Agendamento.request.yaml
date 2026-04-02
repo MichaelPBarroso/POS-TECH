@@ -1,12 +1,15 @@
 $kind: http-request
+name: Reagendar Agendamento
 url: "{{servidor}}/agendamento/{{agendamento_id}}/reagendar"
 method: PUT
 body:
   type: json
   content: "{\r
 
-    \  \"data_hora\": \"2026-03-30T16:00\"\r
+    \  \"data\": \"2026-04-02\",\r
+
+    \  \"horario\": \"09:00:00\"\r
 
     }"
 examples: .resources/Reagendar Agendamento.resources/examples
-order: 4114
+order: 4500613285062759

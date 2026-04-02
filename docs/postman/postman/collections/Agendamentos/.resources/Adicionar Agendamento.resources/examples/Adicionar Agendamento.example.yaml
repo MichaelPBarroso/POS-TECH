@@ -6,7 +6,9 @@ request:
     type: json
     content: "{\r
 
-      \  \"data_hora\": \"2026-03-30T14:00:00\",\r
+      \  \"data\": \"2026-04-01\",\r
+
+      \  \"horario\": \"14:00:00\",\r
 
       \  \"idServico\": \"6e7954e9-2cef-45a3-9c62-90ebd31c3cd2\",\r
 
@@ -18,13 +20,15 @@ request:
 
       }"
 response:
-  statusCode: 200
-  statusText: OK
+  statusCode: 201
+  statusText: Created
   body:
     type: json
     content: "{\r
 
-      \    \"data_hora\": \"2026-03-30T14:00\",\r
+      \    \"data\": \"2026-04-01\",\r
+      
+      \    \"horario\": \"14:00:00\",\r
 
       \    \"id\": \"eab3b793-7d03-47c6-b4a1-73589a8391b2\",\r
 

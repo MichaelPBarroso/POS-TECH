@@ -2,4 +2,4 @@ $kind: http-request
 url: "{{servidor}}/agendamento/{{agendamento_id}}/ausente"
 method: PATCH
 examples: .resources/Ausente no Agendamento.resources/examples
-order: 4428182447366659
+order: 4503462771559407

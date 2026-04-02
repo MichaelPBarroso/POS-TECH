@@ -39,4 +39,4 @@ scripts:
       pm.environment.set(\"estabelecimento_id\", resposta.id);"
     language: text/javascript
 examples: .resources/Adicionar Estabelecimento.resources/examples
-order: 1774832392611
+order: 4491037554171675

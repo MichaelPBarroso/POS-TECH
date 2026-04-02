@@ -1,0 +1,17 @@
+$kind: graphql-request
+name: Agendamento-graphql
+url: "{{servidor}}/graphql"
+query: |
+  query DisponibilidadeProfissional {
+      disponibilidadeProfissional(
+          profissionalId: "{{profissional_id}}"
+          data: "2026-04-02"
+      ) {
+          horario
+          profissionalId
+      }
+  }
+variables: ""
+schema:
+  source: auto
+order: 4503586804837024

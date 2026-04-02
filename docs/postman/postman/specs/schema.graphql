@@ -1,0 +1,80 @@
+type Estabelecimento {
+    id: ID
+    nome: String
+    horarioAbertura: String
+    horarioFechamento: String
+    endereco: Endereco
+    nota: Float
+    profissionais: [Profissional!]
+    fotos: [Foto!]
+}
+
+type Profissional {
+    id: ID
+    nome: String
+    email: String
+    horariosDisponiveis: [HorarioDisponivel!]
+    servicosOferecidos: [Servico!]
+}
+
+type Foto{
+    id: ID,
+    url: String
+}
+
+type Endereco {
+    id: String
+    logradouro: String
+    numero: String
+    complemento: String
+    bairro: String
+    cidade: String
+    estado: String
+    cep: String
+}
+
+input EstabelecimentoInput {
+    id: ID
+    nome: String
+    horarioAbertura: String
+    horarioFechamento: String
+    endereco: EnderecoInput
+    servico: ServicoInput
+    notaMaiorQue: Int
+    notaMenorQue: Int
+    horarioAgendamento: String
+}
+
+input EnderecoInput {
+    id: String
+    logradouro: String
+    numero: String
+    complemento: String
+    bairro: String
+    cidade: String
+    estado: String
+    cep: String
+}
+
+type HorarioDisponivel {
+    horario: String!
+    profissionalId: ID!
+}
+
+type Servico {
+    id: ID
+    nome: String
+    valor: Float
+}
+
+input ServicoInput {
+    nome: String
+    precoMaiorQue: Float
+    precoMenorQue: Float
+}
+
+type Query {
+    buscarEstabelecimentos(estabelecimentoDTO: EstabelecimentoInput): [Estabelecimento!]!
+
+    disponibilidadeProfissional(profissionalId: ID!, data: String!): [HorarioDisponivel!]!
+}

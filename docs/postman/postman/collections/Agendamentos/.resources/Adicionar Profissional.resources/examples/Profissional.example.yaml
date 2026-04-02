@@ -1,7 +1,7 @@
 $kind: http-example
 request:
-  url: ""
-  method: GET
+  url: "{{servidor}}/profissional"
+  method: POST
   body:
     type: json
     content: "{\r
@@ -44,65 +44,76 @@ request:
 
       \  ],\r
 
-      \  \"idEstabelecimento\": \"0c8a0902-10c6-4ac8-96f1-8f324f5570e8\"\r
+      \  \"idEstabelecimento\": \"0c8a0902-10c6-4ac8-96f1-8f324f5570e8\",\r
+
+      \  \"horario\": [\r
+
+      \    {\r
+
+      \      \"horario\": \"08:00:00\"\r
+
+      \    },\r
+
+      \    {\r
+
+      \      \"horario\": \"09:00:00\"\r
+
+      \    },\r
+
+      \    {\r
+
+      \      \"horario\": \"10:00:00\"\r
+
+      \    }\r
+
+      \  ]\r
 
       }"
 response:
-  statusCode: 200
-  statusText: OK
+  statusCode: 201
+  statusText: Created
   body:
     type: json
-    content: "{\r
-
-      \    \"especialidade\": [\r
-
-      \        {\r
-
-      \            \"id\": \"3d5bd7fb-bb69-40c5-b625-9c64b2327c3b\",\r
-
-      \            \"nome\": \"Cabeleireira\"\r
-
-      \        },\r
-
-      \        {\r
-
-      \            \"id\": \"cd2c25cc-7e97-4a18-b407-790e8de2bbc1\",\r
-
-      \            \"nome\": \"Coloracao\"\r
-
-      \        }\r
-
-      \    ],\r
-
-      \    \"id\": \"968a992a-5251-4f73-b556-ec9b2951bc9f\",\r
-
-      \    \"idEstabelecimento\": \"0c8a0902-10c6-4ac8-96f1-8f324f5570e8\",\r
-
-      \    \"nome\": \"Mariana Souza\",\r
-
-      \    \"servico\": [\r
-
-      \        {\r
-
-      \            \"id\": \"6e7954e9-2cef-45a3-9c62-90ebd31c3cd2\",\r
-
-      \            \"nome\": \"Corte Feminino\",\r
-
-      \            \"valor\": 80.0\r
-
-      \        },\r
-
-      \        {\r
-
-      \            \"id\": \"492ca23f-4039-4837-a6d8-d650cb3529da\",\r
-
-      \            \"nome\": \"Escova\",\r
-
-      \            \"valor\": 45.5\r
-
-      \        }\r
-
-      \    ]\r
-
-      }"
+    content: |-
+      {
+        "especialidade": [
+          {
+            "id": "3d5bd7fb-bb69-40c5-b625-9c64b2327c3b",
+            "nome": "Cabeleireira"
+          },
+          {
+            "id": "cd2c25cc-7e97-4a18-b407-790e8de2bbc1",
+            "nome": "Coloracao"
+          }
+        ],
+          "horario": [
+              {
+                  "horario": "08:00",
+                  "id": "2c383b76-d3ac-44ab-8b56-9b35f40219b2"
+              },
+              {
+                  "horario": "09:00",
+                  "id": "f4e41ba4-fdf8-42aa-982f-29e17934b191"
+              },
+              {
+                  "horario": "10:00",
+                  "id": "81f78489-4ecc-43a0-82f8-c8f764414b01"
+              }
+          ],
+        "id": "968a992a-5251-4f73-b556-ec9b2951bc9f",
+        "idEstabelecimento": "0c8a0902-10c6-4ac8-96f1-8f324f5570e8",
+        "nome": "Mariana Souza",
+        "servico": [
+          {
+            "id": "6e7954e9-2cef-45a3-9c62-90ebd31c3cd2",
+            "nome": "Corte Feminino",
+            "valor": 80
+          },
+          {
+            "id": "492ca23f-4039-4837-a6d8-d650cb3529da",
+            "nome": "Escova",
+            "valor": 45.5
+          }
+        ]
+      }
 order: 1774833969747

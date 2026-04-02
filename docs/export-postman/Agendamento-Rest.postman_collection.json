@@ -1,0 +1,686 @@
+{
+  "info": {
+    "_postman_id": "97489daa-81f7-4f08-8f4c-f3da56b377e3",
+    "name": "Agendamento-Rest",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "44932961"
+  },
+  "item": [
+    {
+      "name": "Adicionar Estabelecimento",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var resposta = pm.response.json();\r",
+              "\r",
+              "pm.environment.set(\"estabelecimento_id\", resposta.id);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"nome\": \"Studio Beleza Centro\",\r\n  \"horario_abertura\": \"08:00:00\",\r\n  \"horario_fechamento\": \"18:00:00\",\r\n  \"endereco\": {\r\n    \"logradouro\": \"Avenida Paulista\",\r\n    \"numero\": \"1000\",\r\n    \"complemento\": \"Sala 12\",\r\n    \"bairro\": \"Bela Vista\",\r\n    \"cidade\": \"Sao Paulo\",\r\n    \"estado\": \"SP\",\r\n    \"cep\": \"01310-100\"\r\n  }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{servidor}}/estabelecimento",
+          "host": [
+            "{{servidor}}"
+          ],
+          "path": [
+            "estabelecimento"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Adicionar Estabelecimento",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"nome\": \"Studio Beleza Centro\",\r\n  \"horario_abertura\": \"08:00:00\",\r\n  \"horario_fechamento\": \"18:00:00\",\r\n  \"endereco\": {\r\n    \"logradouro\": \"Avenida Paulista\",\r\n    \"numero\": \"1000\",\r\n    \"complemento\": \"Sala 12\",\r\n    \"bairro\": \"Bela Vista\",\r\n    \"cidade\": \"Sao Paulo\",\r\n    \"estado\": \"SP\",\r\n    \"cep\": \"01310-100\"\r\n  }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{servidor}}/estabelecimento",
+              "host": [
+                "{{servidor}}"
+              ],
+              "path": [
+                "estabelecimento"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 02 Apr 2026 00:40:47 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"endereco\": {\n        \"bairro\": \"Bela Vista\",\n        \"cep\": \"01310-100\",\n        \"cidade\": \"Sao Paulo\",\n        \"complemento\": \"Sala 12\",\n        \"estado\": \"SP\",\n        \"id\": \"e033a7f5-12f1-4307-836c-404a0b857a46\",\n        \"logradouro\": \"Avenida Paulista\",\n        \"numero\": \"1000\"\n    },\n    \"horario_abertura\": \"08:00\",\n    \"horario_fechamento\": \"18:00\",\n    \"id\": \"7014d3f5-f3f6-48bd-a02f-e8fb3a253a65\",\n    \"nome\": \"Studio Beleza Centro\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Adicionar Profissional",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var resposta = pm.response.json();\r",
+              "\r",
+              "pm.environment.set(\"profissional_id\", resposta.id);\r",
+              "pm.environment.set(\"servico_id\", resposta.servico[0].id);\r",
+              "pm.environment.set(\"especialidade_id\", resposta.especialidade[0].id);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"nome\": \"Mariana Souza\",\r\n  \"email\": \"mariana_teste@teste.postech.com\",\r\n  \"servico\": [\r\n    {\r\n      \"nome\": \"Corte Feminino\",\r\n      \"valor\": 80.00\r\n    },\r\n    {\r\n      \"nome\": \"Escova\",\r\n      \"valor\": 45.50\r\n    }\r\n  ],\r\n  \"especialidade\": [\r\n    {\r\n      \"nome\": \"Cabeleireira\"\r\n    },\r\n    {\r\n      \"nome\": \"Coloracao\"\r\n    }\r\n  ],\r\n  \"idEstabelecimento\": \"{{estabelecimento_id}}\",\r\n  \"horario\": [\r\n    {\r\n      \"horario\": \"08:00:00\"\r\n    },\r\n    {\r\n      \"horario\": \"09:00:00\"\r\n    },\r\n    {\r\n      \"horario\": \"10:00:00\"\r\n    },\r\n    {\r\n      \"horario\": \"14:00:00\"\r\n    }\r\n  ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{servidor}}/profissional",
+          "host": [
+            "{{servidor}}"
+          ],
+          "path": [
+            "profissional"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Adicionar Profissional",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"nome\": \"Mariana Souza\",\r\n  \"email\": \"mariana_teste@teste.postech.com\",\r\n  \"servico\": [\r\n    {\r\n      \"nome\": \"Corte Feminino\",\r\n      \"valor\": 80.00\r\n    },\r\n    {\r\n      \"nome\": \"Escova\",\r\n      \"valor\": 45.50\r\n    }\r\n  ],\r\n  \"especialidade\": [\r\n    {\r\n      \"nome\": \"Cabeleireira\"\r\n    },\r\n    {\r\n      \"nome\": \"Coloracao\"\r\n    }\r\n  ],\r\n  \"idEstabelecimento\": \"{{estabelecimento_id}}\",\r\n  \"horario\": [\r\n    {\r\n      \"horario\": \"08:00:00\"\r\n    },\r\n    {\r\n      \"horario\": \"09:00:00\"\r\n    },\r\n    {\r\n      \"horario\": \"10:00:00\"\r\n    },\r\n    {\r\n      \"horario\": \"14:00:00\"\r\n    }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{servidor}}/profissional",
+              "host": [
+                "{{servidor}}"
+              ],
+              "path": [
+                "profissional"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 02 Apr 2026 00:40:53 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"email\": \"mariana_teste@teste.postech.com\",\n    \"especialidade\": [\n        {\n            \"id\": \"97c1932d-532a-42e1-824a-f497422cbcff\",\n            \"nome\": \"Cabeleireira\"\n        },\n        {\n            \"id\": \"509af65c-b3b4-47da-aabc-63c7405146bd\",\n            \"nome\": \"Coloracao\"\n        }\n    ],\n    \"horario\": [\n        {\n            \"horario\": \"08:00\",\n            \"id\": \"2594de7f-86a0-4892-9fd6-a7e0cd12862d\"\n        },\n        {\n            \"horario\": \"09:00\",\n            \"id\": \"a5c79308-9781-4f67-9adf-c024e3269d30\"\n        },\n        {\n            \"horario\": \"10:00\",\n            \"id\": \"962cf9ad-ba48-4096-9d67-dfc488da85ec\"\n        },\n        {\n            \"horario\": \"14:00\",\n            \"id\": \"d12996fe-dd55-45c7-a2e8-d4ed0cc37c70\"\n        }\n    ],\n    \"id\": \"41ca9b4a-6330-4437-bad4-60cb6299cb1b\",\n    \"idEstabelecimento\": \"7014d3f5-f3f6-48bd-a02f-e8fb3a253a65\",\n    \"nome\": \"Mariana Souza\",\n    \"servico\": [\n        {\n            \"id\": \"8a1c9a5a-c872-4eb6-953e-8e39794ea09a\",\n            \"nome\": \"Corte Feminino\",\n            \"valor\": 80\n        },\n        {\n            \"id\": \"13114017-bbb4-418f-a796-a0d1cea5f6f2\",\n            \"nome\": \"Escova\",\n            \"valor\": 45.5\n        }\n    ]\n}"
+        }
+      ]
+    },
+    {
+      "name": "Adicionar Agendamento",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var resposta = pm.response.json();\r",
+              "\r",
+              "pm.environment.set(\"agendamento_id\", resposta.id);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"data\": \"2026-04-01\",\r\n  \"horario\": \"14:00:00\",\r\n  \"idServico\": \"{{servico_id}}\",\r\n  \"idEstabelecimento\": \"{{estabelecimento_id}}\",\r\n  \"idProfissional\": \"{{profissional_id}}\",\r\n  \"idCliente\": \"{{cliente_id}}\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{servidor}}/agendamento",
+          "host": [
+            "{{servidor}}"
+          ],
+          "path": [
+            "agendamento"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Adicionar Agendamento",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"data\": \"2026-04-01\",\r\n  \"horario\": \"14:00:00\",\r\n  \"idServico\": \"{{servico_id}}\",\r\n  \"idEstabelecimento\": \"{{estabelecimento_id}}\",\r\n  \"idProfissional\": \"{{profissional_id}}\",\r\n  \"idCliente\": \"{{cliente_id}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{servidor}}/agendamento",
+              "host": [
+                "{{servidor}}"
+              ],
+              "path": [
+                "agendamento"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 02 Apr 2026 00:40:58 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"data\": \"2026-04-01\",\n    \"horario\": \"14:00\",\n    \"id\": \"5653992d-1944-480a-a96b-c76e472106b8\",\n    \"idCliente\": \"55555555-5555-5555-5555-555555555555\",\n    \"idEstabelecimento\": \"7014d3f5-f3f6-48bd-a02f-e8fb3a253a65\",\n    \"idProfissional\": \"41ca9b4a-6330-4437-bad4-60cb6299cb1b\",\n    \"idServico\": \"8a1c9a5a-c872-4eb6-953e-8e39794ea09a\",\n    \"statusAgendamento\": \"AGENDADO\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Adicionar Avaliacao",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"nota\": 4,\r\n  \"idAgendamento\": \"{{agendamento_id}}\",\r\n  \"comentario\": \"Excelente atendimento, horario respeitado e servico muito bom.\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{servidor}}/avaliacao",
+          "host": [
+            "{{servidor}}"
+          ],
+          "path": [
+            "avaliacao"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Adicionar Avaliacao",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"nota\": 3,\r\n  \"idAgendamento\": \"{{agendamento_id}}\",\r\n  \"comentario\": \"Excelente atendimento, horario respeitado e servico muito bom.\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{servidor}}/avaliacao",
+              "host": [
+                "{{servidor}}"
+              ],
+              "path": [
+                "avaliacao"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 02 Apr 2026 00:41:09 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"comentario\": \"Excelente atendimento, horario respeitado e servico muito bom.\",\n    \"data_avaliacao\": \"2026-04-01T21:41:09.180381400\",\n    \"id\": \"30600d1c-5e02-4a14-a3bb-89291a01813c\",\n    \"idAgendamento\": \"5653992d-1944-480a-a96b-c76e472106b8\",\n    \"nota\": 3\n}"
+        }
+      ]
+    },
+    {
+      "name": "Adicionar Foto",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "foto",
+              "type": "file",
+              "uuid": "29d9063f-c5b5-4aa3-9f32-c4430ae87e42",
+              "value": null
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{servidor}}/estabelecimento/{{estabelecimento_id}}/foto",
+          "host": [
+            "{{servidor}}"
+          ],
+          "path": [
+            "estabelecimento",
+            "{{estabelecimento_id}}",
+            "foto"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Adicionar Foto",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "foto",
+                  "type": "file",
+                  "uuid": "29d9063f-c5b5-4aa3-9f32-c4430ae87e42",
+                  "src": "/C:/Users/Michael/Pictures/papel de parede/2f1c9f245116a9db976bac1b0b183071b4286a51.jpg"
+                }
+              ],
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{servidor}}/estabelecimento/{{estabelecimento_id}}/foto",
+              "host": [
+                "{{servidor}}"
+              ],
+              "path": [
+                "estabelecimento",
+                "{{estabelecimento_id}}",
+                "foto"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 02 Apr 2026 00:41:23 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": \"42de79e6-ca46-4549-a8a1-3f92cc3c9e68\",\n    \"idEstabelecimento\": \"42de79e6-ca46-4549-a8a1-3f92cc3c9e68\",\n    \"url\": \"{URL de exemplo}?filename=2f1c9f245116a9db976bac1b0b183071b4286a51.jpg\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Reagendar Agendamento",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"data\": \"2026-04-02\",\r\n  \"horario\": \"09:00:00\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{servidor}}/agendamento/{{agendamento_id}}/reagendar",
+          "host": [
+            "{{servidor}}"
+          ],
+          "path": [
+            "agendamento",
+            "{{agendamento_id}}",
+            "reagendar"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Reagendar Agendamento",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"data\": \"2026-04-02\",\r\n  \"horario\": \"09:00:00\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{servidor}}/agendamento/{{agendamento_id}}/reagendar",
+              "host": [
+                "{{servidor}}"
+              ],
+              "path": [
+                "agendamento",
+                "{{agendamento_id}}",
+                "reagendar"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 02 Apr 2026 00:41:25 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"data\": \"2026-04-02\",\n    \"horario\": \"09:00\",\n    \"id\": \"5653992d-1944-480a-a96b-c76e472106b8\",\n    \"idCliente\": \"55555555-5555-5555-5555-555555555555\",\n    \"idEstabelecimento\": \"7014d3f5-f3f6-48bd-a02f-e8fb3a253a65\",\n    \"idProfissional\": \"41ca9b4a-6330-4437-bad4-60cb6299cb1b\",\n    \"idServico\": \"8a1c9a5a-c872-4eb6-953e-8e39794ea09a\",\n    \"statusAgendamento\": \"AGENDADO\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Cancelar Agendamento",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": []
+        },
+        "url": {
+          "raw": "{{servidor}}/agendamento/{{agendamento_id}}/cancelar",
+          "host": [
+            "{{servidor}}"
+          ],
+          "path": [
+            "agendamento",
+            "{{agendamento_id}}",
+            "cancelar"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Cancelar Agendamento",
+          "originalRequest": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "url": {
+              "raw": "{{servidor}}/agendamento/{{agendamento_id}}/cancelar",
+              "host": [
+                "{{servidor}}"
+              ],
+              "path": [
+                "agendamento",
+                "{{agendamento_id}}",
+                "cancelar"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain;charset=UTF-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "35"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 02 Apr 2026 00:43:22 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "Cancelamento realizado com sucesso."
+        }
+      ]
+    },
+    {
+      "name": "Ausente no Agendamento",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "url": {
+          "raw": "{{servidor}}/agendamento/{{agendamento_id}}/ausente",
+          "host": [
+            "{{servidor}}"
+          ],
+          "path": [
+            "agendamento",
+            "{{agendamento_id}}",
+            "ausente"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Ausente no Agendamento",
+          "originalRequest": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{servidor}}/agendamento/{{agendamento_id}}/ausente",
+              "host": [
+                "{{servidor}}"
+              ],
+              "path": [
+                "agendamento",
+                "{{agendamento_id}}",
+                "ausente"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain;charset=UTF-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "43"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 02 Apr 2026 00:43:35 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "Registro de ausencia realizado com sucesso."
+        }
+      ]
+    }
+  ]
+}

@@ -41,7 +41,7 @@ public class AdicionarProfissionalUseCase {
         List<OutputServicoOferecido> outputServicoOferecidos = profissionalDb.getServicoOferecidos().stream().map(servicoOferecido -> new OutputServicoOferecido(servicoOferecido.getId(), servicoOferecido.getNome(), BigDecimal.valueOf(servicoOferecido.getValor()))).toList();
         List<OutputHorarioDisponivel> outputHorariosDisponiveis = profissionalDb.getHorarioDisponivel().stream().map(horarioDisponivel -> new OutputHorarioDisponivel(horarioDisponivel.getId(), horarioDisponivel.getHorario())).toList();
 
-        return new OutputAdicionarProfissional(profissionalDb.getId(), profissional.getNome(), outputEspecialidades, outputServicoOferecidos, profissionalDb.getEstabelecimento().getId(), outputHorariosDisponiveis);
+        return new OutputAdicionarProfissional(profissionalDb.getId(), profissionalDb.getNome(), profissionalDb.getEmail(), outputEspecialidades, outputServicoOferecidos, profissionalDb.getEstabelecimento().getId(), outputHorariosDisponiveis);
     }
 
     private @NonNull Profissional toEntity(InputAdicionarProfissional input) {
@@ -51,6 +51,6 @@ public class AdicionarProfissionalUseCase {
         List<ServicoOferecido> servicoOferecidos = input.servicoOferecidos().stream().map(inputServicoOferecido -> ServicoOferecido.create(inputServicoOferecido.nome(), inputServicoOferecido.valor().doubleValue())).toList();
         List<HorarioDisponivel> horariosDisponiveis = input.horariosDisponiveis().stream().map(inputHorarioDisponivel -> HorarioDisponivel.create(inputHorarioDisponivel.horario())).toList();
 
-        return Profissional.create(input.nome(), especialidades, servicoOferecidos, estabelecimento, horariosDisponiveis);
+        return Profissional.create(input.nome(), input.email(), especialidades, servicoOferecidos, estabelecimento, horariosDisponiveis);
     }
 }

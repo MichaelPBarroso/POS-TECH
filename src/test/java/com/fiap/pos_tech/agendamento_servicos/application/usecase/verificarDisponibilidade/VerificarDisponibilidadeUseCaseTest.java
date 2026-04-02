@@ -42,6 +42,7 @@ class VerificarDisponibilidadeUseCaseTest {
         Profissional profissional = Profissional.create(
                 profissionalId,
                 "Profissional",
+                "profissional@email.com",
                 List.of(),
                 List.of(),
                 estabelecimento,

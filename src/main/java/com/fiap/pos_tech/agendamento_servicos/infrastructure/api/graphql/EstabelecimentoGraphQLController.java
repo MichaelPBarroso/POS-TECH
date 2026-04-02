@@ -61,6 +61,7 @@ public class EstabelecimentoGraphQLController {
                                     .map(profissional -> new ProfissionalDTOOutput(
                                             profissional.id().toString(),
                                             profissional.nome(),
+                                            profissional.email(),
                                             profissional.horariosDisponiveis().stream()
                                                     .map(horario -> new HorarioDisponivelDTOOutput(
                                                             horario.horario().toString(),

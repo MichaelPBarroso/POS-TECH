@@ -44,6 +44,7 @@ class AdicionarProfissionalUseCaseTest {
     private static final UUID SERVICO_ID = UUID.randomUUID();
     private static final UUID HORARIO_ID = UUID.randomUUID();
     private static final String NOME_PROFISSIONAL = "Joao";
+    private static final String EMAIL_PROFISSIONAL = "joao@email.com";
     private static final String NOME_ESPECIALIDADE = "Barbeiro";
     private static final String NOME_SERVICO = "Corte";
     private static final BigDecimal VALOR_SERVICO = BigDecimal.valueOf(55.90);
@@ -54,6 +55,7 @@ class AdicionarProfissionalUseCaseTest {
     void adicionarProfissional() {
         InputAdicionarProfissional input = new InputAdicionarProfissional(
                 NOME_PROFISSIONAL,
+                EMAIL_PROFISSIONAL,
                 List.of(new InputEspecialidade(NOME_ESPECIALIDADE)),
                 List.of(new InputServicoOferecido(NOME_SERVICO, VALOR_SERVICO)),
                 ESTABELECIMENTO_ID,
@@ -81,6 +83,7 @@ class AdicionarProfissionalUseCaseTest {
         Profissional profissionalPersistido = Profissional.create(
                 PROFISSIONAL_ID,
                 NOME_PROFISSIONAL,
+                EMAIL_PROFISSIONAL,
                 List.of(Especialidade.create(ESPECIALIDADE_ID, NOME_ESPECIALIDADE)),
                 List.of(ServicoOferecido.create(SERVICO_ID, NOME_SERVICO, VALOR_SERVICO.doubleValue())),
                 estabelecimento,
@@ -114,6 +117,7 @@ class AdicionarProfissionalUseCaseTest {
         assertNotNull(output);
         assertEquals(PROFISSIONAL_ID, output.id());
         assertEquals(NOME_PROFISSIONAL, output.nome());
+        assertEquals(EMAIL_PROFISSIONAL, output.email());
         assertEquals(ESTABELECIMENTO_ID, output.idEstabelecimento());
         assertEquals(1, output.especialidades().size());
         assertEquals(ESPECIALIDADE_ID, output.especialidades().getFirst().id());
@@ -127,6 +131,7 @@ class AdicionarProfissionalUseCaseTest {
         assertEquals(HORARIO_DISPONIVEL, output.horariosDisponiveis().getFirst().horario());
 
         assertEquals(NOME_PROFISSIONAL, profissionalValidado.getNome());
+        assertEquals(EMAIL_PROFISSIONAL, profissionalValidado.getEmail());
         assertEquals(ESTABELECIMENTO_ID, profissionalValidado.getEstabelecimento().getId());
         assertEquals(1, profissionalValidado.getEspecialidades().size());
         assertEquals(NOME_ESPECIALIDADE, profissionalValidado.getEspecialidades().getFirst().getNome());
@@ -137,6 +142,7 @@ class AdicionarProfissionalUseCaseTest {
         assertEquals(HORARIO_DISPONIVEL, profissionalValidado.getHorarioDisponivel().getFirst().getHorario());
 
         assertEquals(profissionalValidado.getNome(), profissionalEnviado.getNome());
+        assertEquals(profissionalValidado.getEmail(), profissionalEnviado.getEmail());
         assertEquals(profissionalValidado.getEstabelecimento().getId(), profissionalEnviado.getEstabelecimento().getId());
         assertEquals(profissionalValidado.getEspecialidades().getFirst().getNome(), profissionalEnviado.getEspecialidades().getFirst().getNome());
         assertEquals(profissionalValidado.getServicoOferecidos().getFirst().getNome(), profissionalEnviado.getServicoOferecidos().getFirst().getNome());
@@ -148,6 +154,7 @@ class AdicionarProfissionalUseCaseTest {
     void naoDeveAdicionarProfissionalQuandoEstabelecimentoNaoExistir() {
         InputAdicionarProfissional input = new InputAdicionarProfissional(
                 NOME_PROFISSIONAL,
+                EMAIL_PROFISSIONAL,
                 List.of(new InputEspecialidade(NOME_ESPECIALIDADE)),
                 List.of(new InputServicoOferecido(NOME_SERVICO, VALOR_SERVICO)),
                 ESTABELECIMENTO_ID,

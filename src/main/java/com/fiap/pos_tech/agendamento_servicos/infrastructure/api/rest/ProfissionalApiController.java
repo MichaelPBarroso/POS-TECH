@@ -36,6 +36,7 @@ public class ProfissionalApiController implements ProfissionalApi {
 
         profissionalJson.setId(output.id().toString());
         profissionalJson.setNome(output.nome());
+        profissionalJson.setEmail(output.email());
         profissionalJson.setIdEstabelecimento(output.idEstabelecimento().toString());
 
         List<EspecialidadeJson> especialidadesJson = output.especialidades().stream().map(especialidade -> {
@@ -81,6 +82,6 @@ public class ProfissionalApiController implements ProfissionalApi {
         List<InputServicoOferecido> servicoOferecidos = body.getServico().stream().map(servicos -> new InputServicoOferecido(servicos.getNome(), servicos.getValor())).toList();
         List<InputHorarioDisponivel> horariosDisponiveis = body.getHorario().stream().map(horario -> new InputHorarioDisponivel(LocalTime.parse(horario.getHorario()))).toList();
 
-        return new InputAdicionarProfissional(body.getNome(), especialidades, servicoOferecidos, UUID.fromString(body.getIdEstabelecimento()), horariosDisponiveis);
+        return new InputAdicionarProfissional(body.getNome(), body.getEmail(), especialidades, servicoOferecidos, UUID.fromString(body.getIdEstabelecimento()), horariosDisponiveis);
     }
 }

@@ -12,6 +12,7 @@ type Estabelecimento {
 type Profissional {
     id: ID
     nome: String
+    email: String
     horariosDisponiveis: [HorarioDisponivel!]
     servicosOferecidos: [Servico!]
 }

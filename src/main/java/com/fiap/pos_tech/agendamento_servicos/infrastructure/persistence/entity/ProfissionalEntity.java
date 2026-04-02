@@ -25,6 +25,8 @@ public class ProfissionalEntity {
 
     private String nome;
 
+    private String email;
+
     @OneToMany(mappedBy = "profissional", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EspecialidadeEntity> especialidades;
 

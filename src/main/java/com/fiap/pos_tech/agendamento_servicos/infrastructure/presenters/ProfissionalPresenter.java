@@ -17,6 +17,7 @@ public class ProfissionalPresenter {
         return Profissional.create(
                 profissionalEntity.getId(),
                 profissionalEntity.getNome(),
+                profissionalEntity.getEmail(),
                 EstabelecimentoPresenter.toDomain(profissionalEntity.getEstabelecimento())
         );
     }
@@ -30,6 +31,7 @@ public class ProfissionalPresenter {
         return Profissional.create(
                 profissionalEntity.getId(),
                 profissionalEntity.getNome(),
+                profissionalEntity.getEmail(),
                 especialidades,
                 servicoOferecidos,
                 EstabelecimentoPresenter.toDomain(profissionalEntity.getEstabelecimento()),
@@ -41,6 +43,7 @@ public class ProfissionalPresenter {
         return ProfissionalEntity.builder()
                 .id(profissional.getId())
                 .nome(profissional.getNome())
+                .email(profissional.getEmail())
                 .estabelecimento(EstabelecimentoPresenter.toEntity(profissional.getEstabelecimento()))
                 .build();
     }
@@ -53,6 +56,7 @@ public class ProfissionalPresenter {
         ProfissionalEntity profissionalEntity = ProfissionalEntity.builder()
                 .id(profissional.getId())
                 .nome(profissional.getNome())
+                .email(profissional.getEmail())
                 .especialidades(especialidadeEntities)
                 .servicoOferecidos(servicoOferecidoEntities)
                 .horariosDisponiveis(horarioDisponivelEntities)

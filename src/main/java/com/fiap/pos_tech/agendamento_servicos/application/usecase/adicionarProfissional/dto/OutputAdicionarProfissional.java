@@ -3,5 +3,5 @@ package com.fiap.pos_tech.agendamento_servicos.application.usecase.adicionarProf
 import java.util.List;
 import java.util.UUID;
 
-public record OutputAdicionarProfissional(UUID id, String nome, List<OutputEspecialidade> especialidades, List<OutputServicoOferecido> servicoOferecidos, UUID idEstabelecimento, List<OutputHorarioDisponivel> horariosDisponiveis) {
+public record OutputAdicionarProfissional(UUID id, String nome, String email, List<OutputEspecialidade> especialidades, List<OutputServicoOferecido> servicoOferecidos, UUID idEstabelecimento, List<OutputHorarioDisponivel> horariosDisponiveis) {
 }

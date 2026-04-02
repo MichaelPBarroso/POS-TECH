@@ -124,10 +124,12 @@ public class AgendamentoCargaSimulation extends Simulation {
                 """.formatted(suffix, suffix), 201);
 
         estabelecimentoId = estabelecimento.path("id").asText();
+        String emailProfissional = "profissional.gatling-" + suffix + "@email.com";
 
         JsonNode profissional = postJson(client, "/profissional", """
                 {
                   "nome": "Profissional gatling-%s",
+                  "email": "%s",
                   "servico": [
                     {
                       "nome": "Corte Gatling",
@@ -155,7 +157,11 @@ public class AgendamentoCargaSimulation extends Simulation {
                     }
                   ]
                 }
-                """.formatted(suffix, estabelecimentoId), 201);
+                """.formatted(suffix, emailProfissional, estabelecimentoId), 201);
+
+        if (!emailProfissional.equals(profissional.path("email").asText())) {
+            throw new IllegalStateException("Resposta do profissional sem o email esperado no setup do Gatling.");
+        }
 
         profissionalId = profissional.path("id").asText();
         servicoId = profissional.path("servico").get(0).path("id").asText();

@@ -6,6 +6,7 @@ import java.util.UUID;
 public record OutputBuscarEstabelecimentoProfissional(
         UUID id,
         String nome,
+        String email,
         List<OutputBuscarEstabelecimentoHorarioDisponivel> horariosDisponiveis,
         List<OutputBuscarEstabelecimentoServicoOferecido> servicosOferecidos
 ) {

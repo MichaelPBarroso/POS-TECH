@@ -38,6 +38,9 @@ components:
         nome:
           type: string
           description: Nome Profissional
+        email:
+          type: string
+          description: Email do profissional
         servico:
           type: array
           description: Serviços do profissional
@@ -66,6 +69,9 @@ components:
         nome:
           type: string
           description: Nome Profissional
+        email:
+          type: string
+          description: Email do profissional
         servico:
           type: array
           description: Serviços do profissional

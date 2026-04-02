@@ -75,6 +75,7 @@ public class BuscarEstabelecimentoUseCase {
                 .map(profissional -> new OutputBuscarEstabelecimentoProfissional(
                         profissional.getId(),
                         profissional.getNome(),
+                        profissional.getEmail(),
                         toOutputBuscarEstabelecimentoHorarios(profissional.getHorarioDisponivel()),
                         toOutputBuscarEstabelecimentoServicos(profissional.getServicoOferecidos())
                 ))

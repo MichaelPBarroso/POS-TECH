@@ -64,6 +64,7 @@ class ApiIntegrationTest {
 
         JsonNode profissional = setup.profissional();
         assertThat(profissional.path("nome").asText()).isEqualTo("Profissional rest-cadastro");
+        assertThat(profissional.path("email").asText()).isEqualTo("profissional.rest-cadastro@email.com");
         assertThat(profissional.path("idEstabelecimento").asText()).isEqualTo(setup.estabelecimentoId().toString());
         assertThat(profissional.path("servico").size()).isEqualTo(1);
         assertThat(profissional.path("especialidade").size()).isEqualTo(2);
@@ -149,6 +150,7 @@ class ApiIntegrationTest {
                     profissionais {
                       id
                       nome
+                      email
                       servicosOferecidos { nome valor }
                     }
                     fotos { url }
@@ -162,6 +164,7 @@ class ApiIntegrationTest {
         assertThat(estabelecimento.path("nome").asText()).isEqualTo("Studio graphql");
         assertThat(estabelecimento.path("endereco").path("logradouro").asText()).isEqualTo("Avenida GraphQL");
         assertThat(estabelecimento.path("profissionais").get(0).path("nome").asText()).isEqualTo("Profissional graphql");
+        assertThat(estabelecimento.path("profissionais").get(0).path("email").asText()).isEqualTo("profissional.graphql@email.com");
         assertThat(estabelecimento.path("profissionais").get(0).path("servicosOferecidos").get(0).path("nome").asText())
                 .isEqualTo("Design de Sobrancelha");
         assertThat(estabelecimento.path("fotos").get(0).path("url").asText()).isEqualTo("{URL de exemplo}?filename=fachada.jpg");
@@ -233,6 +236,7 @@ class ApiIntegrationTest {
 
         Map<String, Object> body = Map.of(
                 "nome", "Profissional " + suffix,
+                "email", "profissional." + suffix + "@email.com",
                 "servico", new Object[]{
                         Map.of("nome", servicoNome, "valor", 80.0)
                 },

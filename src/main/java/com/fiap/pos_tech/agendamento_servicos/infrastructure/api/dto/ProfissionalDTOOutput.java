@@ -5,6 +5,7 @@ import java.util.List;
 public record ProfissionalDTOOutput(
         String id,
         String nome,
+        String email,
         List<HorarioDisponivelDTOOutput> horariosDisponiveis,
         List<ServicoDTOOutput> servicosOferecidos
 ) {

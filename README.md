@@ -72,7 +72,7 @@ Considerando o escopo implementado nesta base e o material de apoio presente em 
 | Cadastro de estabelecimentos     | Endpoint REST para criação de estabelecimentos com endereço e horários de funcionamento |
 | Cadastro de profissionais        | Endpoint REST para associar profissionais a estabelecimentos, com especialidades, serviços e agenda de horários |
 | Gestão de agendamentos           | Endpoints REST para criar, reagendar, cancelar e registrar ausencia |
-| Lembretes automáticos de agendamento | Job em `infrastructure/schedule/LembreteAgendamentoSchedule` executa o `LembreteAgendamentoUseCase` diariamente para enviar lembretes de atendimentos do próximo dia por e-mail |
+| Lembretes automáticos de agendamento | Job em `infrastructure/schedule/LembreteAgendamentoSchedule` executa o `LembreteAgendamentoUseCase` diariamente para enviar lembretes de atendimentos do próximo dia por email |
 | Avaliação do atendimento         | Endpoint REST para registrar nota e comentário vinculados ao agendamento |
 | Consulta de disponibilidade      | Query GraphQL `disponibilidadeProfissional` retorna apenas os horários livres para a data informada |
 | Busca avançada de estabelecimentos | Query GraphQL `buscarEstabelecimentos` permite filtrar por dados do estabelecimento, endereço, faixa de nota, servico, faixa de preço e horário |
@@ -82,8 +82,9 @@ Considerando o escopo implementado nesta base e o material de apoio presente em 
 
 ### Observação importante
 
-Foi implementado o envio de e-mails de notificação e lembrete de agendamentos, incluindo execução automática diária via scheduler.
-A sincronização de calendário permanece como estrutura base, sem implementação completa nesta fase.
+Foi implementado o envio de emails de notificação e lembrete de agendamentos, incluindo execução automática diária via scheduler.
+A sincronização de calendário permanece como estrutura base, sem implementação completa, devido não estar dentro dos temas tratado na fase 3 da pos-tech.
+Visto que o que foi informado pelo coordenador, não necessitar sem implementado.
 
 ## Como executar
 
@@ -268,7 +269,7 @@ Segue um exemplo da execução em sequencia no postman utilizando o Collection R
 
 ### Observação:
 
-Na execução da request `Adicionar Foto` é necessário adicionar no body um arquivo de imagem.
+Na execução da request `Adicionar Foto` é necessário adicionar no body um arquivo de imagem e salvar a request.
 Caso o arquivo de imagem selecionado esteja fora do diretório de trabalho do postman, o Collection Runner por questão de segurança não irá anexar o arquivo e irá apresentar o erro de `Unsupported Media Type`
 
 Para evitar esse erro é necessário ativar a opção `Permitir leitura de arquivos fora do diretório de trabalho` seguindo os passos abaixo:
@@ -278,3 +279,6 @@ Para evitar esse erro é necessário ativar a opção `Permitir leitura de arqui
 - Ative a opção "Allow reading files outside working directory" (Permitir leitura de arquivos fora do diretório de trabalho).
 
 Alternativamente, mova o arquivo físico do seu upload para dentro da pasta padrão configurada no Working Directory (geralmente ~/Postman/files) e anexe novamente o arquivo na aba Body da sua requisição antes de iniciar o Collection Runner.
+
+Para testar o envio automático de email, é necessário alterar o parâmetro SCHEDULER_LEMBRETE_AGENDAMENTO_CRON e também alterar os emails configurados do cliente e de profissional para um email valido. 
+O email do cliente se encontra no arquivo data.sql e o email do profissional se encontra na collection do postman.

@@ -43,9 +43,9 @@ public class AgendamentoGateway implements IAgendamentoGateway {
                 + " para realizar "
                 + agendamento.getServicoOferecido().getNome();
 
-        //smtpEnviarEmailAdapter.enviar(agendamento.getProfissional().getEmail(), "Agendamento Realizado", email);
+        smtpEnviarEmailAdapter.enviar(agendamento.getProfissional().getEmail(), "Agendamento Realizado", email);
 
-        //smtpEnviarEmailAdapter.enviar(agendamento.getCliente().getEmail(), "Agendamento Realizado", email);
+        smtpEnviarEmailAdapter.enviar(agendamento.getCliente().getEmail(), "Agendamento Realizado", email);
     }
 
     @Override

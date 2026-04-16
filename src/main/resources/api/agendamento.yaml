@@ -111,21 +111,27 @@ components:
       type: object
       properties:
         data:
+          required: true
           type: string
           description: Data do agendamento
         horario:
+          required: true
           type: string
           description: Horario do agendamento
         idServico:
+          required: true
           type: string
           description: Id do serviço que será realizado
         idEstabelecimento:
+          required: true
           type: string
           description: Id do estabelecimento
         idProfissional:
+          required: true
           type: string
           description: Id do profissional
         idCliente:
+          required: true
           type: string
           description: Id do cliente
     Agendamento:

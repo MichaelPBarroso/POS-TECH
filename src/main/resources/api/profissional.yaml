@@ -36,9 +36,11 @@ components:
       type: object
       properties:
         nome:
+          required: true
           type: string
           description: Nome Profissional
         email:
+          required: true
           type: string
           description: Email do profissional
         servico:
@@ -52,6 +54,7 @@ components:
           items:
             $ref: "#/components/schemas/NovaEspecialidade"
         idEstabelecimento:
+          required: true
           type: string
           description: Id do estabelecimento que esse profissional irá atuar.
         horario:
@@ -95,9 +98,11 @@ components:
       type: object
       properties:
         nome:
+          required: true
           type: string
           description: Nome do serviço que será prestado
         valor:
+          required: true
           type: number
           description: Valor do serviço que será prestado
 
@@ -105,6 +110,7 @@ components:
       type: object
       properties:
         nome:
+          required: true
           type: string
           description: Nome da especialidade
 
@@ -114,6 +120,7 @@ components:
         horario:
           type: string
           description: Horario disponivel para atendimento
+          required: true
 
     Servico:
       type: object

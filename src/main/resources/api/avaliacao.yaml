@@ -38,12 +38,15 @@ components:
       type: object
       properties:
         nota:
+          required: true
           type: integer
           description: Nota da avaliação
         idAgendamento:
+          required: true
           type: string
           description: Id do agendamento que está sendo feita a avaliação
         comentario:
+          required: true
           type: string
           description: Comentario da avalidação
 

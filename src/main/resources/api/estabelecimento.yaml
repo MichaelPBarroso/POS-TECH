@@ -64,12 +64,15 @@ components:
       type: object
       properties:
         nome:
+          required: true
           type: string
           description: Nome do Estabelecimento
         horario_abertura:
+          required: true
           type: string
           description: Horário de abertura do Estabelecimento
         horario_fechamento:
+          required: true
           type: string
           description: Horário de fechamento do Estabelecimento
         endereco:
@@ -101,24 +104,31 @@ components:
       type: object
       properties:
         logradouro:
+          required: true
           type: string
           description: Logradouro do Endereço
         numero:
+          required: true
           type: string
           description: Numero do Endereço
         complemento:
+          required: false
           type: string
           description: Complemento do Endereço
         bairro:
+          required: true
           type: string
           description: Bairro do Endereço
         cidade:
+          required: true
           type: string
           description: Cidade do Endereço
         estado:
+          required: true
           type: string
           description: Esttado do Endereço
         cep:
+          required: true
           type: string
           description: Cep do Endereço
 
@@ -154,6 +164,7 @@ components:
       type: object
       properties:
         foto:
+          required: true
           type: string
           format: binary
           description: Foto do estabelecimento

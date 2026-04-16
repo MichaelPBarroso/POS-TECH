@@ -72,7 +72,7 @@ public class SmtpEnviarEmailAdapter {
         }
     }
 
-    @Async
+    @Async("emailTaskExecutor")
     public void enviar(String destinatario, String assunto, String mensagem) {
         validarEntrada(destinatario, "destinatario");
         validarEntrada(assunto, "assunto");

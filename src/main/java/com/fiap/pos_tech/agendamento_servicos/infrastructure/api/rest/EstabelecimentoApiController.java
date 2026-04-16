@@ -48,7 +48,7 @@ public class EstabelecimentoApiController implements EstabelecimentoApi {
         FotoJson fotoJson = new FotoJson();
 
         fotoJson.setId(outputAdicionarFoto.id().toString());
-        fotoJson.setIdEstabelecimento(outputAdicionarFoto.id().toString());
+        fotoJson.setIdEstabelecimento(outputAdicionarFoto.idEstabelecimento().toString());
         fotoJson.setUrl(outputAdicionarFoto.urlFoto());
 
         return new ResponseEntity<>(fotoJson, HttpStatus.CREATED);

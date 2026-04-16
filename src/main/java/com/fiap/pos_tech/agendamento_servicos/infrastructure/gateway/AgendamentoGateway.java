@@ -7,21 +7,23 @@ import com.fiap.pos_tech.agendamento_servicos.domain.model.Profissional;
 import com.fiap.pos_tech.agendamento_servicos.domain.model.StatusAgendamentoEnum;
 import com.fiap.pos_tech.agendamento_servicos.infrastructure.email.SmtpEnviarEmailAdapter;
 import com.fiap.pos_tech.agendamento_servicos.infrastructure.persistence.entity.AgendamentoEntity;
+import com.fiap.pos_tech.agendamento_servicos.infrastructure.persistence.entity.ProfissionalEntity;
 import com.fiap.pos_tech.agendamento_servicos.infrastructure.persistence.repository.AgendamentoJPARepository;
 import com.fiap.pos_tech.agendamento_servicos.infrastructure.presenters.AgendamentoPresenter;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import org.jboss.logging.Logger;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Component
 @AllArgsConstructor
 public class AgendamentoGateway implements IAgendamentoGateway {
+
+    private static final Logger LOG = Logger.getLogger(AgendamentoGateway.class);
 
     private final AgendamentoJPARepository agendamentoJPARepository;
     private final SmtpEnviarEmailAdapter smtpEnviarEmailAdapter;
@@ -104,5 +106,56 @@ public class AgendamentoGateway implements IAgendamentoGateway {
     public void sincronizarCalendario(UUID agendamentoId) {
         //Implementação não realizada, por não estar dentro dos requisitos da fase 3.
         //De acordo o que foi informado pelo coordenador, não necessitar sem implementado.
+    }
+
+    @Override
+    public void lembreteAgendamentoDoProximoDia() {
+        LocalDate data = LocalDate.now();
+
+        data = data.plusDays(1);
+
+        List<AgendamentoEntity> todosAgendamentos = agendamentoJPARepository.findAllByData(data);
+
+        if(todosAgendamentos.isEmpty())
+            LOG.info("Nenhum agendamento foi encontrado, nenhuma notificacao foi enviada.");
+
+        todosAgendamentos.forEach(agendamento -> {
+            String email = "Olá, você possui um agendamento para o dia "
+                    + agendamento.getData()
+                    + " as "
+                    + agendamento.getHorario()
+                    + " para realizar "
+                    + agendamento.getServicoOferecido().getNome();
+
+            smtpEnviarEmailAdapter.enviar(agendamento.getCliente().getEmail(), "Agendamento", email);
+        });
+
+
+        Map<ProfissionalEntity, List<AgendamentoEntity>> mapProfissional = new HashMap<>();
+
+        todosAgendamentos.forEach(agendamento ->
+                mapProfissional
+                        .computeIfAbsent(agendamento.getProfissional(), key -> new ArrayList<>())
+                        .add(agendamento)
+        );
+
+        mapProfissional.forEach((profissional, agendamentoEntities) -> {
+            StringBuilder sbEmail = new StringBuilder();
+
+            sbEmail.append("Olá ").append(profissional.getNome()).append(", ");
+            sbEmail.append("Você possui os seguintes agendamentos:\n");
+
+            agendamentoEntities.forEach(agendamentoEntity -> {
+                sbEmail.append(agendamentoEntity.getData());
+                sbEmail.append(" as ");
+                sbEmail.append(agendamentoEntity.getHorario());
+                sbEmail.append(" para realizar ");
+                sbEmail.append(agendamentoEntity.getServicoOferecido().getNome());
+                sbEmail.append("\n");
+            });
+
+            smtpEnviarEmailAdapter.enviar(profissional.getEmail(), "Agendamentos", sbEmail.toString());
+        });
+
     }
 }

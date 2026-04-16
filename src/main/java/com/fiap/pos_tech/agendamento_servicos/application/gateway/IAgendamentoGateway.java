@@ -28,4 +28,6 @@ public interface IAgendamentoGateway {
     Agendamento buscarAgendamento(UUID agendamentoId);
 
     void sincronizarCalendario(UUID agendamentoId);
+
+    void lembreteAgendamentoDoProximoDia();
 }

@@ -25,4 +25,6 @@ public interface AgendamentoJPARepository extends JpaRepository<AgendamentoEntit
     List<AgendamentoEntity> findAllByEstabelecimento_IdAndDataAndProfissional_Id(UUID estabelecimento_id, LocalDate data, UUID profissional_id);
 
     AgendamentoEntity findFirstByEstabelecimento_IdAndDataAndHorarioAndProfissional_Id(UUID estabelecimento_id, LocalDate data, LocalTime horario, UUID profissional_Id);
+
+    List<AgendamentoEntity> findAllByData(LocalDate data);
 }

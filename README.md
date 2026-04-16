@@ -72,6 +72,7 @@ Considerando o escopo implementado nesta base e o material de apoio presente em 
 | Cadastro de estabelecimentos     | Endpoint REST para criação de estabelecimentos com endereço e horários de funcionamento |
 | Cadastro de profissionais        | Endpoint REST para associar profissionais a estabelecimentos, com especialidades, serviços e agenda de horários |
 | Gestão de agendamentos           | Endpoints REST para criar, reagendar, cancelar e registrar ausencia |
+| Lembretes automáticos de agendamento | Job em `infrastructure/schedule/LembreteAgendamentoSchedule` executa o `LembreteAgendamentoUseCase` diariamente para enviar lembretes de atendimentos do próximo dia por e-mail |
 | Avaliação do atendimento         | Endpoint REST para registrar nota e comentário vinculados ao agendamento |
 | Consulta de disponibilidade      | Query GraphQL `disponibilidadeProfissional` retorna apenas os horários livres para a data informada |
 | Busca avançada de estabelecimentos | Query GraphQL `buscarEstabelecimentos` permite filtrar por dados do estabelecimento, endereço, faixa de nota, servico, faixa de preço e horário |
@@ -81,8 +82,8 @@ Considerando o escopo implementado nesta base e o material de apoio presente em 
 
 ### Observação importante
 
-Foi implementada a estrutura base referente a funcionalidade de envio de email e sincronização de calendário, mas a implementação completa não foi realizada, devido não estar dentro dos temas tratado na fase 3 da pos-tech.
-Visto que o que foi informado pelo coordenador, não necessitar sem implementado.
+Foi implementado o envio de e-mails de notificação e lembrete de agendamentos, incluindo execução automática diária via scheduler.
+A sincronização de calendário permanece como estrutura base, sem implementação completa nesta fase.
 
 ## Como executar
 
@@ -111,6 +112,89 @@ No Windows:
 ```bash
 mvnw.cmd spring-boot:run
 ```
+
+### Configuração do envio de email
+
+O projeto utiliza as propriedades `spring.mail.*` parametrizadas por variáveis de ambiente no arquivo `src/main/resources/application.properties`.
+
+Para usar uma conta Gmail no envio SMTP, crie um arquivo `.env` na raiz do projeto com os parâmetros abaixo:
+
+```dotenv
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=587
+MAIL_USERNAME=seu-email@gmail.com
+MAIL_PASSWORD=sua-app-password-de-16-caracteres
+MAIL_SMTP_AUTH=true
+MAIL_SMTP_STARTTLS_ENABLE=true
+```
+
+As variáveis esperadas pela aplicação são:
+
+- `MAIL_HOST`: servidor SMTP. Para Gmail, use `smtp.gmail.com`;
+- `MAIL_PORT`: porta SMTP. Para Gmail com STARTTLS, use `587`;
+- `MAIL_USERNAME`: email da conta remetente;
+- `MAIL_PASSWORD`: App Password de 16 caracteres gerada na conta Google;
+- `MAIL_SMTP_AUTH`: habilita autenticacao SMTP;
+- `MAIL_SMTP_STARTTLS_ENABLE`: habilita STARTTLS.
+
+### Configuração do agendamento de lembrete
+
+O agendamento que dispara o `LembreteAgendamentoUseCase` esta em `src/main/java/com/fiap/pos_tech/agendamento_servicos/infrastructure/schedule/LembreteAgendamentoSchedule.java`.
+
+As propriedades de configuração são:
+
+- `scheduler.lembrete-agendamento.cron`: expressão cron do Spring (6 campos);
+- `scheduler.lembrete-agendamento.zone`: timezone da execução.
+
+Valores padrão no código:
+
+- `scheduler.lembrete-agendamento.cron=0 0 8 * * *` (todos os dias às 08:00);
+- `scheduler.lembrete-agendamento.zone=America/Sao_Paulo`.
+
+Para executar a cada 5 minutos no `docker-compose.yml`, adicione no serviço `app`:
+
+```yaml
+environment:
+ # ...demais variaveis
+ SCHEDULER_LEMBRETE_AGENDAMENTO_CRON: "0 */5 * * * *"
+ SCHEDULER_LEMBRETE_AGENDAMENTO_ZONE: "America/Sao_Paulo"
+```
+
+Importante: o Spring Boot não carrega o arquivo `.env` automaticamente. Antes de iniciar a aplicação, carregue as variáveis no terminal.
+
+Quando a aplicação for iniciada com `docker compose`, esse carregamento manual não é necessário, porque o Compose já utiliza o arquivo `.env` automaticamente.
+
+No PowerShell:
+
+```powershell
+Get-Content .env | ForEach-Object {
+ if ($_ -match '^\s*#' -or $_ -match '^\s*$') { return }
+ $name, $value = $_ -split '=', 2
+ [System.Environment]::SetEnvironmentVariable($name, $value, 'Process')
+}
+mvnw.cmd spring-boot:run
+```
+
+### Como gerar a senha de 16 caracteres no Gmail
+
+Para usar SMTP do Gmail, não utilize a senha normal da conta. Gere uma App Password de 16 caracteres e use esse valor em `MAIL_PASSWORD`.
+
+Passo a passo:
+
+1. Acesse a sua Conta Google em `https://myaccount.google.com/`.
+2. Entre em `Seguranca`.
+3. Ative a verificação em duas etapas, caso ainda não esteja habilitada.
+4. Volte para a área de segurança e acesse `Senhas de app` ou pesquise na barra de pesquisa do canto superior `Senhas de app`'
+5. Informe um nome para identificar o uso da senha, por exemplo `pos-tech-smtp`.
+6. Clique em `Gerar`.
+7. Copie a senha de 16 caracteres exibida pelo Google.
+8. Preencha esse valor na variável `MAIL_PASSWORD`.
+
+Observações:
+
+- se a opção `Senhas de app` não aparecer, normalmente a verificação em duas etapas ainda não foi ativada ou a conta possui alguma restrição de segurança;
+- a senha gerada e exibida sem espaços no arquivo `.env`, mesmo que o Google a mostre agrupada visualmente;
+- o remetente usado pela aplicação será o mesmo valor informado em `MAIL_USERNAME`.
 
 ## Dados e documentação
 
